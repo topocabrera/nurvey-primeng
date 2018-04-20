@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
     imports: [
         RouterModule.forRoot([
             {path: '', component: HomeComponent},
-            {path: 'setup', loadChildren: './components/setup/setup.module#SetupModule'},
+            //{path: 'setup', loadChildren: './components/setup/setup.module#SetupModule'},
             // {path: 'theming', loadChildren: './components/theming/theming.module#ThemingModule'},
             // {path: 'accordion', loadChildren: './components/accordion/accordiondemo.module#AccordionDemoModule'},
             // {path: 'autocomplete', loadChildren: './components/autocomplete/autocompletedemo.module#AutoCompleteDemoModule'},
