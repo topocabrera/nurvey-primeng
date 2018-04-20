@@ -1,7 +1,7 @@
 import { Routes,RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
-//import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
+import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
 
 @NgModule({
     imports: [
@@ -92,7 +92,8 @@ import { HomeComponent } from './components/home/home.component';
             // {path: 'treetable', loadChildren: './components/treetable/treetabledemo.module#TreeTableDemoModule'},
             // {path: 'tristatecheckbox', loadChildren: './components/tristatecheckbox/tristatecheckboxdemo.module#TriStateCheckboxDemoModule'},
             // {path: 'validation', loadChildren: './components/validation/validationdemo.module#ValidationDemoModule'}
-            //,{path: 'surveyeditor', component: SurveyEditorComponent}
+            //,
+            {path: 'surveyeditor', component: SurveyEditorComponent}
 
         ])    
     ],

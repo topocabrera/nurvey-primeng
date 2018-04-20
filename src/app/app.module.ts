@@ -9,15 +9,18 @@ import { TableModule }  from 'primeng/table';
 import { DialogModule }  from 'primeng/dialog';
 
 import { HomeComponent } from './components/home/home.component';
+import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
+import { SurveyService } from './services/surveyservice';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        SurveyEditorComponent
     ],
     imports: [
         BrowserModule,
@@ -29,9 +32,9 @@ import { AppComponent } from './app.component';
         DialogModule,
         ButtonModule,
         AppRoutingModule,
-        HttpModule
+        HttpModule        
     ],
-    providers: [],
+    providers: [SurveyService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
