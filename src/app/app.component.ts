@@ -2,8 +2,12 @@
 // import { Car } from './domain/car';
 // import { CarService} from './services/carservice'
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
+import { UserModelClass } from './domain/UserModelClass';
+import { AuthenticationService } from './services/authentication.service'
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
     selector: 'app-root',
@@ -37,6 +41,10 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
   })
   export class AppComponent implements OnInit{
       
+    @Input() currentUser: UserModelClass;
+      
+      isLoggedIn$: Observable<boolean>;
+      
       menuActive: boolean;
       
       activeMenuId: string;
@@ -45,7 +53,11 @@ import {trigger,state,style,transition,animate} from '@angular/animations';
       
       ngOnInit() {
         setTimeout(()=>this.notification = true , 1000)
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.isLoggedIn$ = this.authenticationService.isAuthenticated();
       }
+
+      constructor(private authenticationService: AuthenticationService){}
       
       changeTheme(event: Event, theme: string) {
           let themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
