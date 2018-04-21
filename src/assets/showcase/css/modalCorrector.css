@@ -1,0 +1,38 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background-color: transparent;
+  }
+  .sv_complete_btn, .btn-green {
+    background-color: #1ab394;
+    color: #fff;
+    border-radius: 3px;
+ }
+  .btn-green:hover, .btn-green:focus {
+     background-color: #18a689;
+     color: #fff;
+ }
+ .panel-footer {
+     padding: 0 15px;
+     border:none;
+     text-align: right;
+     background-color: #fff;
+ }
+ 
+
+.svd_properties {
+    visibility: hidden;
+}
+
+.svd_container .svd_commercial_container {
+    padding: 1em 0 0 2em; 
+    display: none}
+    .svd_container .svd_commercial_container .svd_commercial_text {
+      font-weight: bold;
+      text-decoration: none; }
+      .svd_container .svd_commercial_container .svd_commercial_text .svd_commercial_product {
+        padding-left: 0.5em; }
