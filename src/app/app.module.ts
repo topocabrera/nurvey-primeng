@@ -16,6 +16,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { SurveyService } from './services/surveyservice';
 import { LoginComponent } from './components/login/login.component';
+import { UserComponent } from './components/user/user.component';
+import { DashboardComponent }   from './components/dashboard/dashboard.component';
+import { FiltrodashComponent } from './components/dashboard/filtrodash.component';
+import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta.component';
+import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
+import { respuestaComponent } from './components/respuesta/respuesta.component';
 
 // import { AlertComponent } from './shared/directives/index';
 import { AuthGuard } from './components/guards/index';
@@ -23,6 +29,10 @@ import { AlertService, AuthenticationService, UserService } from './services/ind
 import { PreguntasService } from './services/preguntas.service';
 import { ResultadoService } from './services/resultados.service'
 
+import { DataListModule }  from 'primeng/primeng';
+import {TabViewModule} from 'primeng/tabview';
+import {PanelModule} from 'primeng/panel';
+import {Growl} from 'primeng/growl';
 
 import { AppComponent } from './app.component';
 
@@ -31,7 +41,13 @@ import { AppComponent } from './app.component';
         AppComponent,
         HomeComponent,
         SurveyEditorComponent,
-        LoginComponent
+        LoginComponent,
+        UserComponent,
+        DashboardComponent,
+        FiltrodashComponent,
+        GraficoPreguntaComponent,
+        misEncuestasComponent,
+        respuestaComponent
     ],
     imports: [
         BrowserModule,
@@ -45,7 +61,11 @@ import { AppComponent } from './app.component';
         ButtonModule,
         AppRoutingModule,
         HttpModule,
-        NgIdleKeepaliveModule.forRoot()
+        NgIdleKeepaliveModule.forRoot(),
+        DataListModule,
+        TabViewModule,
+        PanelModule
+        
     ],
     providers: [SurveyService,
         PreguntasService,

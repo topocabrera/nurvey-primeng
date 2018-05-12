@@ -1,0 +1,101 @@
+<!-- <navbar-cmp [currentUser]="currentUser" ></navbar-cmp> -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                            
+                <div class="card card-user">
+                    <div class="image">
+                        <img src="assets/showcase/images/background.jpg" alt="..."/>
+                    </div>
+                    <div class="content">
+                        <div class="author">
+                          <img class="avatar border-white" src="assets/showcase/images/face-2.jpg" alt="..."/>
+                          <h4 class="title">{{currentUser.nombreUsuario}}<br />
+                             <a href="#"><small>{{currentUser.emailUsuario}}</small></a>
+                          </h4>
+                        </div>
+                        XHTML
+
+                        
+                    </div>
+                    <hr>
+                </div>
+
+
+            </div>fin
+            <div class="col-lg-8 col-md-7">
+                <div class="card">
+                    <div class="header">
+                        <div class="col-md-10"><h4 class="title">Editar el Perfil</h4></div>
+                        <div class="col-md-2"><a  class="col-sm-2 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=perfil" target="_blank"></a></div>                  
+                    </div>
+                    <div class="content">
+                        <form name="form" (ngSubmit)="f.form.valid && actualizar()" #f="ngForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre y apellido</label>
+                                        <input value="{{currentUser.nombreUsuario}}" name="nombreUsuario" type="text" class="form-control border-input" 
+                                        [(ngModel)]="model.nombreUsuario" placeholder="Nombre y Apellido">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        <input type="email" class="form-control border-input"
+                                        name="emailUsuario" [(ngModel)]="model.emailUsuario" placeholder="Email" value="{{currentUser.emailUsuario}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="text" class="form-control border-input" placeholder="Contraseña">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Fecha Nacimiento</label>
+                                        <input type="date" min="1930-01-01" class="form-control border-input" placeholder="Fecha">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Ubicacion</label>
+                                        <input type="text" class="form-control border-input" placeholder="Ubicacion">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Acerca de mi</label>
+                                        <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">
+                                            Oh so, your weak rhyme
+                                            You doubt I'll bother, reading into it
+                                            I'll probably won't, left to my own devices
+                                            But that's the difference in our opinions.</textarea>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="text-center">
+                                <button (click)="actualizar()" class="btn btn-info btn-fill btn-wd">Actualizar Perfil</button>
+                                <button type="submit" class="btn btn-info btn-fill btn-wd" [routerLink]="['/password']">Cambiar Contraseña</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->

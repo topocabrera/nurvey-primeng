@@ -1,0 +1,39 @@
+<div class="container-fluid">       
+    <div class="row">     
+        <div class="col-md-8">       
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">{{title}}</h4>                        
+                </div>     
+                <div class="content">                                            
+                    <div id="chart_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div>  
+                    <div class="footer">
+                        <div class="chart-legend" style="width: 100%">
+                            <!-- <template ngFor let-serie [ngForOf] = "seriesGrafico"  let-i = "index">
+                                <i class="fa fa-circle {{serie.className}}"> </i>{{serie.nombre}}
+                            </template>                                                                             -->
+                        
+                            <hr>
+                            <div class="stats" style="width: 100%">
+                                <i class="ti-timer"></i>Actualizado: {{ultimaActualizacion | date : 'dd/MM/yyyy HH:mm:ss'}}
+                                <div class="pull-right">Respuestas: {{cantidadTotalRespuestas}}</div>                                 
+                            </div>
+                        </div>
+                    
+                    
+                        <!-- <template ngFor let-preguntaAgrupable [ngForOf] = "preguntasAgrupables"  let-i = "index">
+                            <div *ngIf="preguntaAgrupable.activo">
+                                <h4>{{preguntaAgrupable.descripcion}}</h4>
+                                <template ngFor let-respuestaPosible [ngForOf] = "preguntaAgrupable.respuestasPosibles">                                        
+                                    <input type="checkbox" value="{{respuestaPosible}}"/><label>{{respuestaPosible}}</label><br/>
+                                </template>
+                            </div>
+                        </template> -->
+                    
+                    </div>
+                                
+                </div>
+            </div>                         
+        </div>
+    </div>
+</div>
