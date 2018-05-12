@@ -2,10 +2,12 @@
 // import { Car } from './domain/car';
 // import { CarService} from './services/carservice'
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer, ElementRef } from '@angular/core';
 import {trigger,state,style,transition,animate} from '@angular/animations';
+import { Location } from '@angular/common';
 import { UserModelClass } from './domain/UserModelClass';
 import { AuthenticationService } from './services/authentication.service'
+import { UserService } from './services/index';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -43,7 +45,19 @@ import { Observable } from 'rxjs/Observable';
       
     @Input() currentUser: UserModelClass;
       
-      isLoggedIn$: Observable<boolean>;
+    public isLoggedIn$: Observable<boolean>;
+    location: Location;
+
+    constructor(location: Location,
+      private renderer: Renderer,
+      private element: ElementRef,
+      private userService: UserService,
+      private authenticationService: AuthenticationService)
+      {
+      this.location = location;
+      this.authenticationService = authenticationService;
+      //this.model = this.currentUser;
+    }
       
       menuActive: boolean;
       
@@ -55,10 +69,10 @@ import { Observable } from 'rxjs/Observable';
         setTimeout(()=>this.notification = true , 1000)
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.isLoggedIn$ = this.authenticationService.isAuthenticated();
+        console.log("user", this.currentUser.nombreUsuario);
+        console.log("log", this.isLoggedIn$)
       }
 
-      constructor(private authenticationService: AuthenticationService){}
-      
       changeTheme(event: Event, theme: string) {
           let themeLink: HTMLLinkElement = <HTMLLinkElement> document.getElementById('theme-css');
           themeLink.href = 'assets/components/themes/' + theme + '/theme.css';
@@ -74,6 +88,16 @@ import { Observable } from 'rxjs/Observable';
         this.notification = false;
         event.preventDefault();
       }
+
+      login() {
+        
+        this.authenticationService.login(this.currentUser.emailUsuario, this.currentUser.passwordUsuario)
+        }
+    
+        salir() {
+            this.authenticationService.logout();
+            localStorage.removeItem('currentUser');
+          }    
   }
   
 

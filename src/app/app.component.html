@@ -53,13 +53,60 @@
             <img alt="logo" src="assets/showcase/favicon/logonurvey - Copy.png" />
         </a>
 
-        <ul class="topbar-menu">
-            <!-- vacio -->
-            <div>
-                <input type="text" pInputText placeholder="Search">
-                <button pButton label="Logout" icon="fa-sign-out"></button>
-            </div>
-            
+        <ul class="nav navbar-nav navbar-right" *ngIf="authenticationService.isAuthenticated()">
+                <li >
+                    <!-- 
+                        <button 
+                        (click)="salir()" *ngIf="authenticationService.isAuthenticated()" 
+                        type="button" class="btn btn-primary" [routerLink]="['/login']">Salir</button>
+                        -->
+                         <button 
+                         *ngIf="!authenticationService.isAuthenticated()"
+                        [routerLink]="['login']"
+                        type="button" class="btn btn-primary">Ingresar</button>
+                </li> 
+            <li class="dropdown" >
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user"></span> 
+                    <strong *ngIf="authenticationService.isAuthenticated()">
+                        {{currentUser.nombreUsuario}}
+                    </strong>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <div class="navbar-login">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <p class="text-center">
+                                        <span class="glyphicon glyphicon-user icon-size"></span>
+                                    </p>
+                                </div>
+                                <div class="col-lg-8" *ngIf="!authenticationService.isAuthenticated()">
+                                    <p class="text-left"><strong>{{currentUser.nombreUsuario}}</strong></p>
+                                    <p class="text-left small">{{currentUser.emailUsuario}}</p>
+                                    <p class="text-left">
+                                        <a href="#" class="btn btn-primary btn-block btn-sm" [routerLink]="['/user']">Actualizar Datos</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <div class="navbar-login navbar-login-session">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p>
+                                        <a href="#" (click)="salir()" 
+                                        class="btn btn-danger btn-block" href="/login">Cerrar Sesion</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>  
         </ul>
     </div>
 
@@ -256,14 +303,6 @@
     <div id="layout-content">
         <div>
             <router-outlet></router-outlet>
-        </div>
-
-        <div class="content-section layout-footer clearfix">
-            <span>PrimeNG 5.2.4</span>
-            <div class="footer-links">
-                <a href="https://github.com/primefaces/primeng"><i class="fa fa-github"></i></a>
-                <a href="https://twitter.com/prime_ng"><i class="fa fa-twitter"></i></a>
-            <div>
         </div>
     </div>
 
