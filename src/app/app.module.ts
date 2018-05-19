@@ -22,6 +22,7 @@ import { FiltrodashComponent } from './components/dashboard/filtrodash.component
 import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta.component';
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
 import { respuestaComponent } from './components/respuesta/respuesta.component';
+import { NavbarComponent } from './components/navbar/navbar.component'
 
 // import { AlertComponent } from './shared/directives/index';
 import { AuthGuard } from './components/guards/index';
@@ -47,7 +48,8 @@ import { AppComponent } from './app.component';
         FiltrodashComponent,
         GraficoPreguntaComponent,
         misEncuestasComponent,
-        respuestaComponent
+        respuestaComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,

@@ -43,21 +43,11 @@ import { Observable } from 'rxjs/Observable';
   })
   export class AppComponent implements OnInit{
       
-    @Input() currentUser: UserModelClass;
+    currentUser: UserModelClass;
       
-    public isLoggedIn$: Observable<boolean>;
+    // public isLoggedIn$: Observable<boolean>;
     location: Location;
 
-    constructor(location: Location,
-      private renderer: Renderer,
-      private element: ElementRef,
-      private userService: UserService,
-      private authenticationService: AuthenticationService)
-      {
-      this.location = location;
-      this.authenticationService = authenticationService;
-      //this.model = this.currentUser;
-    }
       
       menuActive: boolean;
       
@@ -68,9 +58,6 @@ import { Observable } from 'rxjs/Observable';
       ngOnInit() {
         setTimeout(()=>this.notification = true , 1000)
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.isLoggedIn$ = this.authenticationService.isAuthenticated();
-        console.log("user", this.currentUser.nombreUsuario);
-        console.log("log", this.isLoggedIn$)
       }
 
       changeTheme(event: Event, theme: string) {
@@ -88,16 +75,6 @@ import { Observable } from 'rxjs/Observable';
         this.notification = false;
         event.preventDefault();
       }
-
-      login() {
-        
-        this.authenticationService.login(this.currentUser.emailUsuario, this.currentUser.passwordUsuario)
-        }
-    
-        salir() {
-            this.authenticationService.logout();
-            localStorage.removeItem('currentUser');
-          }    
   }
   
 
