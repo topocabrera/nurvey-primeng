@@ -1,5 +1,4 @@
 import { Component, OnInit, Renderer, ViewChild, ElementRef, Input } from '@angular/core';
-//import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthenticationService } from '../../services/authentication.service'
@@ -38,14 +37,9 @@ export class NavbarComponent implements OnInit{
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
-        
-        //this.authenticationService = authenticationService;
-        //this.model = this.currentUser;
     }
 
     ngOnInit(){
-        
-        //this.listTitles = ROUTES.filter(listTitle => listTitle);
         var navbar : HTMLElement = this.element.nativeElement;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
@@ -57,23 +51,8 @@ export class NavbarComponent implements OnInit{
         else {
             this.loggedIn = true;
         }
-        console.log("aut", this.loggedIn);
-
-
-        
         this.isLoggedIn$ = this.authenticationService.isAuthenticated();
-        
     }
-    // getTitle(){
-    //     var titlee = window.location.pathname;
-    //     titlee = titlee.substring(1);
-    //     for(var item = 0; item < this.listTitles.length; item++){
-    //         if(this.listTitles[item].path === titlee){
-    //             return this.listTitles[item].title;
-    //         }
-    //     }
-    //     return 'Dashboard';
-    // }
 
     login() {
         
@@ -84,7 +63,6 @@ export class NavbarComponent implements OnInit{
         this.authenticationService.logout();
         localStorage.removeItem('currentUser');
       }
-
 
     sidebarToggle(){
         var toggleButton = this.toggleButton;
