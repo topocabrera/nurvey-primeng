@@ -55,7 +55,7 @@ export class AuthenticationService {
      * Bandera para saber si el usuario esta logueado o no
      */
     public isAuthenticated() {
-        return this.isLoggedIn.asObservable();
+        return this.isLoggedIn;
       }
       
       

@@ -5,6 +5,10 @@
     padding-bottom: 0px;
 }
 
+.login-button {
+    margin: 9px 16px;
+}
+
 .navbar-login-session
 {
     padding: 10px;

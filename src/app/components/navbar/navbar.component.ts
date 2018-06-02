@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit{
     @Input() currentUser: UserModelClass;
 
     isLoggedIn$: Observable<boolean>;
-    // public authenticationService: AuthenticationService;
+    public loggedIn: boolean;
     model: any = {};
 
     @ViewChild("navbar-cmp") button;
@@ -49,10 +49,16 @@ export class NavbarComponent implements OnInit{
         var navbar : HTMLElement = this.element.nativeElement;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         
-        /*if (this.currentUser == null || this.currentUser == undefined)
+        
+        if (this.currentUser == null || this.currentUser == undefined)
         {
-        this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-        }*/
+            this.loggedIn = false;
+        }
+        else {
+            this.loggedIn = true;
+        }
+        console.log("aut", this.loggedIn);
+
 
         
         this.isLoggedIn$ = this.authenticationService.isAuthenticated();

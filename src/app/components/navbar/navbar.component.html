@@ -10,18 +10,18 @@
                     <img alt="logo" src="assets/showcase/favicon/logonurvey - Copy.png" />
                 </a>
                     <ul class="nav navbar-nav navbar-right">
-                        <li *ngIf="!authenticationService.isAuthenticated()">
+                        <li class="login-button" *ngIf="!loggedIn">
                                 <button 
-                                *ngIf="!isLoggedIn$"
+                                *ngIf="!loggedIn"
                                 [routerLink]="['login']"
                                 type="button" class="btn btn-primary">Ingresar</button>
                         </li> 
                         <!-- *ngIf="authenticationService.isAuthenticated()" -->
-                        <li class="dropdown" >
+                        <li class="dropdown" *ngIf="loggedIn">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span> 
                                 <!-- *ngIf="authenticationService.isAuthenticated()" -->
-                                <strong *ngIf="isLoggedIn$">
+                                <strong *ngIf="loggedIn">
                                     {{currentUser.nombreUsuario}}
                                 </strong>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
@@ -35,7 +35,7 @@
                                                     <span class="glyphicon glyphicon-user icon-size"></span>
                                                 </p>
                                             </div>
-                                            <div class="col-lg-8" *ngIf="isLoggedIn$">
+                                            <div class="col-lg-8" *ngIf="loggedIn">
                                                 <p class="text-left"><strong>{{currentUser.nombreUsuario}}</strong></p>
                                                 <p class="text-left small">{{currentUser.emailUsuario}}</p>
                                                 <p class="text-left">
