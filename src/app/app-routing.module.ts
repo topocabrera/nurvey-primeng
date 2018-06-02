@@ -21,7 +21,7 @@ import { respuestaComponent } from './components/respuesta/respuesta.component';
             {path: 'user', component: UserComponent},
             {path: 'dashboard', component: DashboardComponent},
             {path: 'misencuestas', component: misEncuestasComponent}
-        ])    
+        ])
     ],
     exports: [RouterModule]
 })

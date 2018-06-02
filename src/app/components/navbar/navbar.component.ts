@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
     styleUrls: ['./navbar.css']
 })
 
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
     private listTitles: any[];
     location: Location;
     private nativeElement: Node;
@@ -22,56 +22,51 @@ export class NavbarComponent implements OnInit{
 
     @Input() currentUser: UserModelClass;
 
-    isLoggedIn$: Observable<boolean>;
     public loggedIn: boolean;
     model: any = {};
 
     @ViewChild("navbar-cmp") button;
 
-    constructor(location:Location,
-        private renderer : Renderer, 
-        private element : ElementRef, 
-        private userService: UserService, 
-        private authenticationService: AuthenticationService)
-        {
+    constructor(location: Location,
+        private renderer: Renderer,
+        private element: ElementRef,
+        private userService: UserService,
+        private authenticationService: AuthenticationService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
     }
 
-    ngOnInit(){
-        var navbar : HTMLElement = this.element.nativeElement;
+    ngOnInit() {
+        var navbar: HTMLElement = this.element.nativeElement;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        
-        
-        if (this.currentUser == null || this.currentUser == undefined)
-        {
+
+
+        if (this.currentUser === null || this.currentUser === undefined) {
             this.loggedIn = false;
-        }
-        else {
+        } else {
             this.loggedIn = true;
         }
-        this.isLoggedIn$ = this.authenticationService.isAuthenticated();
     }
 
     login() {
-        
-    this.authenticationService.login(this.currentUser.emailUsuario, this.currentUser.passwordUsuario)
+
+        this.authenticationService.login(this.currentUser.emailUsuario, this.currentUser.passwordUsuario)
     }
 
-    salir(){
+    salir() {
         this.authenticationService.logout();
         localStorage.removeItem('currentUser');
-      }
+    }
 
-    sidebarToggle(){
+    sidebarToggle() {
         var toggleButton = this.toggleButton;
         var body = document.getElementsByTagName('body')[0];
 
-        if(this.sidebarVisible == false){
-            setTimeout(function(){
+        if (this.sidebarVisible == false) {
+            setTimeout(function () {
                 toggleButton.classList.add('toggled');
-            },500);
+            }, 500);
             body.classList.add('nav-open');
             this.sidebarVisible = true;
         } else {

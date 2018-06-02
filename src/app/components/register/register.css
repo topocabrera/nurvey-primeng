@@ -9,8 +9,11 @@ body, html {
 }
 
 .panel-footer {
-	padding: 1px 15px;
+	padding: 1px 7px;
 	color: #A0A0A0;
+	text-align: left;
+	background-color: initial;
+	font-size: 11px;
 }
 
 .profile-img {
