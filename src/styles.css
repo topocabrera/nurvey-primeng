@@ -3,3 +3,23 @@
 @import 'assets/showcase/css/code.css';
 @import 'assets/showcase/css/site.css';
 @import 'assets/showcase/css/themify-icons.css';
+
+body {
+    position: relative;
+    padding-bottom: 6rem;
+}
+
+@media (max-width: 64em) {
+    #layout-topbar .logo {
+        display: none;
+    }
+    .navbar-right {
+        float: right;
+    }
+    #layout-content {
+        padding-top: 0;
+    }
+    #layout-sidebar {
+        top: 70px;
+    }
+}
