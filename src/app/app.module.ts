@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PasswordComponent } from './components/password/password.component';
 import { FiltrodashComponent } from './components/dashboard/filtrodash.component';
 import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta.component';
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
@@ -47,6 +48,7 @@ import { AppComponent } from './app.component';
         RegisterComponent,
         UserComponent,
         DashboardComponent,
+        PasswordComponent,
         FiltrodashComponent,
         GraficoPreguntaComponent,
         misEncuestasComponent,
