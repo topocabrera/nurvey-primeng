@@ -31,7 +31,7 @@ export class AuthenticationService {
      * @param passwordUsuario
      */
     login(emailUsuario: string, passwordUsuario: string) {
-        return this.http.get(this.serverRestAPIUrl + '/Usuario?emailUsuario=' + emailUsuario + '&passwordUsuario=' + passwordUsuario)
+        return this.http.get(this.serverRestAPIUrl + '/Usuario/autenticacion/' + emailUsuario + '/' + passwordUsuario )
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();

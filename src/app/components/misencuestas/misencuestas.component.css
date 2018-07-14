@@ -7,3 +7,24 @@
     margin: 0;
     padding:10px;
  }
+
+ .table {
+    width: 90%;
+    font-size: 15px;
+ }
+
+ .ti-files {
+     cursor: pointer;
+ }
+
+ .ti-trash {
+    cursor: pointer;
+}
+
+.ti-stats-up {
+    cursor: pointer;
+}
+
+.ti-sharethis {
+    cursor: pointer;
+}

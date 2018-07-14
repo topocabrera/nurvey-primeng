@@ -8,3 +8,20 @@
     text-align: center;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 }
+
+#layout-topbar {
+    background-color: #efefef;
+}
+
+a {
+    text-decoration: none;
+}
+
+#layout-sidebar .layout-menu > div a {
+    width: 100%;
+    padding: .75rem 6.25rem;
+}
+
+#layout-sidebar .layout-menu > div {
+    padding: 0;
+}
