@@ -14,6 +14,18 @@ button.btn.btn-primary {
     margin-bottom: 10px;
 }
 
+.col-lg-3 {
+    width: 0;
+}
+
+.col-lg-7 {
+    width: 80%;
+}
+
+.svd_container .svd_content .svd_survey_designer .svd_editors .svd_questions_editor .empty-message {
+   line-height: 1.42857143;
+}
+
 @media (max-width: 64em) {
     #layout-topbar .logo {
         display: none;
