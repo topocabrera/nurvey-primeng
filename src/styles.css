@@ -10,6 +10,10 @@ body {
     font-family: 'Muli', "Helvetica", Arial, sans-serif;
 }
 
+button.btn.btn-primary {
+    margin-bottom: 10px;
+}
+
 @media (max-width: 64em) {
     #layout-topbar .logo {
         display: none;
