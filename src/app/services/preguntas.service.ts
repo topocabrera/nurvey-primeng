@@ -10,6 +10,7 @@ export class PreguntasService {
     preguntas:PreguntaModelClass [] = [];
     preguntasAgrupables:PreguntaModelClass [] = [];
 
+
     constructor( private http:Http) {
         this.serverRestAPIUrl = environment.apiEndPoint + "/api";
     }
@@ -53,4 +54,6 @@ export class PreguntasService {
                 
             });
     }
+
+    
 }

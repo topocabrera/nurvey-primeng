@@ -11,6 +11,7 @@ import { FiltrodashComponent } from './components/dashboard/filtrodash.component
 import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta.component';
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
 import { respuestaComponent } from './components/respuesta/respuesta.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,10 @@ import { respuestaComponent } from './components/respuesta/respuesta.component';
             {path: 'user', component: UserComponent},
             {path: 'dashboard', component: DashboardComponent},
             {path: 'password', component: PasswordComponent},
-            {path: 'misencuestas', component: misEncuestasComponent}
+            {path: 'misencuestas', component: misEncuestasComponent},
+            {path: 'register', component: RegisterComponent},
+            {path: 'editor/:id', component: SurveyEditorComponent},
+            {path: 'respuesta/:id', component: respuestaComponent}
         ])
     ],
     exports: [RouterModule]

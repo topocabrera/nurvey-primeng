@@ -59,7 +59,7 @@ export class SurveyEditorComponent  {
             });
             }
         });
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/misEncuestas';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/misencuestas';
     }
 
     
