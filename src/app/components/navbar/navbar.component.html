@@ -1,0 +1,66 @@
+
+            <!-- <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
+                    <i class="fa fa-bars"></i>
+                </a>
+                
+                <a href="#" class="logo" [routerLink]="['/home']">
+                    <img alt="logo" src="assets/showcase/favicon/logonurvey - Copy.png" />
+                </a>     -->
+                <a href="#" class="logo" [routerLink]="['/home']">
+                    <img alt="logo" src="assets/showcase/favicon/logonurvey.png" />
+                </a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="login-button" *ngIf="!loggedIn">
+                                <button 
+                                *ngIf="!loggedIn"
+                                [routerLink]="['login']"
+                                type="button" class="btn btn-primary">Ingresar</button>
+                        </li> 
+                        <!-- *ngIf="authenticationService.isAuthenticated()" -->
+                        <li class="dropdown" *ngIf="loggedIn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span> 
+                                <!-- *ngIf="authenticationService.isAuthenticated()" -->
+                                <strong *ngIf="loggedIn">
+                                    {{currentUser.nombreUsuario}}
+                                </strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-8" *ngIf="loggedIn">
+                                                <p class="text-left"><strong>{{currentUser.nombreUsuario}}</strong></p>
+                                                <p class="text-left small">{{currentUser.emailUsuario}}</p>
+                                                <p class="text-left">
+                                                    <a href="#" class="btn btn-primary btn-block btn-sm" [routerLink]="['/user']">Actualizar Datos</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="#" (click)="salir()" 
+                                                    class="btn btn-danger btn-block" href="/login">Cerrar Sesion</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+        <!-- </div>
+    </div>
+</nav> -->

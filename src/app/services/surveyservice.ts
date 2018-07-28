@@ -1,13 +1,11 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
 import { SurveyModelClass } from '../domain/SurveyModelClass';
-// import { PreguntaModelClass } from '../models/PreguntaModelClass';
+import { PreguntaModelClass } from '../domain/PreguntaModelClass';
 import { environment } from '../../environments/environment';
 // import { EncuestaModelClass } from '../models/EncuestaModelClass';
 
 import 'rxjs/add/operator/map';
-
-const SERVER_REST_API_URL = "http://localhost:3000/surveys/";
 
 @Injectable()
 export class SurveyService {
@@ -17,7 +15,7 @@ encuestasXusuario:any [] = [];
 currentUser: any; 
 
 constructor( private http:Http) {
-    // this.serverRestAPIUrl = environment.apiEndPoint + "/api";
+    this.serverRestAPIUrl = environment.apiEndPoint + "/api";
 }
 
 getEncuestas(){
@@ -26,7 +24,7 @@ getEncuestas(){
 }
 
 getEncuestasById(id: string){
-     return this.http.get(this.serverRestAPIUrl + "/Encuesta?idEncuesta=" + id)
+     return this.http.get(this.serverRestAPIUrl + "/Encuesta/idEncuesta/" + id)
      .map(res => res.json());
 }
 
@@ -42,7 +40,7 @@ saveSurvey(survey: SurveyModelClass, tituloParm:string) {
     // objSurvey.title = tituloParm
 
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var displayDate = new Date().toLocaleDateString();
+    var displayDate = "1/1/0001 12:00:00 AM";
     var publicado = false;
     var estadoEncuesta = "CREADA"
 
@@ -72,12 +70,12 @@ guardarRespuesta(parm: any){
         body: parm
     });
 
-    return this.http.post(this.serverRestAPIUrl + "/Respuestaas", parm, options)
+    return this.http.post(this.serverRestAPIUrl + "/Respuestas", parm, options)
 }
 
 getEncuestas_x_Usuario( id ){
     this.encuestas.splice(0)
-    return this.http.get(this.serverRestAPIUrl + "/Encuesta?idUsuario=" + id )
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
         .map(resp => {
             var surveyModel = new SurveyModelClass();
             for (let u of resp.json()) {
@@ -93,7 +91,7 @@ getEncuestas_x_Usuario( id ){
 getEncuestaByName(termino,id){
     // return this.http.get(this.serverRestAPIUrl + "/Encuesta?filtro="+termino)
     this.encuestas.splice(0)
-    return this.http.get(this.serverRestAPIUrl + "/Encuesta?idUsuario=" + id )
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
     .map(resp => {
         var re = "/"+termino+"/i";
         var reg = new RegExp(termino,'gi');
@@ -109,7 +107,7 @@ getEncuestaByName(termino,id){
 
 getEncuestaByEstado(estado,id){
     this.encuestas.splice(0)
-    return this.http.get(this.serverRestAPIUrl + "/Encuesta?idUsuario=" + id )
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
     .map(resp => {
         var surveyModel = new SurveyModelClass();
         for (let u of resp.json()) {
@@ -128,7 +126,8 @@ getEncuestaByEstado(estado,id){
  */
 archivarEncuesta(idEncuesta, idUsuario){
     console.log("IdEncuesta: "+idEncuesta + " IdUsuario: "+idUsuario)
-    let url = this.serverRestAPIUrl + "/Encuesta?estadoEncuesta=archivada&idEncuesta="+idEncuesta+"&idUsuario="+idUsuario;
+    // let url = this.serverRestAPIUrl + "/Encuesta?estadoEncuesta=archivada&idEncuesta="+idEncuesta+"&idUsuario="+idUsuario;
+    let url = this.serverRestAPIUrl + "/Encuesta/actualizarEstado/archivada/"+idEncuesta+"/"+idUsuario;
     let body = "";
     let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8','Accept': 'application/json' }); 
     let options = new RequestOptions({
@@ -158,7 +157,7 @@ archivarEncuesta(idEncuesta, idUsuario){
 
 getEncuestasRespondidas( id ){
     this.encuestas.splice(0)
-    return this.http.get(this.serverRestAPIUrl + "/Encuesta?idUsuario=" + id )
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
         .map(resp => {
             var surveyModel = new SurveyModelClass();
             for (let u of resp.json()) {

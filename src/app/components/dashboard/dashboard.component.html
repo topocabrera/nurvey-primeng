@@ -1,0 +1,43 @@
+<!-- <navbar-cmp [currentUser]="currentUser" ></navbar-cmp> -->
+<div class="content">
+    <div class="container-fluid">   
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="header">
+                            <div class="col-md-10"><h4 class="title">Opciones de búsqueda</h4></div>
+                            <div class="col-md-2"><a  class="col-sm-2 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=estadisticas" target="_blank"></a></div>                  
+                        </div>     
+                        <div class="content" >
+                            <label>Encuesta:</label>
+                            <select id="selectorEncuesta" >                            
+                                <option *ngFor="let encuesta of surveyService.encuestas"  value="{{encuesta.idEncuesta}}">        
+                                        {{encuesta.tituloEncuesta}}            
+                                </option>
+                            </select>
+                            <button (click)="seleccionarEncuesta()">Seleccionar</button>
+                            <br/>
+
+                            <ng-template ngFor let-agrupada [ngForOf] = "preguntasAgrupables"  let-i = "index">
+                                <input type="checkbox" [(ngModel)]="agrupada.activo" value="{{agrupada.id}}"/><label>{{agrupada.descripcion}}</label><br/>
+                            </ng-template>
+                            
+                            <!-- <div > -->
+                                
+                            <!-- </div> -->
+                        </div>               
+                    </div>
+                </div>
+        </div>            
+    </div>
+
+        
+        
+    <grafico-pregunta *ngFor="let pregunta of preguntasService.preguntas" 
+            title="{{pregunta.descripcion}}" 
+            idEncuesta="{{pregunta.idEncuesta}}"
+            idPregunta="{{pregunta.idPregunta}}"
+            [preguntasAgrupables]="preguntasAgrupables">
+    </grafico-pregunta>
+
+<!-- </div> -->

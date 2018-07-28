@@ -13,3 +13,13 @@
       text-align: right;
       background-color: #fff;
   }
+
+  .row {
+    margin-right: 0px;
+    margin-left: 15px;
+  }
+
+  .form-group {
+    margin-top: 15px;
+    padding-left: 0;
+  }

@@ -1,0 +1,87 @@
+<!-- <navbar-cmp [currentUser]="currentUser" ></navbar-cmp> -->
+<div class="content">
+    <div class="container ">
+        
+            <div class="row">
+                <div class="header">
+                    <div class="col-md-4"><p class="category">Aqui puede visualizar sus encuestas.</p></div>
+                    <div class="col-md-2"><a  class="col-sm-2 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" target="_blank"></a></div>
+                </div>
+                <hr>
+                <div class="col-md-3">
+                    <label for="termino">Titulo</label>
+                    <input [(ngModel)]="termino" 
+                    (keyup)="buscarEncuestas()" 
+                    type="text" name="termino" 
+                    placeholder="Buscar encuestas..." class="form-control">
+                    <hr>
+                </div>
+                <div class="col-md-3">
+                    <label for="estados"> Estados:</label>
+                    <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
+                        class="form-control"
+                        (change)="selectEstado(encuesta.estadoEncuesta)">
+                    <option value="">Seleccione un estado</option>
+                    <option *ngFor="let estado of estados"
+                        [value]="estado.codigo">
+                        {{estado.descripcion}}</option>
+                    </select>
+                    <hr>
+                </div>
+        
+            </div>
+        
+            <div class="row">
+        
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-inverse table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Id</th>
+                                    <th>Título</th>
+                                    <th>Creación</th>
+                                    <th>Duplicar</th>
+                                    <th>Archivar</th>
+                                    <th>Analizar</th>
+                                    <th>Compartir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let encuesta of surveyService.encuestas; let i = index;">
+                                    <td>{{ i + 1 }}</td>
+                                    <td> 
+                                        <div class="col-sm-10"> {{encuesta.idEncuesta}} </div>
+                                    </td>
+                                    <td> 
+                                        <div class="col-sm-10" (click)="selectEncuesta(encuesta)" > {{encuesta.tituloEncuesta}} </div>
+                                    </td>
+                                    <td>{{encuesta.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <div class="col-sm-1" (click)="clonarEncuesta(encuesta.idEncuesta)" class="ti-files" item-height="50px" item-width="50px"> </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-1" (click)="archivarEncuesta(encuesta.idEncuesta)"  class="ti-trash" item-height="50px" item-width="50px"> </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-1"  (click)="verEstadisticas(encuesta.idEncuesta)" class="ti-stats-up" item-height="50px" item-width="50px"> </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-1"  (click)="responderEncuesta(encuesta.idEncuesta)" class="ti-sharethis" item-height="50px" item-width="50px"> </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-sm-8" *ngIf="encuestaActiva">
+                    <div class="survey-container contentcontainer codecontainer panel svd_content" id="surveyElement"> 
+                        <div id="surveyResult">
+                        </div>
+                    </div>
+                </div>
+        </div>
+<!-- </div> -->
