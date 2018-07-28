@@ -3,10 +3,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule }  from 'primeng/inputtext';
-import { ButtonModule }  from 'primeng/button';
-import { TableModule }  from 'primeng/table';
-import { DialogModule }  from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
@@ -16,8 +16,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { SurveyService } from './services/surveyservice';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { UserComponent } from './components/user/user.component';
-import { DashboardComponent }   from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PasswordComponent } from './components/password/password.component';
 import { FiltrodashComponent } from './components/dashboard/filtrodash.component';
 import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta.component';
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
@@ -30,10 +32,10 @@ import { AlertService, AuthenticationService, UserService } from './services/ind
 import { PreguntasService } from './services/preguntas.service';
 import { ResultadoService } from './services/resultados.service'
 
-import { DataListModule }  from 'primeng/primeng';
-import {TabViewModule} from 'primeng/tabview';
-import {PanelModule} from 'primeng/panel';
-import {Growl} from 'primeng/growl';
+import { DataListModule } from 'primeng/primeng';
+import { TabViewModule } from 'primeng/tabview';
+import { PanelModule } from 'primeng/panel';
+import { Growl } from 'primeng/growl';
 
 import { AppComponent } from './app.component';
 
@@ -43,8 +45,10 @@ import { AppComponent } from './app.component';
         HomeComponent,
         SurveyEditorComponent,
         LoginComponent,
+        RegisterComponent,
         UserComponent,
         DashboardComponent,
+        PasswordComponent,
         FiltrodashComponent,
         GraficoPreguntaComponent,
         misEncuestasComponent,
@@ -67,7 +71,7 @@ import { AppComponent } from './app.component';
         DataListModule,
         TabViewModule,
         PanelModule
-        
+
     ],
     providers: [SurveyService,
         PreguntasService,

@@ -20,19 +20,21 @@ export class AuthenticationService {
      */
     constructor(http: Http) { 
         this.http = http;
-        this.serverRestAPIUrl = environment.apiEndPoint + "/api";
+        this.serverRestAPIUrl = environment.apiEndPoint + "/api/Usuario/autenticacion/";
     }
 
     /**
      * loguea el usuario guardandola en la api corespondiente pasandole por parametros email y contraseña
      * Si el usuario es verdadero crea la sesión
      * Sino manda mensaje
+     * Ejemplo
+     * https://nurvey-back.herokuapp.com/api/Usuario/autenticacion/gaston@gmail.com/123456
      * @param emailUsuario 
      * @param passwordUsuario 
      */
     login(emailUsuario: string, passwordUsuario: string) {
-        return this.http.get(this.serverRestAPIUrl + '/Usuario?emailUsuario=' + emailUsuario + '&passwordUsuario=' + passwordUsuario )
-            .map((response: Response) => {
+        return this.http.get(this.serverRestAPIUrl + emailUsuario + '/' + passwordUsuario ) 
+        .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
                 if (user.idUsuario != 0) {
@@ -55,7 +57,7 @@ export class AuthenticationService {
      * Bandera para saber si el usuario esta logueado o no
      */
     public isAuthenticated() {
-        return this.isLoggedIn;
+        return this.isLoggedIn.asObservable();
       }
       
       

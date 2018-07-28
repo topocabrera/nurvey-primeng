@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions,RequestMethod, Response } from '@angular/http';
 
 import { UserModelClass } from '../domain/UserModelClass';
 import { environment } from '../../environments/environment';
@@ -17,43 +17,46 @@ export class UserService {
      }
 
     getAll() {
-        return this.http.get(this.serverRestAPIUrl + '/Usuario').map((response: Response) => response.json());
-    }
-
-    getByid(idUsuario: string) {
-        return this.http.get(this.serverRestAPIUrl + '/Usuario?idUsuario=' + idUsuario).map((response: Response) => response.json());
-    }
-
-    getByEmail(emailUsuario: string) {
-        return this.http.get(this.serverRestAPIUrl + '/Usuario?emailUsuario=' + emailUsuario + '&passwordUsuario=')
+        return this.http.get(this.serverRestAPIUrl + '/Usuario')
         .map((response: Response) => response.json());
     }
 
-    create(user: UserModelClass) {
+    getByid(idUsuario: string) {
+        return this.http.get(this.serverRestAPIUrl + '/Usuario/idUsuario/' + idUsuario)
+        .map((response: Response) => response.json());
+    }
+
+    /**El segundo parametro password se envia nulo, validamos que el usuario a registrarse su mail no exista. */
+    getByEmail(emailUsuario: string) {
+        let parNull = null
+        return this.http.get(this.serverRestAPIUrl + '/Usuario/autenticacion/' + emailUsuario + '/' + parNull)
+        .map((response: Response) => response.json());
+    }
+
+    create(user: UserModelClass){
         let userJson = JSON.stringify(user)
-       // console.log(userJson);
-        let userLog = this.serverRestAPIUrl + '/Usuario?emailUsuario=' + user.emailUsuario + '&passwordUsuario='
-         let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8','Accept': 'application/json' }); 
-         let options = new RequestOptions({
-            method: 'POST',
-            url: this.serverRestAPIUrl + '/Usuario',
-            headers: headers,
-            body: JSON.stringify(user)
-         });
-         let userLogueado = localStorage.getItem('currentUser')
-             console.log(userLogueado);
-             return this.http.post(this.serverRestAPIUrl + '/Usuario', userJson, options);
-             
-        //  if (user.emailUsuario !=  userLog )
-        //  {
-        //     let userLogueado = localStorage.getItem('currentUser')
-        //     console.log(userLogueado);
-        //     return this.http.post(this.serverRestAPIUrl + '/Usuario', userJson, options);
-        //  }
-        //  else
-        //  {
-        //      alert("Email ya existente")
-        //  }
+        console.log(userJson);
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8','Accept': 'application/json' }); 
+        let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8','Accept': 'application/json' });
+        let options = new RequestOptions( {method: RequestMethod.Post, headers: headers });
+
+        // let body = this.serializeObj(user);
+
+        // let options = new RequestOptions({
+        //     method: 'POST',
+        //     url: this.serverRestAPIUrl + '/Usuario',
+        //     headers: headers,
+        //     body: JSON.stringify(user)
+        //  });
+         return this.http.post(this.serverRestAPIUrl + '/Usuario', userJson, options)
+    }
+
+    private serializeObj(obj) {
+        var result = [];
+        for (var property in obj)
+            result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+    
+        return result.join("&");
     }
 
     update(user: UserModelClass) {
@@ -61,16 +64,14 @@ export class UserService {
         let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8','Accept': 'application/json' }); 
         let options = new RequestOptions({
            method: 'PUT',
-          // url: this.serverRestAPIUrl + '/Usuario',
+           url: this.serverRestAPIUrl + '/Usuario',
            headers: headers,
-          // body: JSON.stringify(userJson)
-        });
-        console.log(options);
+           body: JSON.stringify(user)});
         return this.http.put(this.serverRestAPIUrl + '/Usuario', userJson, options)
             .map(res => res.json());
     }
 
     delete(idUsuario: string) {
-        return this.http.delete(this.serverRestAPIUrl + '/Usuario?idUsuario=' + idUsuario);
+        return this.http.delete(this.serverRestAPIUrl + '/Usuario/idUsuario/' + idUsuario);
     }
 }

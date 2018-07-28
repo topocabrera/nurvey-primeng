@@ -10,7 +10,8 @@ import {PanelModule} from 'primeng/panel';
 @Component({
     selector: 'user-cmp',
     moduleId: module.id,
-    templateUrl: 'user.component.html'
+    templateUrl: 'user.component.html',
+    styleUrls: ['./card.css']
 })
 
 export class UserComponent {

@@ -3,3 +3,40 @@
 @import 'assets/showcase/css/code.css';
 @import 'assets/showcase/css/site.css';
 @import 'assets/showcase/css/themify-icons.css';
+
+body {
+    position: relative;
+    padding-bottom: 6rem;
+    font-family: 'Muli', "Helvetica", Arial, sans-serif;
+}
+
+button.btn.btn-primary {
+    margin-bottom: 10px;
+}
+
+.col-lg-3 {
+    width: 0;
+}
+
+.col-lg-7 {
+    width: 80%;
+}
+
+.svd_container .svd_content .svd_survey_designer .svd_editors .svd_questions_editor .empty-message {
+   line-height: 1.42857143;
+}
+
+@media (max-width: 64em) {
+    #layout-topbar .logo {
+        display: none;
+    }
+    .navbar-right {
+        float: right;
+    }
+    #layout-content {
+        padding-top: 0;
+    }
+    #layout-sidebar {
+        top: 70px;
+    }
+}
