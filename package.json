@@ -8,13 +8,16 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.0.0",
+    "@angular/cli": "^1.5.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
+    "@angular/compiler-cli": "^4.4.6",
     "@angular/core": "^5.0.0",
     "@angular/forms": "^5.0.0",
     "@angular/http": "^5.0.0",
@@ -26,12 +29,14 @@
     "@types/knockout": "^3.4.53",
     "chartist": "^0.11.0",
     "core-js": "^2.4.1",
+    "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "primeng": "^5.2.0-rc.1",
     "rxjs": "^5.5.2",
     "survey-angular": "^1.0.20",
     "survey-knockout": "^1.0.18",
     "surveyjs-editor": "^1.0.18",
+    "typescript": "~2.3.3",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
@@ -43,6 +48,7 @@
     "@types/node": "~6.0.60",
     "bootstrap": "^4.0.0-beta",
     "codelyzer": "^4.0.1",
+    "enhanced-resolve": "^3.3.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "jquery": "^3.3.1",
@@ -57,5 +63,9 @@
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"
+  },
+  "engines": {
+    "node": "8.10.0",
+    "npm": "5.6.0"
   }
 }
