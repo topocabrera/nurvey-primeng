@@ -132,7 +132,7 @@ export class misEncuestasComponent implements OnInit {
      * @param idEncuesta id de Encuesta
      */
     verEstadisticas(idEncuesta){
-        this.router.navigate(["dashboard"]);
+        this.router.navigate(["dashboard",idEncuesta]);
     }
 
     /**

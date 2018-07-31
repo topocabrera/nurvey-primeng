@@ -47,7 +47,7 @@ export class GraficoPreguntaComponent implements OnInit{
     }
     ngOnInit(){
         this.actualizarGrafico();
-        console.log(this.barChartData)
+        // console.log(this.barChartData)
     }
 
     // events

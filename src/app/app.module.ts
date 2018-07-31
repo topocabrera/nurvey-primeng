@@ -40,6 +40,7 @@ import { Growl } from 'primeng/growl';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { AppComponent } from './app.component';
         GraficoPreguntaComponent,
         misEncuestasComponent,
         respuestaComponent,
-        NavbarComponent
+        NavbarComponent,
+        LoadingComponent
     ],
     imports: [
         BrowserModule,

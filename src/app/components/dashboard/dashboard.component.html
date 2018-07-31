@@ -3,41 +3,38 @@
     <div class="container-fluid">   
         <div class="row">
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="form-group">
                         <div class="header">
                             <div class="col-md-10"><h4 class="title">Opciones de búsqueda</h4></div>
-                            <div class="col-md-2"><a  class="col-sm-2 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=estadisticas" target="_blank"></a></div>                  
+                            <div class="col-md-2"><a  class="col-sm-6 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=estadisticas" target="_blank"></a></div>                  
                         </div>     
-                        <div class="content" > 
-                            <label>Encuesta:</label>
-                            <select id="selectorEncuesta" >                            
-                                <option *ngFor="let encuesta of surveyService.encuestas"  value="{{encuesta.idEncuesta}}">        
+                        <div class="row" > 
+                            <div class="col-md-6">
+                            <select id="selectorEncuesta" class="listaEncuestas btn-secondary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
+                                <option *ngFor="let encuesta of surveyService.encuestas"  value="{{encuesta.idEncuesta}}" class="dropdown-item" id="selectorOpcion">        
                                         {{encuesta.tituloEncuesta}}            
                                 </option>
                             </select>
-                            <button (click)="seleccionarEncuesta()">Seleccionar</button>
-                            <br/>
-
-                            <ng-template *ngFor="let agrupada of preguntasAgrupables; let i of index">
+                            <!-- <ng-template *ngFor="let agrupada of preguntasAgrupables; let i of index">
                                 <input type="checkbox" [(ngModel)]="agrupada.activo" value="{{agrupada.id}}"/><label>{{agrupada.descripcion}}</label><br/>
-                            </ng-template>
-                            
-                            <!-- <div > -->
-                                
-                            <!-- </div> -->
+                            </ng-template> -->
+                        </div>
+                        <div class="col-md-6">
+                            <button (click)="seleccionarEncuesta()" class="btn btn-outline-danger">Seleccionar</button>
+                        </div>
                         </div>               
                     </div>
                 </div>
-        </div>            
+        </div>
+        <app-loading *ngIf="loading" class="text-center"></app-loading>            
     </div>
-
-        
-        
-    <grafico-pregunta *ngFor="let pregunta of preguntasService.preguntas" 
-            title="{{pregunta.descripcion}}" 
-            idEncuesta="{{pregunta.idEncuesta}}"
-            idPregunta="{{pregunta.idPregunta}}"
-            [preguntasAgrupables]="preguntasAgrupables">        
-        
-    </grafico-pregunta>
+    <div *ngIf="!loading">
+        <grafico-pregunta class="m-5" *ngFor="let pregunta of preguntasService.preguntas" 
+                title="{{pregunta.descripcion}}" 
+                idEncuesta="{{pregunta.idEncuesta}}"
+                idPregunta="{{pregunta.idPregunta}}"
+                [preguntasAgrupables]="preguntasAgrupables">        
+            
+        </grafico-pregunta>
+    </div>
 <!-- </div> -->
