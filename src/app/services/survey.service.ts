@@ -74,14 +74,9 @@ guardarRespuesta(parm: any){
 }
 
 getEncuestas_x_Usuario( id ){
-    this.encuestas.splice(0)
+    this.encuestas.splice(0,this.encuestas.length);
     return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
-        .map(resp => {
-            var surveyModel = new SurveyModelClass();
-            for (let u of resp.json()) {
-                this.encuestas.push(u)
-            }
-          });
+        .map((resp:any) => { return resp.json() });
 }
 
 /**
@@ -137,34 +132,45 @@ archivarEncuesta(idEncuesta, idUsuario){
     return this.http.post(url,body,options)
 }
 
-// getEncuestasByEstado(estado: string){ 
-//     return this.http.get(this.serverRestAPIUrl + "/Encuesta") 
-//     .map(res => { 
-//         this.encuestas = res.json(); 
-//         this.encuestas.forEach(element => { 
-//             if (element.idUsuario == this.currentUser.idUsuario && element.estadoEncuesta == estado){ 
-//                 for (var index = 0; index < this.encuestasXusuario.length; index++) { 
-//                     var element2 = this.encuestasXusuario[index]; 
-//                     if (element2.idEncuesta !== element.idEncuesta){ 
-//                         this.encuestasXusuario.splice(0); 
-//                         this.encuestasXusuario.push(element); 
-//                     } 
-//                 } 
-//             } 
-//         }); 
-//     }); 
-// }
-
+/* Devuelve las encuestas del usuario que han sido respondidas.*/
 getEncuestasRespondidas( id ){
-    this.encuestas.splice(0)
+    this.encuestas.splice(0,this.encuestas.length)
     return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
         .map(resp => {
-            var surveyModel = new SurveyModelClass();
             for (let u of resp.json()) {
                 if (u.estadoEncuesta === "respondida"){
                 this.encuestas.push(u)
                 }
             }
+            return this.encuestas;
+          });
+}
+
+/* Devuelve las encuentas creadas por el usuario y que no han sido respondidas aun.*/
+getEncuestasAbiertas( id ){
+    this.encuestas.splice(0,this.encuestas.length)
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
+        .map(resp => {
+            for (let u of resp.json()) {
+                if (u.publicado == true){
+                this.encuestas.push(u)
+                }
+            }
+            return this.encuestas;
+          });
+}
+
+/* Devuelve las encuentas en borrador por el usuario, no han sido publicadas ni respondidas aun.*/
+getEncuestasEnBorrador( id ){
+    this.encuestas.splice(0,this.encuestas.length)
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
+        .map(resp => {
+            for (let u of resp.json()) {
+                if (u.publicado == false && u.estadoEncuesta === "creada"){
+                this.encuestas.push(u)
+                }
+            }
+            return this.encuestas;
           });
 }
 }

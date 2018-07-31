@@ -8,11 +8,15 @@
 
     <div id="layout-sidebar" [ngClass]="{'active': menuActive}">
         <div class="layout-menu" *ngIf="loggedIn && !isAdmin">
+            <!-- seccion home -->
+                <a id="menu_home" #homemenutitle [class.active-menuitem]="homemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === homemenutitle.id ? null : homemenutitle.id)">
+                    <span class="fas fa-home" [routerLink]="['/home']">  Home</span>                     
+                </a>
             
             <!-- seccion perfil usuario -->
 
                 <a id="menu_usuario" #usermenutitle [class.active-menuitem]="usermenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === usermenutitle.id ? null : usermenutitle.id)">
-                    <span class="layout-menu-icon-active fa fa-user">  Perfil de Usuario</span>                    
+                    <span class="layout-menu-icon-active fas fa-user">  Perfil de Usuario</span>                    
                     
                 </a>
                 <div class="list-group" [ngClass]="{submenushow: (usermenutitle.id == activeMenuId), 'submenuhide': (usermenutitle.id != activeMenuId)}">
@@ -24,18 +28,22 @@
             <!-- seccion editor -->
 
             <a id="menu_editor" #editormenutitle [class.active-menuitem]="editormenutitle.id == activeEditor" (click)="activeEditor = (activeEditor === editormenutitle.id ? null : editormenutitle.id)">
-                    <span class="layout-menu-icon-active fa fa-pencil-square-o"> Editor</span>  
+                    <span class="layout-menu-icon-active fas fa-edit"> Editor</span>  
             </a>
             <div [ngClass]="{submenushow: (editormenutitle.id == activeEditor), 'submenuhide': (editormenutitle.id != activeEditor)}">
                 <a class="fa fa-angle-right" [routerLink]="['/surveyeditor']" (click)="menuActive = false">  SurveyEditor</a>
             </div>
         </div>
         <div class="layout-menu" *ngIf="loggedIn && isAdmin">
+            <!-- seccion home -->
+            <a id="menu_home" #homemenutitle [class.active-menuitem]="homemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === homemenutitle.id ? null : homemenutitle.id)">
+                <span class="fas fa-home" [routerLink]="['/home']">  Home</span>                     
+            </a>
             
             <!-- seccion perfil usuario -->
 
                 <a id="menu_usuario" #usermenutitle [class.active-menuitem]="usermenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === usermenutitle.id ? null : usermenutitle.id)">
-                    <span class="layout-menu-icon-active ti-user">Adm</span>                    
+                    <span class="layout-menu-icon-active fas fa-user">Adm</span>                    
                     
                 </a>
                 <div [ngClass]="{submenushow: (usermenutitle.id == activeMenuId), 'submenuhide': (usermenutitle.id != activeMenuId)}">
