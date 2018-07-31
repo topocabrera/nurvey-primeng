@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ResultadoService } from '../../services/resultados.service';
+import { ResultadoService } from './../../services/resultados.service';
 import * as Chartist from 'chartist';
-import { SurveyService } from './../../services/surveyservice';
+import { SurveyService } from './../../services/survey.service';
 import { PreguntasService } from './../../services/preguntas.service';
 
 declare var $:any;

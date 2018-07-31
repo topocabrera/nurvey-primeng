@@ -6,7 +6,7 @@ import * as SurveyEditor from 'surveyjs-editor';
 import * as jquery from 'jquery';
 import 'bootstrap';
 
-import { SurveyService } from '../../services/surveyservice';
+import { SurveyService } from '../../services/survey.service';
 import { SurveyModelClass } from '../../domain/SurveyModelClass';
 
 SurveyEditor.editorLocalization.currentLocale = "es";

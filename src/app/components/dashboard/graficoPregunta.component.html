@@ -6,12 +6,20 @@
                     <h4 class="title">{{title}}</h4>                        
                 </div>     
                 <div class="content">                                            
-                    <div id="chart_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div>  
+                    <div id="chart_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div> 
+                    <div style="display: block">
+                        <canvas baseChart
+                                    [data]="doughnutChartData"
+                                    [labels]="doughnutChartLabels"
+                                    [chartType]="doughnutChartType"
+                                    (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                      </div> 
                     <div class="footer">
                         <div class="chart-legend" style="width: 100%">
-                            <!-- <template ngFor let-serie [ngForOf] = "seriesGrafico"  let-i = "index">
+                            <!-- <div *ngFor="let serie of seriesGrafico">
                                 <i class="fa fa-circle {{serie.className}}"> </i>{{serie.nombre}}
-                            </template>                                                                             -->
+                            </div>                                                                             -->
                         
                             <hr>
                             <div class="stats" style="width: 100%">
@@ -21,15 +29,42 @@
                         </div>
                     
                     
-                        <!-- <template ngFor let-preguntaAgrupable [ngForOf] = "preguntasAgrupables"  let-i = "index">
-                            <div *ngIf="preguntaAgrupable.activo">
-                                <h4>{{preguntaAgrupable.descripcion}}</h4>
-                                <template ngFor let-respuestaPosible [ngForOf] = "preguntaAgrupable.respuestasPosibles">                                        
-                                    <input type="checkbox" value="{{respuestaPosible}}"/><label>{{respuestaPosible}}</label><br/>
-                                </template>
-                            </div>
-                        </template> -->
-                    
+                        <div *ngFor="let agrupada of preguntasAgrupables; let i of index">
+                            
+                                    <!--<input type="checkbox" [(ngModel)]="preguntaAgrupable.activo" value="{{preguntaAgrupable.id}}"/><label>{{preguntaAgrupable.descripcion}}</label><br/>-->
+                                <h4>{{agrupada.descripcion}}</h4>
+                                <button (click)="verFiltroPor(preguntasAgrupables,idEncuesta,idPregunta,agrupada.descripcion)">Ver</button>
+                            
+                             <!-- <div  id="{{agrupada.descripcion}}_{{idEncuesta}}_{{idPregunta}}" style="display: none;">                
+                                
+                                <table class="table">
+                                    <tr>
+                                    <div *ngFor="let respuestaPosible of respuestasPosibles">                                                                                
+                                        <td>
+                                            <label>{{respuestaPosible}}</label>
+                                            <div class="col-md-4" id="chart_{{respuestaPosible}}_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div>                                     
+                                        </td>
+                                    </div>           
+                                    </tr>
+                                </table>
+                            </div>     -->     
+                            <br/>
+                            
+                        </div>                        
+                        <div *ngIf="mostrarDetalleAgrupable">
+                                <div style="display: block">
+                                  <canvas baseChart
+                                          [datasets]="barChartData"
+                                          [labels]="barChartLabels"
+                                          [options]="barChartOptions"
+                                          [legend]="barChartLegend"
+                                          [chartType]="barChartType"
+                                          (chartHover)="chartBarHovered($event)"
+                                          (chartClick)="chartBarClicked($event)"></canvas>
+                                </div>
+                                <button (click)="randomize()">Update</button>
+                              </div>
+                        
                     </div>
                                 
                 </div>

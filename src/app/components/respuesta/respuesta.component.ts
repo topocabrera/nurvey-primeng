@@ -5,7 +5,7 @@ import * as Survey from 'survey-angular';
 import * as jquery from 'jquery';
 import 'bootstrap';
 
-import { SurveyService } from './../../services/surveyservice';
+import { SurveyService } from './../../services/survey.service';
 import { ClienteModelClass } from './../../domain/ClienteModelClass';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
 // import { EncuestaModelClass } from './../shared/models/EncuestaModelClass';

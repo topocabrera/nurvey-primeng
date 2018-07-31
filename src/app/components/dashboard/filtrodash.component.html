@@ -15,9 +15,9 @@
 
                         <br/>
 
-                        <!-- <template ngFor let-agrupada [ngForOf] = "preguntasAgrupables"  let-i = "index">
+                        <ng-template *ngFor="let agrupada of preguntasAgrupables; let i of index">
                             <input type="checkbox" value="{{agrupada.id}}"/><label>{{agrupada.descripcion}}</label><br/>
-                        </template> -->
+                        </ng-template>
 
                     </div>               
                 </div>
