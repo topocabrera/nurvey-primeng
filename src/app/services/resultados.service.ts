@@ -35,10 +35,11 @@ export class ResultadoService {
         this.respuestasPosibles = [];
          
         return this.http.get(environment.apiEndPoint + "/api/Respuestas/"+idEncuesta+"/"+idPregunta)
-            .map(resp => {
+            .map((resp:any) => {
                 for (let u of resp.json()) {                                   
                     this.respuestasPosibles.push(u)
-                }                
+                } 
+                return this.respuestasPosibles    
             });
     }
 
@@ -46,6 +47,9 @@ export class ResultadoService {
         this.respuestasPosiblesPreguntaAgrupada = [];        
         //console.log(environment.apiEndPoint + "/api/ResultadosPorCorte/"+idEncuesta+"/"+idPregunta+"/"+idPreguntaAgrupada+"/"+filtro);
         return this.http.get(environment.apiEndPoint + "/api/ResultadosPorCorte/"+idEncuesta+"/"+idPregunta+"/"+idPreguntaAgrupada+"/"+filtro)
-        .map(res => res.json()); 
+        .map((res:any) => {
+            // console.log(res.json())
+            return res.json();
+        }); 
     }
 }

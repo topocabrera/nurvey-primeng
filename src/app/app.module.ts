@@ -14,7 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
-import { SurveyService } from './services/surveyservice';
+import { SurveyService } from './services/survey.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserComponent } from './components/user/user.component';
@@ -27,8 +27,8 @@ import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { NavbarComponent } from './components/navbar/navbar.component'
 
 // import { AlertComponent } from './shared/directives/index';
-import { AuthGuard } from './components/guards/index';
-import { AlertService, AuthenticationService, UserService } from './services/index';
+import { AuthGuard } from './components/guards';
+import { AlertService, AuthenticationService, UserService } from './services';
 import { PreguntasService } from './services/preguntas.service';
 import { ResultadoService } from './services/resultados.service'
 
@@ -37,7 +37,11 @@ import { TabViewModule } from 'primeng/tabview';
 import { PanelModule } from 'primeng/panel';
 import { Growl } from 'primeng/growl';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppComponent } from './app.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +57,9 @@ import { AppComponent } from './app.component';
         GraficoPreguntaComponent,
         misEncuestasComponent,
         respuestaComponent,
-        NavbarComponent
+        NavbarComponent,
+        LoadingComponent,
+        AlertComponent
     ],
     imports: [
         BrowserModule,
@@ -70,7 +76,8 @@ import { AppComponent } from './app.component';
         NgIdleKeepaliveModule.forRoot(),
         DataListModule,
         TabViewModule,
-        PanelModule
+        PanelModule,
+        ChartsModule
 
     ],
     providers: [SurveyService,

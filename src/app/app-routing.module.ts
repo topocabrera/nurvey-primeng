@@ -22,6 +22,7 @@ import { RegisterComponent } from './components/register/register.component';
             {path: 'login', component: LoginComponent},
             {path: 'user', component: UserComponent},
             {path: 'dashboard', component: DashboardComponent},
+            {path: 'dashboard/:id', component: DashboardComponent},
             {path: 'password', component: PasswordComponent},
             {path: 'misencuestas', component: misEncuestasComponent},
             {path: 'register', component: RegisterComponent},

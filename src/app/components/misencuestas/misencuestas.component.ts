@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router'
 import * as Survey from 'survey-angular';
 
-import { SurveyService } from './../../services/surveyservice';
+import { SurveyService } from './../../services/survey.service';
 import { ClienteModelClass } from './../../domain/ClienteModelClass';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
 //import { EncuestaModelClass } from './../shared/models/EncuestaModelClass';
@@ -132,7 +132,7 @@ export class misEncuestasComponent implements OnInit {
      * @param idEncuesta id de Encuesta
      */
     verEstadisticas(idEncuesta){
-        this.router.navigate(["dashboard"]);
+        this.router.navigate(["dashboard",idEncuesta]);
     }
 
     /**
