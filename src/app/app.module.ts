@@ -41,6 +41,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { LoadingComponent } from './components/loading/loading.component';
         misEncuestasComponent,
         respuestaComponent,
         NavbarComponent,
-        LoadingComponent
+        LoadingComponent,
+        AlertComponent
     ],
     imports: [
         BrowserModule,

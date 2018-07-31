@@ -26,6 +26,10 @@ export class DashboardComponent implements OnInit{
     preguntasAgrupables:any[];
     currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
     loading:boolean;
+    alert:boolean;
+    mensajeAlert:string;
+    estiloAlert:string;
+    tituloEncuesta:string;
 
     constructor(resultadoService: ResultadoService, 
                 surveyService: SurveyService, 
@@ -35,6 +39,9 @@ export class DashboardComponent implements OnInit{
       this.surveyService = surveyService;
       this.preguntasService = preguntasService;
       this.preguntasAgrupables = [];
+      this.alert = false;
+      this.mensajeAlert = "";
+      this.estiloAlert = "";
   }  
     ngOnInit(){
       this.loadEncuestas();
@@ -68,13 +75,32 @@ export class DashboardComponent implements OnInit{
     seleccionarEncuesta(){
       this.loading = true;
       var idEncuesta = $("#selectorEncuesta").val();
-      this.preguntasService.getPreguntasEncuesta(idEncuesta)
-          .subscribe(res => this.loading = false);              
-      
-      this.getPreguntasAgrupadas(idEncuesta);
-        //var preguntaAgrupable = {idPregunta:1, descripcion:"Sexo",activo:false, respuestasPosibles:["Masculino","Femenino"]}
-        //var preguntaAgrupableEdad = {idPregunta:2, descripcion:"Edad",activo:true, respuestasPosibles:["10-15","15-25","25-35"]}
-      this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
-      
+      if(idEncuesta == ""){
+        //error
+        this.alert = true;
+        this.loading = false;
+        this.mensajeAlert = "Debe seleccionar una encuesta."
+        this.estiloAlert = "alert-warning"
+      }else{
+            this.preguntasService.getPreguntasEncuesta(idEncuesta)
+                .subscribe(
+                  res => {
+                    this.loading = false;
+                    this.alert = false;
+                  }
+                 ,error => {
+                  this.loading = false;
+                  this.alert = true;
+                });
+            this.surveyService.getEncuestasById(idEncuesta)
+            .subscribe( res => {
+              this.tituloEncuesta = res.tituloEncuesta;
+            });                  
+            
+            this.getPreguntasAgrupadas(idEncuesta);
+              //var preguntaAgrupable = {idPregunta:1, descripcion:"Sexo",activo:false, respuestasPosibles:["Masculino","Femenino"]}
+              //var preguntaAgrupableEdad = {idPregunta:2, descripcion:"Edad",activo:true, respuestasPosibles:["10-15","15-25","25-35"]}
+            this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
+          }
     }
 }
