@@ -1,0 +1,36 @@
+<h3>Categorias</h3>
+<hr>
+
+<div class="row">
+  <div class="col-md-9  text-right">
+    <button
+          [routerLink]="['/categoria','nuevo']" 
+          class="btn btn-outline-primary"
+          type="button">
+      Agregar Categoria
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categoria of categorias">
+              <td>{{categoria.idCategoria}}</td>
+              <td>{{categoria.nombre}}</td>
+              <td>{{categoria.descripcion}}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { ResultadoService } from '../../services/resultados.service';
 })
 export class HomeComponent implements OnInit {
   currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
+  nombreUsuario:string;
   cantidadEncuestasAbiertas:number;
   cantidadEncuestasBorrador:number;
   cantidadRespuestas:number;
@@ -15,6 +16,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private _surveyService:SurveyService,
               private _resultadosService:ResultadoService) {
+
+    this.nombreUsuario = this.currentUser.nombreUsuario
     
     this._surveyService.getEncuestasAbiertas(this.currentUser.idUsuario)
     .subscribe( res => {
@@ -35,6 +38,8 @@ export class HomeComponent implements OnInit {
     .subscribe( (res:any) => {
       this.encuestas = res;
     });
+
+    //llamar servicio que devuelva ultimas 5 encuestas activas
 
    }
 
