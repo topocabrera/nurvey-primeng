@@ -4,35 +4,52 @@
         
             <div class="row">
                 <div class="header">
-                    <div class="col-md-4"><p class="category">Aqui puede visualizar sus encuestas.</p></div>
-                    <div class="col-md-2"><a  class="col-sm-2 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" target="_blank"></a></div>
+                    <div class="col-md-12">
+                        <h3>Aqui puede visualizar sus encuestas <a class="far fa-question-circle fa-5px" href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" target="_blank"></a></h3>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        (keyup)="buscarEncuestas(termino.value)" 
+                    </div> -->
                 </div>
                 <hr>
-                <div class="col-md-3">
-                    <label for="termino">Titulo</label>
-                    <input [(ngModel)]="termino" 
-                    (keyup)="buscarEncuestas()" 
-                    type="text" name="termino" 
-                    placeholder="Buscar encuestas..." class="form-control">
-                    <hr>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <label for="termino">Titulo</label>
+                        <input #termino 
+                        type="text" name="termino" 
+                        placeholder="Buscar encuestas..." class="form-control">
+                        <hr>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="estados"> Estados:</label>
+                        <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
+                            class="form-control"
+                            (change)="selectEstado(encuesta.estadoEncuesta)">
+                        <option value="">Seleccione un estado</option>
+                        <option *ngFor="let estado of estados"
+                            [value]="estado.descripcion">
+                            {{estado.descripcion | uppercase}}</option>
+                        </select>
+                        <hr>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fecha">Fecha Creacion:</label>
+                        <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
+                        <hr>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <label for="estados"> Estados:</label>
-                    <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
-                        class="form-control"
-                        (change)="selectEstado(encuesta.estadoEncuesta)">
-                    <option value="">Seleccione un estado</option>
-                    <option *ngFor="let estado of estados"
-                        [value]="estado.codigo">
-                        {{estado.descripcion}}</option>
-                    </select>
-                    <hr>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <button type="button" (click)="buscarEncuestas(termino.value,encuesta.estadoEncuesta,fecha.value)" class="btn btn-outline-primary">
+                        Buscar
+                    </button>
+                    <!-- <span class="col-sm-3"><app-loading *ngIf="loading"></app-loading></span> -->
                 </div>
-        
             </div>
         
             <div class="row">
-        
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table class="table table-inverse table-hover">
@@ -42,6 +59,7 @@
                                     <th>Id</th>
                                     <th>Título</th>
                                     <th>Creación</th>
+                                    <th>Estado</th>
                                     <th>Duplicar</th>
                                     <th>Archivar</th>
                                     <th>Analizar</th>
@@ -49,7 +67,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let encuesta of surveyService.encuestas; let i = index;">
+                                <tr *ngFor="let encuesta of encuestas; let i = index;">
                                     <td>{{ i + 1 }}</td>
                                     <td> 
                                         <div class="col-sm-10"> {{encuesta.idEncuesta}} </div>
@@ -58,6 +76,7 @@
                                         <div class="col-sm-10" (click)="selectEncuesta(encuesta)" > {{encuesta.tituloEncuesta}} </div>
                                     </td>
                                     <td>{{encuesta.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
+                                    <td>{{encuesta.estadoEncuesta | uppercase}}</td>
                                     <td>
                                         <div class="col-sm-1" (click)="clonarEncuesta(encuesta.idEncuesta)" class="ti-files" item-height="50px" item-width="50px"> </div>
                                     </td>
@@ -73,6 +92,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <app-alert *ngIf="encuestas.length === 0" [mensaje]="mensajeAlert" [estilo]="estiloAlert" class="m-5"></app-alert>
                     </div>
                 </div>
             </div>
