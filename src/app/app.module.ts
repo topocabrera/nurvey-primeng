@@ -42,6 +42,8 @@ import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 
 @NgModule({
     declarations: [
@@ -59,7 +61,9 @@ import { AlertComponent } from './components/alert/alert.component';
         respuestaComponent,
         NavbarComponent,
         LoadingComponent,
-        AlertComponent
+        AlertComponent,
+        CategoriasComponent,
+        CategoriaFormComponent
     ],
     imports: [
         BrowserModule,

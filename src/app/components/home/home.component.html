@@ -1,6 +1,6 @@
 <div class="home">
     <div class="introduction">
-        <h1>Bienvenidos a NURVEY!</h1>
+        <h1>Bienvenido a NURVEY, {{ nombreUsuario }}!</h1>
     </div>
     <div class="container">
         <div class="row">
@@ -33,6 +33,7 @@
             </div>
             <div class="row">
                 <div class="col-md-9">
+                    <h3>Tus últimas encuestas</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -42,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of encuestas">
+                            <tr *ngFor="let item of encuestas; let i of index;" >
                                 <td>{{item.tituloEncuesta}}</td>
                                 <td>{{item.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
                                 <td>{{item.estadoEncuesta | uppercase}}</td>

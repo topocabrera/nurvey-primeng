@@ -3,9 +3,9 @@ export class CategoriaModelClass{
     nombre: string;
     descripcion: string;
 
-    constructor(idCategoria,nombre,descripcion){
-        this.idCategoria = idCategoria;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
+    // constructor(idCategoria,nombre,descripcion){
+    //     this.idCategoria = idCategoria;
+    //     this.nombre = nombre;
+    //     this.descripcion = descripcion;
+    // }
 }
