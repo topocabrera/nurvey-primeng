@@ -56,7 +56,8 @@ export class NavbarComponent implements OnInit {
 
     salir() {
         this.authenticationService.logout();
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser'); 
+        window.location.href = ""
     }
 
     sidebarToggle() {
