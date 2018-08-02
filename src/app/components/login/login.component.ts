@@ -84,7 +84,8 @@ export class LoginComponent implements OnInit {
                     //this.router.navigate([this.returnUrl]);
                     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
                     this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                    window.location.href = "/home"
+                    window.location.href = ""
+                    // this.router.navigate([""])
                 },
                 error => {
                     this.alertService.error(error);
