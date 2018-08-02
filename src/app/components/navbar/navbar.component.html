@@ -1,14 +1,10 @@
-
-            <!-- <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
-                    <i class="fa fa-bars"></i>
-                </a>
-                
-                <a href="#" class="logo" [routerLink]="['/home']">
-                    <img alt="logo" src="assets/showcase/favicon/logonurvey - Copy.png" />
-                </a>     -->
-                <a href="#" class="logo" [routerLink]="['/home']">
-                    <img alt="logo" src="assets/showcase/favicon/logonurvey.png" />
-                </a>
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    <a href="#" class="logo" [routerLink]="['/home']">
+                        <img alt="logo" src="assets/showcase/favicon/logonurvey.png" />
+                    </a>
+                </div>
+                <div class="col-md-6 text-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="login-button" *ngIf="!loggedIn">
                                 <button 
@@ -62,6 +58,17 @@
                             </ul>
                         </li>
                     </ul>
+                </div>
+            </div>
+            <!-- <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
+                    <i class="fa fa-bars"></i>
+                </a>
+                
+                <a href="#" class="logo" [routerLink]="['/home']">
+                    <img alt="logo" src="assets/showcase/favicon/logonurvey - Copy.png" />
+                </a>     -->
+                
+                
         <!-- </div>
     </div>
 </nav> -->

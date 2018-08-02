@@ -178,7 +178,7 @@ getEncuestasEnBorrador( id ){
 }
 
 /**Devuelve las encuestas del usuario y filtra por los parametros, para cargar la grilla de mis encuestas filtrada. */
-getEncuestaPorFiltros(termino:string,estado:string,fecha:string,idUsuario:number){
+getEncuestaPorFiltros(termino:string,estado:string,fecha:string,idUsuario:number,codigoFiltro:string){
     let encuestasFiltradas:any[] = [];
     return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + idUsuario )
     .map( (resp:any) => {
@@ -190,9 +190,27 @@ getEncuestaPorFiltros(termino:string,estado:string,fecha:string,idUsuario:number
             // var fechaEncuesta = new DatePipe(u.fechaEncuesta).transform(u.fechaEncuesta,'dd/MM/yyyy');
             // console.log(fechaEncuesta)
             // var fechaEncuestaParm = new DatePipe(fecha).transform(u.fechaEncuesta,'dd/MM/yyyy');
-            if (tituloEncuesta.search(termino) > 0 && estadoEncuesta === estado )
-            {
-                encuestasFiltradas.push(u);
+            switch (codigoFiltro) {
+                case "1":
+                    if (tituloEncuesta.search(termino) > 0 && estadoEncuesta === estado )
+                    {
+                        encuestasFiltradas.push(u);
+                    }
+                    break;
+                case "2":
+                    if (tituloEncuesta.search(termino) > 0)
+                    {
+                        encuestasFiltradas.push(u);
+                    }
+                    break;
+                case "3":
+                    if (estadoEncuesta === estado )
+                    {
+                        encuestasFiltradas.push(u);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
         return encuestasFiltradas;

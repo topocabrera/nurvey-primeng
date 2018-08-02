@@ -78,6 +78,7 @@ export class misEncuestasComponent implements OnInit {
         console.log(termino+" "+estado+" "+fecha)
         this.loading = true;
         this.encuestas.splice(0,this.encuestas.length)
+        var codigoFiltro:string="";
         if(termino==="" && estado===""){
             this._surveyService.getEncuestas_x_Usuario(this.currentUser.idUsuario) 
             .subscribe(resp => {
@@ -85,7 +86,10 @@ export class misEncuestasComponent implements OnInit {
               this.loading = false;
             }); 
         }else{
-        this._surveyService.getEncuestaPorFiltros(termino,estado,fecha,this.currentUser.idUsuario)
+            if(termino!="" && estado != ""){codigoFiltro="1"} //busca por termino y estado
+            if(termino!="" && estado === ""){codigoFiltro="2"}//busca por termino
+            if(termino==="" && estado != ""){codigoFiltro="3"}//busca por estado
+        this._surveyService.getEncuestaPorFiltros(termino,estado,fecha,this.currentUser.idUsuario,codigoFiltro)
             .subscribe( (resp:any) => {
                 console.log(resp)
                 this.encuestas = resp;

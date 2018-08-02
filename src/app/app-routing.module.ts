@@ -14,6 +14,7 @@ import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
+import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import { CategoriaFormComponent } from './components/categorias/categoria-form.c
             {path: 'respuesta/:id', component: respuestaComponent},
             {path: 'categorias', component: CategoriasComponent},
             {path: 'categoria/:id', component: CategoriaFormComponent},
+            {path: 'vistaprevia/:id', component: VistapreviaComponent},
             { path:'', pathMatch:'full', redirectTo:'home'},
             { path:'**', pathMatch:'full', redirectTo:'home'}
         ])
