@@ -12,6 +12,9 @@ import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
 import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { RegisterComponent } from './components/register/register.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
+import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 
 @NgModule({
     imports: [
@@ -22,11 +25,17 @@ import { RegisterComponent } from './components/register/register.component';
             {path: 'login', component: LoginComponent},
             {path: 'user', component: UserComponent},
             {path: 'dashboard', component: DashboardComponent},
+            {path: 'dashboard/:id', component: DashboardComponent},
             {path: 'password', component: PasswordComponent},
             {path: 'misencuestas', component: misEncuestasComponent},
             {path: 'register', component: RegisterComponent},
             {path: 'editor/:id', component: SurveyEditorComponent},
-            {path: 'respuesta/:id', component: respuestaComponent}
+            {path: 'respuesta/:id', component: respuestaComponent},
+            {path: 'categorias', component: CategoriasComponent},
+            {path: 'categoria/:id', component: CategoriaFormComponent},
+            {path: 'vistaprevia/:id', component: VistapreviaComponent},
+            { path:'', pathMatch:'full', redirectTo:'home'},
+            { path:'**', pathMatch:'full', redirectTo:'home'}
         ])
     ],
     exports: [RouterModule]

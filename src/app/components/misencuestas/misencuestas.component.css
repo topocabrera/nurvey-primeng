@@ -28,3 +28,7 @@
 .ti-sharethis {
     cursor: pointer;
 }
+
+.far, .fa-eye{
+    cursor: pointer;
+}

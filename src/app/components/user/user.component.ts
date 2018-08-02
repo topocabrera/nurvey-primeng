@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModelClass } from '../../domain/UserModelClass';
-import { UserService } from '../../services/index';
+import { UserService } from '../../services/user.service';
 import {FormGroup, AbstractControl, FormBuilder, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {EmailValidator, EqualPasswordsValidator} from '../register/validators'; 
 import {TabViewModule} from 'primeng/tabview';

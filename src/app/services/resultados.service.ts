@@ -25,20 +25,30 @@ export class ResultadoService {
         .map(res => res.json());    
     }
 
-    getResultadosEncuestasXUsuario(idUsuario: number){
-        
-        return this.http.get(this.serverRestAPIUrl + idUsuario )
-        .map(res => res.json());    
+
+/** Devuelve la cantidad de respuestas en todas las encuentas generadas por el usuario. (dato estadistico) */
+    getCantidadRespuestasXUsuario(idUsuario: number){
+        var cantidadRespuestas:number = 0;
+        return this.http.get(environment.apiEndPoint + "/api/Respuestas")
+        .map((res:any) => {
+            for (let u of res.json()) {                                   
+                if(u.idEncuestado === idUsuario){
+                    cantidadRespuestas ++;
+                }
+            }
+            return cantidadRespuestas;
+        });    
     }
 
     getRespuestasPosibles(idEncuesta:number, idPregunta:number){        
         this.respuestasPosibles = [];
          
         return this.http.get(environment.apiEndPoint + "/api/Respuestas/"+idEncuesta+"/"+idPregunta)
-            .map(resp => {
+            .map((resp:any) => {
                 for (let u of resp.json()) {                                   
                     this.respuestasPosibles.push(u)
-                }                
+                } 
+                return this.respuestasPosibles    
             });
     }
 
@@ -46,6 +56,9 @@ export class ResultadoService {
         this.respuestasPosiblesPreguntaAgrupada = [];        
         //console.log(environment.apiEndPoint + "/api/ResultadosPorCorte/"+idEncuesta+"/"+idPregunta+"/"+idPreguntaAgrupada+"/"+filtro);
         return this.http.get(environment.apiEndPoint + "/api/ResultadosPorCorte/"+idEncuesta+"/"+idPregunta+"/"+idPreguntaAgrupada+"/"+filtro)
-        .map(res => res.json()); 
+        .map((res:any) => {
+            // console.log(res.json())
+            return res.json();
+        }); 
     }
 }

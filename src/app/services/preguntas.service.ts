@@ -15,7 +15,7 @@ export class PreguntasService {
         this.serverRestAPIUrl = environment.apiEndPoint + "/api";
     }
 
-    getPreguntasEncuesta(idEncuesta:number){        
+    getPreguntasEncuesta(idEncuesta:number){
         this.preguntas = [];
         return this.http.get(this.serverRestAPIUrl + "/Pregunta")
             .map(resp => {
@@ -31,15 +31,15 @@ export class PreguntasService {
                                 u.name));
                     }
                 }
-                
+
             });
     }
 
-    getPreguntasAgrupablesEncuesta(idEncuesta:number){        
+    getPreguntasAgrupablesEncuesta(idEncuesta:number){
         this.preguntasAgrupables = [];
         return this.http.get(this.serverRestAPIUrl + "/Pregunta")
             .map(resp => {
-                for (let u of resp.json()) {                    
+                for (let u of resp.json()) {
                     if(u.idEncuesta == idEncuesta && u.esAgrupable){
                         this.preguntasAgrupables.push(
                             new PreguntaModelClass(
@@ -51,9 +51,9 @@ export class PreguntasService {
                                 u.name));
                     }
                 }
-                
+
             });
     }
 
-    
+
 }

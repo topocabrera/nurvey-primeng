@@ -8,7 +8,7 @@
     background-color: transparent;
   }
   .sv_complete_btn, .btn-green {
-    background-color: #1ab394;
+    background-color: #246edd;
     color: #fff;
     border-radius: 3px;
  }
@@ -21,6 +21,9 @@
      border:none;
      text-align: right;
      background-color: #fff;
+ }
+ .textShadow{
+    text-shadow: 3px 2px red;
  }
  
 
