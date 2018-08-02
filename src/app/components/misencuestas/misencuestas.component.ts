@@ -14,13 +14,16 @@ import { SurveyModelClass } from './../../domain/SurveyModelClass';
 })
 export class misEncuestasComponent implements OnInit {
     surveyRender: object;
-    encuestas: Array<SurveyModelClass>
+    encuestas:SurveyModelClass[] = [];
     activeEncuesta;
     encuestaActiva: boolean;
     surveyService: SurveyService;
-    termino:string ="";
+    // termino:string ="";
     currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
-    
+    loading:boolean;
+    mensajeAlert:string;
+    estiloAlert:string;
+
     
     encuesta = { 
         estadoEncuesta:"" 
@@ -40,10 +43,11 @@ export class misEncuestasComponent implements OnInit {
             descripcion: "respondida" 
         }] 
 
-    constructor(SurveyService: SurveyService, private router: Router){
-        
-        this.surveyService = SurveyService;
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    constructor(private _surveyService: SurveyService, 
+                private router: Router){
+           this.loading = true;
+        // this.surveyService = SurveyService;
+        // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     /** 
@@ -60,18 +64,55 @@ export class misEncuestasComponent implements OnInit {
      * Cargar encuestas por usuarios 
      */ 
     loadEncuestas(){ 
-        this.surveyService.getEncuestas_x_Usuario(this.currentUser.idUsuario) 
-          .subscribe(); 
+        this._surveyService.getEncuestas_x_Usuario(this.currentUser.idUsuario) 
+          .subscribe(resp => {
+            this.encuestas = resp;
+            this.loading = false;
+          }); 
     } 
 
     /** 
      * Busqueda de encuestas por titulo 
      */ 
-    buscarEncuestas(){ 
-        var re = "[a-zA-Z]+";
-        var reg = new RegExp(re,'gi')
-        this.surveyService.getEncuestaByName(this.termino,this.currentUser.idUsuario) 
-        .subscribe(); 
+    buscarEncuestas(termino:string,estado:string,fecha:string){
+        console.log(termino+" "+estado+" "+fecha)
+        this.loading = true;
+        this.encuestas.splice(0,this.encuestas.length)
+        var codigoFiltro:string="";
+        if(termino==="" && estado===""){
+            this._surveyService.getEncuestas_x_Usuario(this.currentUser.idUsuario) 
+            .subscribe(resp => {
+              this.encuestas = resp;
+              this.loading = false;
+            }); 
+        }else{
+            if(termino!="" && estado != ""){codigoFiltro="1"} //busca por termino y estado
+            if(termino!="" && estado === ""){codigoFiltro="2"}//busca por termino
+            if(termino==="" && estado != ""){codigoFiltro="3"}//busca por estado
+        this._surveyService.getEncuestaPorFiltros(termino,estado,fecha,this.currentUser.idUsuario,codigoFiltro)
+            .subscribe( (resp:any) => {
+                console.log(resp)
+                this.encuestas = resp;
+                this.loading = false;
+                if(this.encuestas.length === 0){
+                    this.mensajeAlert = "No se registran encuestas con los filtros seleccionados."
+                    // this.estiloAlert = "alert-warning"
+                }
+            });
+        }
+
+
+        // if(termino.length > 0){
+        // this._surveyService.getEncuestaByName(termino,this.currentUser.idUsuario)
+        // .subscribe( (data:any) => {
+        //     console.log(data)
+        //     this.encuestas = data;
+        //     this.loading = false;
+        // });
+        // }else{
+        //     this.loading = false;
+        // }
+        
     } 
 
     /**
@@ -108,7 +149,7 @@ export class misEncuestasComponent implements OnInit {
                 var descripcion = this.estados[index].descripcion;
                 }
             } 
-            this.surveyService.getEncuestaByEstado(descripcion,this.currentUser.idUsuario) 
+            this._surveyService.getEncuestaByEstado(descripcion,this.currentUser.idUsuario) 
             .subscribe(); 
         }
     }    
@@ -119,7 +160,7 @@ export class misEncuestasComponent implements OnInit {
      */ 
     archivarEncuesta(idEncuesta){ 
         let idUsuario = this.currentUser.idUsuario; 
-        this.surveyService.archivarEncuesta(idEncuesta,idUsuario) 
+        this._surveyService.archivarEncuesta(idEncuesta,idUsuario) 
             .subscribe( 
                 res => { 
                     alert("La encuesta ha sido archivada.") 

@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 // import { EncuestaModelClass } from '../models/EncuestaModelClass';
 
 import 'rxjs/add/operator/map';
+import { DatePipe } from '../../../node_modules/@angular/common';
 
 @Injectable()
 export class SurveyService {
@@ -76,27 +77,29 @@ guardarRespuesta(parm: any){
 getEncuestas_x_Usuario( id ){
     this.encuestas.splice(0,this.encuestas.length);
     return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
-        .map((resp:any) => { return resp.json() });
+        .map((resp:any) => { 
+            console.log(resp.json());
+            return resp.json() });
 }
 
 /**
  * Obtengo las encuestas filtradas por el termino a través de método GET
  * @param termino parametro texto a filtrar
  */
-getEncuestaByName(termino,id){
-    // return this.http.get(this.serverRestAPIUrl + "/Encuesta?filtro="+termino)
-    this.encuestas.splice(0)
+getEncuestaByName(termino:string,id:number){
+    this.encuestas.splice(0,this.encuestas.length)
     return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + id )
     .map(resp => {
-        var re = "/"+termino+"/i";
-        var reg = new RegExp(termino,'gi');
-        var surveyModel = new SurveyModelClass();
+        // var re = "/"+termino+"/i";
+        // var reg = new RegExp(termino,'gi');
+        // console.log(reg)
         for (let u of resp.json()) {
-            var resultado = u.tituloEncuesta.search(reg)
-            if (u.tituloEncuesta.search(reg) != -1)
+            // var resultado = u.tituloEncuesta.search(reg)
+            if (u.tituloEncuesta.search(termino) != -1)
             {this.encuestas.push(u);}
-            else {console.log("No coincide termino en titulo" + u.tituloEncuesta + " " +resultado);}
+            // else {console.log("No coincide termino en titulo" + u.tituloEncuesta + " " +resultado);}
         }
+        return this.encuestas;
     });
 }
 
@@ -173,4 +176,45 @@ getEncuestasEnBorrador( id ){
             return this.encuestas;
           });
 }
+
+/**Devuelve las encuestas del usuario y filtra por los parametros, para cargar la grilla de mis encuestas filtrada. */
+getEncuestaPorFiltros(termino:string,estado:string,fecha:string,idUsuario:number,codigoFiltro:string){
+    let encuestasFiltradas:any[] = [];
+    return this.http.get(this.serverRestAPIUrl + "/Encuesta/idUsuario/" + idUsuario )
+    .map( (resp:any) => {
+        for (let u of resp.json()) {
+            var tituloEncuesta = u.tituloEncuesta.toLowerCase();
+            termino = termino.toLowerCase();
+            var estadoEncuesta = u.estadoEncuesta.toLowerCase();
+            estado = estado.toLowerCase();
+            // var fechaEncuesta = new DatePipe(u.fechaEncuesta).transform(u.fechaEncuesta,'dd/MM/yyyy');
+            // console.log(fechaEncuesta)
+            // var fechaEncuestaParm = new DatePipe(fecha).transform(u.fechaEncuesta,'dd/MM/yyyy');
+            switch (codigoFiltro) {
+                case "1":
+                    if (tituloEncuesta.search(termino) > 0 && estadoEncuesta === estado )
+                    {
+                        encuestasFiltradas.push(u);
+                    }
+                    break;
+                case "2":
+                    if (tituloEncuesta.search(termino) > 0)
+                    {
+                        encuestasFiltradas.push(u);
+                    }
+                    break;
+                case "3":
+                    if (estadoEncuesta === estado )
+                    {
+                        encuestasFiltradas.push(u);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return encuestasFiltradas;
+    });
+}
+
 }
