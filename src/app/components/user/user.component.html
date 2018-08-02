@@ -1,5 +1,4 @@
-<!-- <navbar-cmp [currentUser]="currentUser" ></navbar-cmp> -->
-<div class="content">
+<div class="container">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 col-md-5">
@@ -45,54 +44,20 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
-                                        <input type="text" class="form-control border-input" placeholder="Contraseña">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Fecha Nacimiento</label>
-                                        <input type="date" min="1930-01-01" class="form-control border-input" placeholder="Fecha">
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Ubicacion</label>
-                                        <input type="text" class="form-control border-input" placeholder="Ubicacion">
+                                    <div class="col-md-6 text-left">
+                                        <button (click)="actualizar()" class="btn btn-info btn-fill btn-wd">Actualizar Perfil</button>
                                     </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Acerca de mi</label>
-                                        <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">
-                                            Oh so, your weak rhyme
-                                            You doubt I'll bother, reading into it
-                                            I'll probably won't, left to my own devices
-                                            But that's the difference in our opinions.</textarea>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd" [routerLink]="['/password']">Cambiar Contraseña</button>
                                     </div>
-                                </div>
-                            </div> -->
-
-                            <div class="text-center">
-                                <button (click)="actualizar()" class="btn btn-info btn-fill btn-wd">Actualizar Perfil</button>
-                                <button type="submit" class="btn btn-info btn-fill btn-wd" [routerLink]="['/password']">Cambiar Contraseña</button>
+                                <!-- <div class="text-center"></div> -->
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<!-- </div> -->
+</div>
