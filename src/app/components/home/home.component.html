@@ -4,7 +4,10 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 text-center">
+            <div class="col-md-12 text-center">
+                    
+            
+                <div class="card-group">
                     <div class="card" style="width: 18rem;">
                         <i class="fas fa-folder-open fa-9x"></i>
                         <div class="card-body">
@@ -12,50 +15,47 @@
                             <p class="card-text">{{cantidadEncuestasAbiertas}}</p>
                         </div>
                     </div>
-            </div>
-            <div class="col-md-3 text-center">
                     <div class="card" style="width: 18rem;">
-                            <i class="fas fa-eraser fa-9x"></i>
+                        <i class="fas fa-eraser fa-9x"></i>
                         <div class="card-body">
                             <h5 class="card-title">Encuestas en borrador</h5>
                             <p class="card-text">{{cantidadEncuestasBorrador}}</p>
                         </div>
                     </div>
-            </div>
-            <div class="col-md-3 text-center">
                     <div class="card" style="width: 18rem;">
-                            <i class="fas fa-file-alt fa-9x"></i>
+                        <i class="fas fa-file-alt fa-9x"></i>
                         <div class="card-body">
                             <h5 class="card-title">Total respuestas</h5>
                             <p class="card-text">{{cantidadRespuestas}}</p>
                         </div>
                     </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9">
-                    <h3>Tus últimas encuestas</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Encuesta</th>
-                                <th>Última edición</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of encuestas; let i of index;" >
-                                <td>{{item.tituloEncuesta}}</td>
-                                <td>{{item.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
-                                <td>{{item.estadoEncuesta | uppercase}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <button class="btn btn-outline-danger" [routerLink]="['/surveyeditor']" > Crear Encuesta</button>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Tus últimas encuestas</h3>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Encuesta</th>
+                            <th>Última edición</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of encuestas; let i of index;" >
+                            <td>{{item.tituloEncuesta}}</td>
+                            <td>{{item.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
+                            <td>{{item.estadoEncuesta | uppercase}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-outline-danger" [routerLink]="['/surveyeditor']" > Crear Encuesta</button>
             </div>
         </div>
     </div>
