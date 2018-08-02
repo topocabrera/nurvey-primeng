@@ -7,41 +7,47 @@
                     <div class="col-md-12">
                         <h3>Aqui puede visualizar sus encuestas <a class="far fa-question-circle fa-5px" href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" target="_blank"></a></h3>
                     </div>
-                    <!-- <div class="col-md-6">
-                        (keyup)="buscarEncuestas(termino.value)" 
-                    </div> -->
                 </div>
                 <hr>
                 <div class="col-md-12">
-                    <div class="col-md-3">
-                        <label for="termino">Titulo</label>
-                        <input #termino 
-                        type="text" name="termino" 
-                        placeholder="Buscar encuestas..." class="form-control">
-                        <hr>
+                    <div class="col-md-4">
+                        <div class="col-md-2">
+                                <label for="termino">Titulo</label>
+                        </div>
+                        <div class="col-md-10">
+                                <input #termino 
+                                type="text" name="termino" 
+                                placeholder="Buscar encuestas..." class="form-control">
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <label for="estados"> Estados:</label>
-                        <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
-                            class="form-control"
-                            (change)="selectEstado(encuesta.estadoEncuesta)">
-                        <option value="">Seleccione un estado</option>
-                        <option *ngFor="let estado of estados"
-                            [value]="estado.descripcion">
-                            {{estado.descripcion | uppercase}}</option>
-                        </select>
-                        <hr>
+                    <div class="col-md-4">
+                        <div class="col-md-2">
+                                <label for="estados"> Estados:</label>
+                        </div>
+                        <div class="col-md-10">
+                                <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
+                                class="form-control"
+                                (change)="selectEstado(encuesta.estadoEncuesta)">
+                            <option value="">Seleccione un estado</option>
+                            <option *ngFor="let estado of estados"
+                                [value]="estado.descripcion">
+                                {{estado.descripcion | uppercase}}</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <label for="fecha">Fecha Creacion:</label>
-                        <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
-                        <hr>
+                    <div class="col-md-4">
+                        <div class="col-md-2">
+                                <label for="fecha">Fecha Creacion:</label>
+                        </div>
+                        <div class="col-md-10">
+                                <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-md-4">
                     <button type="button" (click)="buscarEncuestas(termino.value,encuesta.estadoEncuesta,fecha.value)" class="btn btn-outline-primary">
                         Buscar
                     </button>
