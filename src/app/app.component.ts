@@ -49,9 +49,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => this.notification = true, 1000)
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    
     if (this.currentUser === null || this.currentUser === undefined) {
         this.loggedIn = false;
+        this.ocultarSideBar();
     } else {
         this.loggedIn = true;
     }
@@ -77,5 +78,13 @@ export class AppComponent implements OnInit {
   closeNotification(event) {
     this.notification = false;
     event.preventDefault();
+  }
+
+  ocultarSideBar(){
+    $(document).ready(function () {
+      // $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+      // });
+  });
   }
 }
