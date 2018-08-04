@@ -1,64 +1,74 @@
-<!-- <navbar-cmp [currentUser]="currentUser" ></navbar-cmp> -->
-<!-- <div class="content"> -->
-    <div class="container ">
+<div class="container m-3">
         
             <div class="row">
                 <div class="header">
                     <div class="col-md-12">
-                        <h3>Aqui puede visualizar sus encuestas <a class="far fa-question-circle fa-5px" href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" target="_blank"></a></h3>
-                    </div>
-                </div>
-                <hr>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <div class="col-md-2">
-                                <label for="termino">Titulo</label>
-                        </div>
-                        <div class="col-md-10">
-                                <input #termino 
-                                type="text" name="termino" 
-                                placeholder="Buscar encuestas..." class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col-md-2">
-                                <label for="estados"> Estados:</label>
-                        </div>
-                        <div class="col-md-10">
-                                <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
-                                class="form-control"
-                                (change)="selectEstado(encuesta.estadoEncuesta)">
-                            <option value="">Seleccione un estado</option>
-                            <option *ngFor="let estado of estados"
-                                [value]="estado.descripcion">
-                                {{estado.descripcion | uppercase}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col-md-2">
-                                <label for="fecha">Fecha Creacion:</label>
-                        </div>
-                        <div class="col-md-10">
-                                <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
-                        </div>
+                        <h5>Aqui puede visualizar sus encuestas <a class="far fa-question-circle fa-2px" href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" target="_blank"></a></h5>
                     </div>
                 </div>
             </div>
-
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <label for="termino">Titulo</label>
+                            </div>
+                        </div>
+                        <div class="row">  
+                            <div class="col-md-12">
+                                    <input #termino 
+                                    type="text" name="termino" 
+                                    placeholder="Buscar encuestas..." class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">   
+                            <div class="col-md-12">
+                                    <label for="estados"> Estados:</label>
+                            </div>
+                        </div>
+                        <div class="row">   
+                            <div class="col-md-12">
+                                    <select [(ngModel)]="encuesta.estadoEncuesta" name="estados" 
+                                    class="form-control"
+                                    (change)="selectEstado(encuesta.estadoEncuesta)">
+                                <option value="">Seleccione un estado</option>
+                                <option *ngFor="let estado of estados"
+                                    [value]="estado.descripcion">
+                                    {{estado.descripcion | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="fecha">Fecha Creacion:</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <br>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12 text-left">
                     <button type="button" (click)="buscarEncuestas(termino.value,encuesta.estadoEncuesta,fecha.value)" class="btn btn-outline-primary">
                         Buscar
                     </button>
                 </div>
             </div>
-        
+            <br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-inverse table-hover">
-                            <thead>
+                        <table class="table">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>#</th>
                                     <th>Id</th>
@@ -69,7 +79,7 @@
                                     <th>Archivar</th>
                                     <th>Analizar</th>
                                     <th>Compartir</th>
-                                    <th>Vista Previa</th>
+                                    <th>Vista</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -113,4 +123,3 @@
                     </div>
                 </div>
         </div>
-<!-- </div> -->

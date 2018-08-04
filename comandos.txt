@@ -1,0 +1,27 @@
+*Chequeo de versiones*
+
+npm -v
+ng -v
+
+*Actualizar Angular CLI(1.7.4 -> 6)*
+
+npm uninstall -g angular-cli
+npm uninstall --save-dev angular-cli
+npm uninstall -g @angular/cli
+npm cache clean
+npm install -g @angular/cli@latest
+npm install --save-dev @angular/cli@latest
+npm install
+
+*Levantar aplicacion local*
+Dev
+ng serve -o
+Prod 
+ng serve -o --prod
+
+*Creacion de componentes con AngularCLI*
+ng g c path/nombre --spec=false
+
+*Creacion de servicios con AngularCLI*
+ng g s path/nombre --spec=false
+

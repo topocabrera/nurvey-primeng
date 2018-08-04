@@ -26,3 +26,8 @@ a {
 #layout-sidebar .layout-menu > div {
     padding: 0;
 }
+
+.logo{
+    width: 34%;
+    height: auto;
+}

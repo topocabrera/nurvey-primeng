@@ -1,6 +1,6 @@
 <div class="container">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row ">
             <div class="col-lg-4 col-md-5">
                             
                 <div class="card card-user">
@@ -23,8 +23,9 @@
             <div class="col-lg-8 col-md-7">
                 <div class="card">
                     <div class="header">
-                        <div class="col-md-10"><h4 class="title">Editar el Perfil</h4></div>
-                        <div class="col-md-2"><a  class="col-sm-2 ti-help-alt" href="http://nurvey.sytes.net:5000/doku.php?id=perfil" target="_blank"></a></div>                  
+                        <div class="row">
+                            <div class="col-md-4"><h4 class="title">Editar el Perfil<span ><a  class="col-sm-2 far fa-question-circle fa-2px text-left" href="http://nurvey.sytes.net:5000/doku.php?id=perfil" target="_blank"></a></span></h4></div>
+                        </div>            
                     </div>
                     <div class="content">
                         <form name="form" (ngSubmit)="f.form.valid && actualizar()" #f="ngForm" novalidate>

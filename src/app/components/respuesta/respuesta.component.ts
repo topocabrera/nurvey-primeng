@@ -24,6 +24,7 @@ export class respuestaComponent implements OnInit, OnDestroy {
     private surveyModel: SurveyModelClass;
     encuestas: Array<SurveyModelClass>
     private respuesta: string;
+    private tituloEncuesta:string;
 
     constructor(private route: ActivatedRoute,surveyService: SurveyService){
         this.surveyService = surveyService;
@@ -41,6 +42,7 @@ export class respuestaComponent implements OnInit, OnDestroy {
             this.surveyService.getEncuestasById(parm)
             .subscribe((resp) => {
                 let u = resp;
+                this.tituloEncuesta = u.tituloEncuesta;
                 const surveyModel = new Survey.ReactSurveyModel(u.definicionJSON);
                 Survey.SurveyNG.render('surveyElement', { model: surveyModel });
                 

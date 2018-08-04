@@ -28,7 +28,7 @@ export class VistapreviaComponent implements OnInit {
                   surveyModel.pageNextText = "Siguiente"
                   surveyModel.pagePrevText = "Anterior"
                   surveyModel.completedHtml = "<h3>Vista previa finalizada!</h3>"
-                  surveyModel.css.text = "textShadow"
+                  // surveyModel.css.text = "textShadow"
                   // $(".sv_complete_btn").addClass('botonCompletar');
                   Survey.SurveyNG.render('surveyElement', { model: surveyModel});
                   console.log(surveyModel.css);

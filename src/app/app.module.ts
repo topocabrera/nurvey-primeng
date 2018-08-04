@@ -45,6 +45,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
     declarations: [
@@ -65,7 +66,8 @@ import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.compo
         AlertComponent,
         CategoriasComponent,
         CategoriaFormComponent,
-        VistapreviaComponent
+        VistapreviaComponent,
+        SidebarComponent
     ],
     imports: [
         BrowserModule,

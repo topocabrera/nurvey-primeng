@@ -1,0 +1,95 @@
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>LOGO NURVEY</h3>
+    </div>
+    <div class="layout-menu" *ngIf="loggedIn && !isAdmin">
+        <ul class="list-unstyled components">
+            <p>Nurvey es una sensación</p>
+            <!-- seccion home -->
+            <li>
+                <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
+            </li>
+            
+            <!-- seccion perfil usuario -->
+
+            <!-- <a id="menu_usuario" #usermenutitle [class.active-menuitem]="usermenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === usermenutitle.id ? null : usermenutitle.id)">
+                    <span class="layout-menu-icon-active fas fa-user">  Perfil de Usuario</span>
+            </a>
+            <div class="list-group" [ngClass]="{submenushow: (usermenutitle.id == activeMenuId), 'submenuhide': (usermenutitle.id != activeMenuId)}">
+                <a class="fa fa-angle-right" [routerLink]="['/user']" (click)="menuActive = false"> Mis Datos</a>
+                <a class="fa fa-angle-right" [routerLink]="['/misencuestas']" (click)="menuActive = false"> Mis Encuestas</a>
+                <a class="fa fa-angle-right" [routerLink]="['/dashboard']" (click)="menuActive = false"> Mis Estadisticas</a>
+            </div> -->
+
+            <li> 
+                <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
+                <ul class="collapse list-unstyled" id="userSubmenu">
+                    <li>
+                            <a [routerLink]="['/user']"> Mis Datos</a>
+                    </li>
+                    <li>
+                            <a [routerLink]="['/misencuestas']"> Mis Encuestas</a>
+                    </li>
+                    <li>
+                            <a [routerLink]="['/dashboard']"> Mis Estadisticas</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- seccion editor -->
+
+            <!-- <a id="menu_editor" #editormenutitle [class.active-menuitem]="editormenutitle.id == activeEditor" (click)="activeEditor = (activeEditor === editormenutitle.id ? null : editormenutitle.id)">
+                    <span class="layout-menu-icon-active fas fa-edit"> Editor</span>
+            </a>
+            <div [ngClass]="{submenushow: (editormenutitle.id == activeEditor), 'submenuhide': (editormenutitle.id != activeEditor)}">
+                <a class="fa fa-angle-right" [routerLink]="['/surveyeditor']" (click)="menuActive = false">  SurveyEditor</a>
+            </div> -->
+            <li>
+                <a [routerLink]="['/surveyeditor']"> <span class="layout-menu-icon-active fas fa-edit"></span> Editor de Encuestas</a>
+            </li>
+            <li>
+                <a >Contact</a>
+            </li>
+            <li>
+                <a >Acerca de nosotros</a>
+            </li>
+        </ul>
+    </div>
+    <!-- menu administrador -->
+    <div class="layout-menu" *ngIf="loggedIn && isAdmin">
+        <ul class="list-unstyled components">
+        <!-- seccion home -->
+        <!-- <a id="menu_home" #homemenutitle [class.active-menuitem]="homemenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === homemenutitle.id ? null : homemenutitle.id)">
+            <span class="fas fa-home" [routerLink]="['/home']">  Home</span>
+        </a> -->
+
+        <li>
+            <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
+        </li>
+
+        <!-- seccion perfil usuario -->
+
+            <!-- <a id="menu_usuario" #usermenutitle [class.active-menuitem]="usermenutitle.id == activeMenuId" (click)="activeMenuId = (activeMenuId === usermenutitle.id ? null : usermenutitle.id)">
+                <span class="layout-menu-icon-active fas fa-user">Adm</span>
+
+            </a>
+            <div [ngClass]="{submenushow: (usermenutitle.id == activeMenuId), 'submenuhide': (usermenutitle.id != activeMenuId)}">
+                <a [routerLink]="['/user']" (click)="menuActive = false">&#9679; Mis Datos</a>
+            </div> -->
+
+        <li> 
+            <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
+            <ul class="collapse list-unstyled" id="userSubmenu">
+                <li>
+                        <a [routerLink]="['/user']"> Mis Datos</a>
+                </li>
+                <!-- <li>
+                        <a [routerLink]="['/misencuestas']"> Mis Encuestas</a>
+                </li>
+                <li>
+                        <a [routerLink]="['/dashboard']"> Mis Estadisticas</a>
+                </li> -->
+            </ul>
+        </li>
+        </ul>
+    </div>
+</nav>
