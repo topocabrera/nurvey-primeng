@@ -8,7 +8,7 @@
             <div class="layout-menu" *ngIf="loggedIn && !isAdmin">
                 <ul class="list-unstyled components">
                     <!-- seccion home -->
-                    <li>
+                    <li routerLinkActive="active">
                         <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
                     </li>
                     
@@ -16,26 +16,28 @@
                     <li> 
                         <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
                         <ul class="collapse list-unstyled" id="userSubmenu">
-                            <li>
+                            <li routerLinkActive="active">
                                     <a [routerLink]="['/user']"> Mis Datos</a>
                             </li>
-                            <li>
+                            <li routerLinkActive="active">
                                     <a [routerLink]="['/misencuestas']"> Mis Encuestas</a>
                             </li>
-                            <li>
+                            <li routerLinkActive="active">
                                     <a [routerLink]="['/dashboard']"> Mis Estadisticas</a>
                             </li>
                         </ul>
                     </li>
                     <!-- seccion editor -->
-                    <li>
+                    <li routerLinkActive="active">
                         <a [routerLink]="['/surveyeditor']"> <span class="layout-menu-icon-active fas fa-edit"></span> Editor de Encuestas</a>
                     </li>
-                    <li>
-                        <a >Contact</a>
+                    <!-- seccion Contacto -->
+                    <li routerLinkActive="active">
+                        <a><span class="layout-menu-icon-active fab fa-telegram-plane"></span> Contacto</a>
                     </li>
-                    <li>
-                        <a >Acerca de nosotros</a>
+                    <!-- seccion Acerca -->
+                    <li routerLinkActive="active">
+                        <a ><span class="layout-menu-icon-active fas fa-asterisk"> </span>Acerca de nosotros</a>
                     </li>
                 </ul>
             </div>
@@ -43,21 +45,21 @@
             <div class="layout-menu" *ngIf="loggedIn && isAdmin">
                 <ul class="list-unstyled components">
                 <!-- seccion home -->
-                <li>
+                <li routerLinkActive="active">
                     <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
                 </li>
         
                 <!-- seccion perfil usuario -->
-                <li> 
+                <li routerLinkActive="active"> 
                     <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
                     <ul class="collapse list-unstyled" id="userSubmenu">
-                        <li>
+                        <li routerLinkActive="active">
                                 <a [routerLink]="['/user']"> Mis Datos</a>
                         </li>
                     </ul>
                 </li>
                 <!-- seccion categorias -->
-                <li>
+                <li routerLinkActive="active">
                     <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span> Categorias</a>
                 </li>
                 </ul>
