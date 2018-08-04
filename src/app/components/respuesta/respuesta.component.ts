@@ -24,7 +24,7 @@ export class respuestaComponent implements OnInit, OnDestroy {
     private surveyModel: SurveyModelClass;
     encuestas: Array<SurveyModelClass>
     private respuesta: string;
-    private tituloEncuesta:string;
+    tituloEncuesta:string;
 
     constructor(private route: ActivatedRoute,surveyService: SurveyService){
         this.surveyService = surveyService;
