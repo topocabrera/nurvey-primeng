@@ -3,10 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
@@ -26,17 +22,12 @@ import { misEncuestasComponent } from './components/misencuestas/misencuestas.co
 import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { NavbarComponent } from './components/navbar/navbar.component'
 
-// import { AlertComponent } from './shared/directives/index';
-import { AuthGuard } from './components/guards';
+/*Servicios */
 import { AlertService, AuthenticationService, UserService } from './services';
 import { PreguntasService } from './services/preguntas.service';
 import { ResultadoService } from './services/resultados.service'
 
-import { DataListModule } from 'primeng/primeng';
-import { TabViewModule } from 'primeng/tabview';
-import { PanelModule } from 'primeng/panel';
-import { Growl } from 'primeng/growl';
-
+import { AuthGuard } from './components/guards'; 
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -74,25 +65,18 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        TableModule,
         HttpClientModule,
-        InputTextModule,
-        DialogModule,
-        ButtonModule,
         AppRoutingModule,
         HttpModule,
         NgIdleKeepaliveModule.forRoot(),
-        DataListModule,
-        TabViewModule,
-        PanelModule,
         ChartsModule
 
     ],
     providers: [SurveyService,
         PreguntasService,
         //customHttpProvider,
-        ResultadoService,
         AuthGuard,
+        ResultadoService,
         AlertService,
         AuthenticationService,
         UserService],
