@@ -1,4 +1,4 @@
-import { Routes,RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
+import { misUsuariosComponent } from './components/misusuarios/misusuarios.component';
 import { AuthGuard } from './components/guards';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AuthGuard } from './components/guards';
             {path: 'password', component: PasswordComponent},
             {path: 'misencuestas', component: misEncuestasComponent},
             {path: 'register', component: RegisterComponent},
+            {path: 'misusuarios', component: misUsuariosComponent},
             {path: 'editor/:id', component: SurveyEditorComponent},
             {path: 'respuesta/:id', component: respuestaComponent},
             {path: 'categorias', component: CategoriasComponent},

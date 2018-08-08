@@ -44,24 +44,31 @@
             <!-- menu administrador -->
             <div class="layout-menu" *ngIf="loggedIn && isAdmin">
                 <ul class="list-unstyled components">
-                <!-- seccion home -->
-                <li routerLinkActive="active">
-                    <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
-                </li>
-        
-                <!-- seccion perfil usuario -->
-                <li routerLinkActive="active"> 
-                    <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
-                    <ul class="collapse list-unstyled" id="userSubmenu">
-                        <li routerLinkActive="active">
-                                <a [routerLink]="['/user']"> Mis Datos</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- seccion categorias -->
-                <li routerLinkActive="active">
-                    <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span> Categorias</a>
-                </li>
+                    <!-- seccion home -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
+                    </li>
+            
+                    <!-- seccion perfil usuario -->
+                    <li routerLinkActive="active"> 
+                        <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
+                        <ul class="collapse list-unstyled" id="userSubmenu">
+                            <li routerLinkActive="active">
+                                    <a [routerLink]="['/user']"> Mis Datos</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- seccion categorias -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span> Categorias</a>
+                    </li>
+                    <!-- seccion admin de usuarios -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/misusuarios']">
+                            <span class="layout-menu-icon-active fas fa-newspaper"> </span>
+                            Usuarios
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
