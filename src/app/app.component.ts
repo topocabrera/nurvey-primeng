@@ -57,12 +57,8 @@ export class AppComponent implements OnInit {
         this.loggedIn = true;
     }
 
-    if (this.currentUser.idUsuario === 25) {
-      this.isAdmin = true;
-  } else {
-      this.isAdmin = false;
-  }
-  }
+    if (this.currentUser.idUsuario === 25) {this.isAdmin = true;} else {this.isAdmin = false;}
+            }       
 
   changeTheme(event: Event, theme: string) {
     let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');

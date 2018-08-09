@@ -13,6 +13,7 @@ export class filaUsuarioComponent implements OnInit {
     @Input() usuario: UserModelClass;
     resultadoService: ResultadoService;
     mostrarGrafico: boolean;
+    muestraBoton:boolean;
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
@@ -38,6 +39,7 @@ export class filaUsuarioComponent implements OnInit {
 
     ngOnInit() {
         this.n = Number(this.i) + 1;
+        if(this.usuario.encuestasCreadas > 0) this.muestraBoton = true;
     }
 
      toggleGrafico() {
@@ -52,7 +54,7 @@ export class filaUsuarioComponent implements OnInit {
                 }
                 this.barChartLabels = yearMonth;
                     const serie = resp.series;
-                     this.barChartData.push({data: serie, label: 'Serie'});
+                     this.barChartData.push({data: serie, label: 'Cantidad'});
              });
      }
 }

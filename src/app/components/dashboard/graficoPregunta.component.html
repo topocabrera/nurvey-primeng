@@ -29,35 +29,51 @@
                     
                     
                            <div *ngIf="preguntasAgrupables.length > 0">
-                                <div class="stats m-3" style="width: 100%">
-                                    <div class="col-md-3">
+                                <div class="row m-2" style="width: 100%">
+                                    <div class="col-md-4">
                                         <h5>Analizar respuestas por </h5>
                                     </div>
-                                    <div class="col-md-1 text-left">
-                                        <select id="selectorCorte" class="listaCortes btn-secondary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
-                                            <option *ngFor="let agrupada of preguntasAgrupables" value="{{agrupada.descripcion}}" class="dropdown-item" id="selectorCorte">        
-                                                    {{agrupada.descripcion}}            
+                                    <div class="col-md-2">
+                                        <select id="selectorCorte" class="listaCortes btn-primary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
+                                            <option *ngFor="let agrupada of preguntasAgrupables" (click)="handleChange(item)" value="{{agrupada.descripcion}}" class="dropdown-item" id="selectorCorte">        
+                                                    {{agrupada.descripcion}}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3 text-center">
+                                    <!-- <div class="col-md-6">
+                                        <div class="col-md-2">
+                                            <select id="selectorTipoCorte" class="listaCortes btn-secondary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
+                                                <option *ngFor="let tipoFiltro of filtro" value="{{tipoFiltro}}" class="dropdown-item" id="selectorTipoCorte">        
+                                                        Prueba datos           
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-6 text-right">
                                         <button class="btn btn-outline-danger" (click)="verFiltroPor(preguntasAgrupables,idEncuesta,idPregunta)">Analizar</button>
                                     </div>
                                 </div>
-                            </div>                        
-                        <div *ngIf="mostrarDetalleAgrupable">
-                                <div style="display: block">
-                                  <canvas baseChart
-                                          [datasets]="barChartData"
-                                          [labels]="barChartLabels"
-                                          [options]="barChartOptions"
-                                          [legend]="barChartLegend"
-                                          [chartType]="barChartType"
-                                          (chartHover)="chartBarHovered($event)"
-                                          (chartClick)="chartBarClicked($event)"></canvas>
-                                </div>
+                            </div>  
+                                <!-- <ul>
+                                    <li *ngFor="let chart of filtro"> -->
+                                            <div *ngIf="mostrarDetalleAgrupable">
+                                                <div style="display: block">
+                                                    <canvas baseChart
+                                                        [datasets]="barChartData"
+                                                        [labels]="barChartLabels"
+                                                        [options]="barChartOptions"
+                                                        [legend]="barChartLegend"
+                                                        [chartType]="barChartType"
+                                                        (chartHover)="chartBarHovered($event)"
+                                                        (chartClick)="chartBarClicked($event)">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                    <!-- </li>
+                                </ul>                       -->
+                        
                                 <!-- <button (click)="randomize()">Update</button> -->
-                              </div>
+                              
                               <br/>
                               <hr>
                     </div>

@@ -39,7 +39,7 @@ export class GraficoPreguntaComponent implements OnInit{
 
     constructor(private resultadoService: ResultadoService,surveyService: SurveyService){
         this.surveyService = surveyService;
-        this.mostrarDetalleAgrupable = false;
+        // this.mostrarDetalleAgrupable = false;
     }
     ngOnInit(){
         this.actualizarGrafico();
@@ -89,41 +89,76 @@ export class GraficoPreguntaComponent implements OnInit{
       this.actualizarGraficoPreguntaAgrupada(agruparPor,this.idEncuesta,this.idPregunta,preguntaAgrupable[0].idPregunta);
     }
 
+    seleccionAgrupado(descripcion:string){
+      console.log(descripcion)
+      if(descripcion === "Sexo"){
+        this.filtro.push("Masculino","Femenino")
+      }
+      if(descripcion === "Edad"){
+        this.filtro.push("FiltroEdad1","FiltroEdad2","FiltroEdad3","FiltroEdad4")
+      }
+
+    }
+
+    handleChange(descripcion) {
+      console.log(descripcion)
+   }
+
     actualizarGraficoPreguntaAgrupada(agruparPor,idEncuesta,idPregunta,idPreguntaAgrupable)
     {
-    this.mostrarDetalleAgrupable = true;
+    this.mostrarDetalleAgrupable = !this.mostrarDetalleAgrupable;
     var item4 = 0
-    
+    console.log(agruparPor)
     if(agruparPor === "Sexo"){
       this.filtro.push("Masculino","Femenino")
+      idPreguntaAgrupable = 1
     }
-    for(var item = 0; item < this.filtro.length; item++){
-      
-      this.resultadoService.getSeparadoPorPreguntaAgrupada(idEncuesta,idPregunta,idPreguntaAgrupable,this.filtro[item])
-        .subscribe( (respuestasPosibles:any) => {
-          
-          var labels:string[] = [];
-          var series = [];
-
-          for(var item2 = 0; item2 < respuestasPosibles.labels.length; item2++){
-            labels.push(respuestasPosibles.labels[item2]);    
-            var serie = respuestasPosibles.series[item2];
-            series.push({value:serie,className:"myclass"+(item2+1), nombre:respuestasPosibles.labels[item2]});
-          }
-          // console.log(labels)
-          // console.log(series)
-
-          this.barChartLabels = labels; 
-          var data = [];
-          for(var item3 = 0; item3 < series.length; item3++){
-            data.push(series[item3].value)
-          }
-          // console.log(this.filtro[item4])
-          this.barChartData.push({data:data,label:this.filtro[item4]})
-          item4 ++;
-        });
+    if(agruparPor === "Edad"){
+      this.filtro.push("FiltroEdad1")
+      // ,"FiltroEdad2","FiltroEdad3","FiltroEdad4"
+      idPreguntaAgrupable = 2
     }
-        //console.log(this.barChartData)
+
+      for(var item = 0; item < this.filtro.length; item++){
+        
+        this.resultadoService.getSeparadoPorPreguntaAgrupada(idEncuesta,idPregunta,idPreguntaAgrupable,this.filtro[item])
+          .subscribe( (respuestasPosibles:any) => {
+            
+            var labels:string[] = [];
+            var series = [];
+            var data = [];
+            for(var item2 = 0; item2 < respuestasPosibles.labels.length; item2++){
+              labels.push(respuestasPosibles.labels[item2]);    
+              var serie = respuestasPosibles.series[item2];
+              series.push({value:serie,className:"myclass"+(item2+1), nombre:respuestasPosibles.labels[item2]});
+              // data.push(series[item2].value);
+            }
+            this.barChartLabels = labels;
+            // this.barChartData.push({data:data,label:this.filtro});
+            var data = [];
+            for(var item3 = 0; item3 < series.length; item3++){
+              data.push(series[item3].value)
+            }
+            // console.log(this.filtro[item4])
+            this.barChartData.push({data:data,label:this.filtro[item4]})
+            console.log(this.barChartData)
+            item4 ++;
+            // this.mostrarDetalleAgrupable = true;
+            console.log(this.filtro)
+            console.log(series)
+            console.log(this.barChartLabels)
+            console.log(this.barChartData)
+          });
+      }
+
+    //   this.resultadoService.getResultadosGeneral(this.idEncuesta,this.idPregunta)
+    // .subscribe((resp) => {        
+    //   for(var item = 0; item < resp.labels.length; item++){
+    //     this.barChartLabels.push(resp.labels[item]);
+    //   }
+    // });
+        // console.log(this.barChartLabels)
+        // console.log(this.barChartData)
         //api/ResultadosPorCorte/59/3/1/Femenino
     }
 }

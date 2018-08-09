@@ -11,7 +11,8 @@
     <div class="col-md-2" *ngIf="usuario.ultimaEncuesta != null">{{ usuario.ultimaEncuesta | date : 'dd/MM/yyyy'}}</div>
     <div class="col-md-2" *ngIf="usuario.ultimaEncuesta == null"></div>
     <div class="col-md-1" >{{usuario.encuestasCreadas}}</div>
-    <div class="col-md-3"  *ngIf="usuario.encuestasCreadas > 0"><button class="btn btn-default" (click)="toggleGrafico()">Ver</button></div>
+    <div class="col-md-3 text-right"  *ngIf="muestraBoton"><button class="btn btn-default" (click)="toggleGrafico()">Ver</button></div>
+    <br><br><hr>
 </div>
 <div>
     <div class="col-md-12" *ngIf="mostrarGrafico">
