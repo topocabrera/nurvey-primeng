@@ -25,6 +25,9 @@
  .textShadow{
     text-shadow: 3px 2px red;
  }
+ .col-md-6 {
+     margin: 0 auto;
+ }
  
 
 /* .svd_properties {
