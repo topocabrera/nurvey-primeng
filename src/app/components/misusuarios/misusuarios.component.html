@@ -1,0 +1,45 @@
+<div class="home m1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="header">
+                <div class="col-md-12">
+                    <p class="category">Aqui puede visualizar los usuarios. 
+                        <a  class="far fa-question-circle fa-2px" 
+                            href="http://nurvey.sytes.net:5000/doku.php?id=misencuestas" 
+                            target="_blank">
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <hr> 
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="nombre">Nombre</label>
+                <input  
+                type="text" name="nombre" id="nombre" 
+                (keyup)="buscarUsuarios()" 
+                placeholder="Buscar usuario..." class="form-control">
+                <hr>
+            </div>      
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1 black">#</div>
+                        <div class="col-md-1 black"> 
+                            <b>Id</b>
+                        </div>
+                        <div class="col-md-2 black"> 
+                            <b>Nombre</b>
+                        </div>
+                        <div class="col-md-2 black" ><b>Fecha Alta</b></div>
+                        <div class="col-md-2 black" ><b>Ultima Encuesta</b></div>
+                        <div class="col-md-2 black" ><b>Encuestas Creadas</b></div>
+                        <div class="col-md-2 black" ></div>
+                    </div>                      
+                    <filaUsuario *ngFor="let usuario of usersFiltrados; let i = index;" [usuario]="usuario" i="{{i}}" class="animated fadeIn"></filaUsuario>                                            
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
     <div class="introduction">
         <h1>Bienvenido a NURVEY, {{ nombreUsuario }}!</h1>
     </div>
-    <!-- <div class="container"> -->
+    <div *ngIf="!isAdmin">
         <div class="row">
             <div class="col-md-12 text-center">
                     
@@ -11,22 +11,21 @@
                     <div class="card" style="width: 18rem;">
                         <i class="fas fa-folder-open fa-7x"></i>
                         <div class="card-body">
-                            <h5 class="card-title">Encuestas abiertas</h5>
-                            <p class="card-text">{{cantidadEncuestasAbiertas}}</p>
+                            <div class="row">
+                                <h5 class="card-title col-md-11">Encuestas abiertas: <span>{{cantidadEncuestasAbiertas}}</span></h5>
+                            </div>
                         </div>
                     </div>
                     <div class="card" style="width: 18rem;">
                         <i class="fas fa-eraser fa-7x"></i>
                         <div class="card-body">
-                            <h5 class="card-title">Encuestas en borrador</h5>
-                            <p class="card-text">{{cantidadEncuestasBorrador}}</p>
+                            <h5 class="card-title">Encuestas en borrador: <span>{{cantidadEncuestasBorrador}}</span></h5>
                         </div>
                     </div>
                     <div class="card" style="width: 18rem;">
                         <i class="fas fa-file-alt fa-7x"></i>
                         <div class="card-body">
-                            <h5 class="card-title">Total respuestas</h5>
-                            <p class="card-text">{{cantidadRespuestas}}</p>
+                            <h5 class="card-title">Total respuestas: <span>{{cantidadRespuestas}}</span></h5>
                         </div>
                     </div>
                 </div>
@@ -59,5 +58,5 @@
                 <button class="btn btn-outline-danger" [routerLink]="['/surveyeditor']" > Crear Encuesta</button>
             </div>
         </div>
-    <!-- </div> -->
+    </div>
 </div>

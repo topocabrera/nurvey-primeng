@@ -1,4 +1,4 @@
-import { Routes,RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
@@ -14,25 +14,27 @@ import { RegisterComponent } from './components/register/register.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
+import { misUsuariosComponent } from './components/misusuarios/misusuarios.component';
 import { AuthGuard } from './components/guards';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-            {path: 'surveyeditor', component: SurveyEditorComponent},
+            {path: 'surveyeditor', component: SurveyEditorComponent, canActivate: [AuthGuard]},
             {path: 'login', component: LoginComponent},
-            {path: 'user', component: UserComponent},
-            {path: 'dashboard', component: DashboardComponent},
-            {path: 'dashboard/:id', component: DashboardComponent},
-            {path: 'password', component: PasswordComponent},
-            {path: 'misencuestas', component: misEncuestasComponent},
+            {path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+            {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+            {path: 'dashboard/:id', component: DashboardComponent, canActivate: [AuthGuard]},
+            {path: 'password', component: PasswordComponent, canActivate: [AuthGuard]},
+            {path: 'misencuestas', component: misEncuestasComponent, canActivate: [AuthGuard]},
             {path: 'register', component: RegisterComponent},
-            {path: 'editor/:id', component: SurveyEditorComponent},
+            {path: 'misusuarios', component: misUsuariosComponent, canActivate: [AuthGuard]},
+            {path: 'editor/:id', component: SurveyEditorComponent, canActivate: [AuthGuard]},
             {path: 'respuesta/:id', component: respuestaComponent},
             {path: 'categorias', component: CategoriasComponent},
             {path: 'categoria/:id', component: CategoriaFormComponent},
-            {path: 'vistaprevia/:id', component: VistapreviaComponent},
+            {path: 'vistaprevia/:id', component: VistapreviaComponent, canActivate: [AuthGuard]},
             { path:'', pathMatch:'full', redirectTo:'home'},
             { path:'**', pathMatch:'full', redirectTo:'home'}
         ])

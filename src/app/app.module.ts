@@ -21,13 +21,15 @@ import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
 import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { NavbarComponent } from './components/navbar/navbar.component'
+import { misUsuariosComponent } from './components/misusuarios/misusuarios.component'
+import { filaUsuarioComponent } from './components/misusuarios/filausuario.component'
 
 /*Servicios */
 import { AlertService, AuthenticationService, UserService } from './services';
 import { PreguntasService } from './services/preguntas.service';
 import { ResultadoService } from './services/resultados.service'
 
-import { AuthGuard } from './components/guards'; 
+import { AuthGuard } from './components/guards';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -51,6 +53,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
         FiltrodashComponent,
         GraficoPreguntaComponent,
         misEncuestasComponent,
+        misUsuariosComponent,
+        filaUsuarioComponent,
         respuestaComponent,
         NavbarComponent,
         LoadingComponent,

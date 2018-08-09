@@ -2,7 +2,7 @@
     <nav id="sidebar">
             <div class="sidebar-header">
                 <a href="#" class="logo" [routerLink]="['/home']">
-                    <img alt="logo" src="assets/showcase/favicon/logonurvey.png" class="logo img-circle" />
+                    <img alt="logo" src="assets/showcase/images/Logo Nurvey FINAL CURVAS-02.png" class="logo img-circle" />
                 </a>
             </div>
             <div class="layout-menu" *ngIf="loggedIn && !isAdmin">
@@ -37,31 +37,40 @@
                     </li>
                     <!-- seccion Acerca -->
                     <li routerLinkActive="active">
-                        <a ><span class="layout-menu-icon-active fas fa-asterisk"> </span>Acerca de nosotros</a>
+                        <a ><span class="layout-menu-icon-active fas fa-asterisk"> </span> Acerca de nosotros</a>
                     </li>
                 </ul>
             </div>
             <!-- menu administrador -->
             <div class="layout-menu" *ngIf="loggedIn && isAdmin">
                 <ul class="list-unstyled components">
-                <!-- seccion home -->
-                <li routerLinkActive="active">
-                    <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
-                </li>
-        
-                <!-- seccion perfil usuario -->
-                <li routerLinkActive="active"> 
-                    <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
-                    <ul class="collapse list-unstyled" id="userSubmenu">
-                        <li routerLinkActive="active">
-                                <a [routerLink]="['/user']"> Mis Datos</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- seccion categorias -->
-                <li routerLinkActive="active">
-                    <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span> Categorias</a>
-                </li>
+                    <!-- seccion home -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
+                    </li>
+            
+                    <!-- seccion perfil usuario -->
+                    <!-- <li routerLinkActive="active"> 
+                        <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
+                        <ul class="collapse list-unstyled" id="userSubmenu">
+                            <li routerLinkActive="active">
+                                    <a [routerLink]="['/user']"> Mis Datos</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <!-- seccion admin de usuarios -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/misusuarios']">
+                            <span class="layout-menu-icon-active fas fa-users"> </span>
+                            Usuarios
+                        </a>
+                    </li>
+
+                    <!-- seccion categorias -->
+                    <li routerLinkActive="active">
+                        <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span> Categorias</a>
+                    </li>
+                    
                 </ul>
             </div>
         </nav>

@@ -5,7 +5,7 @@ export class UserModelClass{
     passwordUsuario: string;
     fechaAlta: Date;
     ultimaEncuesta: Date;
-    encuestasCreadas: string;
+    encuestasCreadas: number;
     //repeatpasswordUsuario: string;
     
     constructor(idUsuario,nombreUsuario,emailUsuario,passwordUsuario,fechaAlta,ultimaEncuesta,encuestasCreadas){

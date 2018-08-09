@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   cantidadEncuestasBorrador:number;
   cantidadRespuestas:number;
   encuestas:any[] = [];
+  isAdmin: boolean;
 
   constructor(private _surveyService:SurveyService,
               private _resultadosService:ResultadoService) {
@@ -44,6 +45,6 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
+    if (this.currentUser.idUsuario === 25) {this.isAdmin = true;} else {this.isAdmin = false;}
   }
-
 }
