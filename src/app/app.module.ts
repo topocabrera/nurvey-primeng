@@ -78,7 +78,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ],
     providers: [SurveyService,
         PreguntasService,
-        //customHttpProvider,
+        // customHttpProvider,
         AuthGuard,
         ResultadoService,
         AlertService,
