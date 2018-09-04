@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { ResultadoService } from './../../services/resultados.service';
 import * as Chartist from 'chartist';
 import { SurveyService } from './../../services/survey.service';
@@ -17,6 +17,7 @@ declare var seriesGrafico:any;
 })
 
 export class DashboardComponent implements OnInit{
+    @Input() idTabSelected: string;
     resultadoService: ResultadoService;  
     nombreGrafico: string;
     preguntasEncuesta = [];     
@@ -27,10 +28,13 @@ export class DashboardComponent implements OnInit{
     currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
     loading:boolean;
     alert:boolean;
+    encuestaSeleccionada:boolean;
     mensajeAlert:string;
     estiloAlert:string;
     tituloEncuesta:string;
-
+    fechaEncuestaSeleccionada: string;
+    estadoEncuestaSeleccionada: string;
+    
     constructor(resultadoService: ResultadoService, 
                 surveyService: SurveyService, 
                 preguntasService:PreguntasService,
@@ -44,6 +48,7 @@ export class DashboardComponent implements OnInit{
       this.estiloAlert = "";
   }  
     ngOnInit(){
+      this.encuestaSeleccionada = false;
       this.loadEncuestas();
       this.activatedRouter.params.subscribe( params => {
         if(params['id'] > 0 ){
@@ -55,6 +60,10 @@ export class DashboardComponent implements OnInit{
         }
       });
                 
+    }
+
+    ngOnChanges(){
+      console.log(this.idTabSelected)
     }
 
     loadEncuestas(){
@@ -87,16 +96,26 @@ export class DashboardComponent implements OnInit{
                   res => {
                     this.loading = false;
                     this.alert = false;
+                    this.encuestaSeleccionada = true;
                   }
                  ,error => {
                   this.loading = false;
                   this.alert = true;
+                  this.encuestaSeleccionada = false;
                 });
             this.surveyService.getEncuestasById(idEncuesta)
             .subscribe( res => {
+              console.log(res)
               this.tituloEncuesta = res.tituloEncuesta;
+              this.estadoEncuestaSeleccionada = res.estadoEncuesta;
+              this.fechaEncuestaSeleccionada = res.fechaEncuesta;
             });                  
-            
+
+            this.resultadoService.getInfoRespuesta(idEncuesta,this.currentUser.idUsuario)
+            .subscribe( res => {
+              console.log(res)
+            });
+
             this.getPreguntasAgrupadas(idEncuesta);
               //var preguntaAgrupable = {idPregunta:1, descripcion:"Sexo",activo:false, respuestasPosibles:["Masculino","Femenino"]}
               //var preguntaAgrupableEdad = {idPregunta:2, descripcion:"Edad",activo:true, respuestasPosibles:["10-15","15-25","25-35"]}

@@ -12,6 +12,7 @@ export class ResultadoService {
     private serverRestAPIUrl: string;
     respuestasPosibles: any[];
     respuestasPosiblesPreguntaAgrupada: any[]
+    infoRespuestas: any[];
 
     constructor(http: Http) {
         this.http = http;
@@ -65,5 +66,15 @@ export class ResultadoService {
                 // console.log(res.json())
                 return res.json();
             });
+    }
+
+    getInfoRespuesta(idEncuesta: number, idUsuario: number){
+        this.infoRespuestas = [];
+        
+        return this.http.get(environment.apiEndPoint + '/api/Respuestas/idEncuesta/' + idEncuesta + '/idUsuario/' + idUsuario)
+            .map((res:any) => {
+                return res.json(); 
+            });
+
     }
 }

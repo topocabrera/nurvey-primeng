@@ -27,27 +27,79 @@
                                 <div class="col-md-6">
                                     <button (click)="seleccionarEncuesta()" data-dismiss="alert" class="btn btn-outline-primary">Seleccionar</button>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" >
                                     <app-loading *ngIf="loading" class="text-center"></app-loading> 
                                 </div>
                         </div>
                         <br>
-                        <div *ngIf="!loading" class="row">
-                            <div class="col tituloEncuesta">
-                                <h3> {{tituloEncuesta}}</h3>
-                            </div>
-                        </div>               
+                        <!-- <div *ngIf="!loading" class="row">
+                            
+                        </div> -->
                     </div>
                 </div>
         </div>   
     </div>
-    <div *ngIf="!loading" class="animated fadeIn">
-        <grafico-pregunta class="m-5" *ngFor="let pregunta of preguntasService.preguntas" 
-                title="{{pregunta.descripcion}}" 
-                idEncuesta="{{pregunta.idEncuesta}}"
-                idPregunta="{{pregunta.idPregunta}}"
-                [preguntasAgrupables]="preguntasAgrupables">        
-            
-        </grafico-pregunta>
+    <div *ngIf="!loading && encuestaSeleccionada" class="animated fadeIn">
+        <div class="row" class="text-center">
+            <h3> {{tituloEncuesta}}</h3>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="INFORMACIÓN SOBRE LAS PREGUNTAS">
+                <ng-template matTabContent>
+                <div class="example-large-box mat-elevation-z4">
+                <grafico-pregunta class="m-5" *ngFor="let pregunta of preguntasService.preguntas" 
+                        title="{{pregunta.descripcion}}" 
+                        idEncuesta="{{pregunta.idEncuesta}}"
+                        idPregunta="{{pregunta.idPregunta}}"
+                        [preguntasAgrupables]="preguntasAgrupables">  
+                </grafico-pregunta>
+                </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="INFORMACION ACERCA LA ENCUESTA">
+                <ng-template matTabContent>
+                <div class="example-small-box mat-elevation-z4">
+                        <div class="card">
+                            <div class="card-header text-left">
+                                <h5 class="title"></h5>
+                            </div>     
+                            <div class="content">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Estado:              {{estadoEncuestaSeleccionada}}</li>
+                                        <li class="list-group-item">Fecha inicio:        {{fechaEncuestaSeleccionada}}</li>
+                                        <li class="list-group-item">Última modificación: --</li>
+                                        <li class="list-group-item">Tiempo destinado:    --</li>
+                                    </ul>
+                            </div>
+                        </div>
+                </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="INFORMACION ACERCA RESPUESTAS INDIVIDUALES">
+                    <ng-template matTabContent>
+                    <div class="example-small-box mat-elevation-z4">
+                            <div class="card">
+                                <div class="card-header text-left">
+                                    <input #indice 
+                                    type="number" name="indice" 
+                                    placeholder="Nro de encuestado..." class="form-control">
+                                    <button type="button"
+                                    class="btn btn-outline-primary"
+                                    (click)="mostrarInfoRta(indice.value)"
+                                    ></button>
+                                </div>
+                                <div *ngIf="infoVisible" class="content">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">Pregunta:              {{estadoEncuestaSeleccionada}}</li>
+                                            <li class="list-group-item">Fecha inicio:        {{fechaEncuestaSeleccionada}}</li>
+                                            <li class="list-group-item">Última modificación: --</li>
+                                            <li class="list-group-item">Tiempo destinado:    --</li>
+                                        </ul>
+                                </div>
+                            </div>
+                    </div>
+                    </ng-template>
+                </mat-tab>
+        </mat-tab-group>
     </div>
 </div>
