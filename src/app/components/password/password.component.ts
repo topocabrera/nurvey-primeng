@@ -17,7 +17,8 @@ export class PasswordComponent {
     public password: AbstractControl;
     public repeatPassword: AbstractControl;
     public passwords: FormGroup;
-
+    muestraMensajeToast: boolean;
+    mensajeToast:string;
     currentUser: UserModelClass;
     users: UserModelClass[] = [];
 
@@ -71,10 +72,14 @@ export class PasswordComponent {
             this.userService.update(usuarioMod)
                 .subscribe(
                     data => {
-                        this.router.navigate(['/home']);
+                        this.muestraMensajeToast = true;
+                        this.mensajeToast = "Contraseña modificada correctamente";
+                        //TODO: timeout para redireccionar
+                        this.router.navigate(['/home']);    
                     });
         } else {
-            alert('Contraseña antigua incorrecta')
+            this.muestraMensajeToast = true;
+            this.mensajeToast = "Contraseña antigua incorrecta";
         }
     }
 }

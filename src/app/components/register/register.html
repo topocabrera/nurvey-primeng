@@ -46,6 +46,7 @@
               <div class="panel-footer ">
                   Ya tiene cuenta en Nurvey? <a [routerLink]="['/login']" onClick=""> Ingresar! </a>
                 </div>
+                <app-toast *ngIf="muestraMensajeToast" [mensaje]="mensajeToast"></app-toast>
           </div>
         </form>
       </div>
@@ -53,3 +54,4 @@
     </div>
   </div>
 </div>
+

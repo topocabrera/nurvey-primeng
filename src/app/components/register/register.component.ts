@@ -18,6 +18,8 @@ export class RegisterComponent {
     public password:AbstractControl;
     public repeatPassword:AbstractControl;
     public passwords:FormGroup;
+    muestraMensajeToast: boolean;
+    mensajeToast: string;
 
     model: any = {};
     loading = false;
@@ -60,18 +62,21 @@ export class RegisterComponent {
               this.userService.create(this.model)
               .subscribe(
                   data => {
-                      //this.alertService.success('Registrado exitosamente', true);
-                      alert("Usuario registrado exitosamente");
-                      this.router.navigate(['/login']);
+                    this.muestraMensajeToast = true;
+                    this.mensajeToast = "Usuario registrado exitosamente";
+                    //TODO: timeout para rediccionar                   
+                    this.router.navigate(['/login']);
                   },
                   error => {
-                      this.alertService.error(error);
+                      this.muestraMensajeToast = true;
+                      this.mensajeToast = error;
                       this.loading = false;
                   });
             }
             else
             {
-              alert("Email ya existente");
+              this.muestraMensajeToast = true;
+              this.mensajeToast = "Email existente";
             }
           }
         ) 

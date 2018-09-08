@@ -39,7 +39,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { MatTabsModule } from '@angular/material/tabs'; 
+import { MatTabsModule } from '@angular/material/tabs';
+import { ToastComponent } from './components/toast/toast.component'; 
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import { MatTabsModule } from '@angular/material/tabs';
         CategoriasComponent,
         CategoriaFormComponent,
         VistapreviaComponent,
-        SidebarComponent
+        SidebarComponent,
+        ToastComponent
     ],
     imports: [
         BrowserModule,

@@ -28,7 +28,8 @@ export class SurveyEditorComponent  {
     surveyService: SurveyService;
     newSurvey: SurveyModelClass;
     returnUrl: string;
-    
+    muestraMensajeToast: boolean;
+    mensajeToast: string;   
     
     @Input() json: any;
     @Output() surveySaved: EventEmitter<Object> = new EventEmitter();
@@ -40,6 +41,8 @@ export class SurveyEditorComponent  {
         Survey.JsonObject.metaData.removeProperty("selectbase", "choicesUrl");
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.surveyService = surveyService;
+        this.muestraMensajeToast = false;
+        this.mensajeToast = "";
         console.log(Survey.JsonObject.metaData)
     }
     
@@ -138,22 +141,25 @@ export class SurveyEditorComponent  {
         //Restored savedItems from localstorage or your database.
         this.editor.toolbox.copiedJsonText = savedItems;
 
-        if (this.titulo != undefined || this.titulo != null || this.titulo != ""){
-        this.surveyService.saveSurvey(this.newSurvey,this.titulo)
-            .subscribe(
-                data => {
+        if (this.titulo)
+            {   this.surveyService.saveSurvey(this.newSurvey,this.titulo)
+                .subscribe(
+                    data => {
+                    this.muestraMensajeToast = true;
+                    this.mensajeToast = "Su encuesta ha sido guardada exitosamente";
                     this.router.navigate([this.returnUrl]);
-                survey => this.newSurvey
-                this.surveySaved.emit({Survey: this.newSurvey});
-                alert("Su encuesta se ha guardada satisfactoriamente.")
-                this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    
-                });
-        }
-        else{
-            alert("Debe ingresar un titulo a la encuesta.");
+                    // survey => this.newSurvey
+                    // this.surveySaved.emit({Survey: this.newSurvey});
+                    // alert("Su encuesta se ha guardada satisfactoriamente.")
+                    // this.router.navigate([this.returnUrl]);
+                    },
+                    error => {
+                        
+                    });
+            }
+        else {
+            this.muestraMensajeToast = true;
+            this.mensajeToast = "Debe ingresar un titulo a la encuesta";
         }
     }
 }
