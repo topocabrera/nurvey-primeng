@@ -9,13 +9,12 @@
                     </div>
                     <div class="content">
                         <div class="author">
-                          <img class="avatar border-white" src="assets/showcase/images/avatar/2.PNG" alt="..."/>
+                          <img class="avatar border-white" src="assets/showcase/images/avatar/{{currentUser.avatarUser}}.PNG" alt="..."/>
                           <h4 class="title">{{currentUser.nombreUsuario}}<br />
-                             <a href="#"><small>{{currentUser.emailUsuario}}</small></a>
+                             <a><small>{{currentUser.emailUsuario}}</small></a>
                           </h4>
                         </div>
                     </div>
-                    <hr>
                 </div>
                  <!-- Button trigger modal -->
                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -35,42 +34,48 @@
                             <div class="modal-body">
                                 <div class="container">
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/1.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar1"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar1.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/2.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar2"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar2.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/3.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar3"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar3.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/4.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar4"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar4.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/5.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar5"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar5.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/6.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar6"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar6.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/7.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar7"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar7.PNG"/>
                                     </label>
                                     <label>
-                                        <input type="radio" name="images"/><img src="../../../assets/showcase/images/avatar/8.PNG"/>
+                                        <input type="radio" name="images" [(ngModel)]="model.avatarUser" value="avatar8"/>
+                                        <img class="img-avatar" src="../../../assets/showcase/images/avatar/avatar8.PNG"/>
                                     </label>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" (click)="actualizarFoto()" class="btn btn-primary">Guardar</button>
                             </div>
                         </div>
                         </div>
                     </div>
-
-
             </div>
-            <!-- <div class="col-lg-8 col-md-7">
+            <div class="col-lg-8 col-md-7">
                 <div class="card">
                     <div class="header">
                         <div class="row">
@@ -94,10 +99,24 @@
                                         name="emailUsuario" [(ngModel)]="model.emailUsuario" placeholder="Email" value="{{currentUser.emailUsuario}}">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre de la Compañía</label>
+                                        <input type="text" class="form-control border-input"
+                                        name="companyUsuario" [(ngModel)]="model.companyUsuario" placeholder="Nombre de la Compañía" value="{{currentUser.companyUsuario}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ubicación</label>
+                                        <input type="text" class="form-control border-input"
+                                        name="ubicacionUsuario" [(ngModel)]="model.ubicacionUsuario" placeholder="Ubicación" value="{{currentUser.ubicacionUsuario}}">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                     <div class="col-md-6 text-left">
-                                        <button (click)="actualizar()" class="btn btn-info btn-fill btn-wd">Actualizar Perfil</button>
+                                        <button (click)="actualizarFoto()" class="btn btn-info btn-fill btn-wd">Actualizar Perfil</button>
                                     </div>
                                     <div class="col-md-6">
                                         <button type="submit" class="btn btn-info btn-fill btn-wd" [routerLink]="['/password']">Cambiar Contraseña</button>
@@ -108,7 +127,7 @@
                         </form>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>
