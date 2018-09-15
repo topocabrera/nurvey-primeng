@@ -39,7 +39,6 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ToastComponent } from './components/toast/toast.component'; 
 
 @NgModule({
@@ -76,8 +75,7 @@ import { ToastComponent } from './components/toast/toast.component';
         AppRoutingModule,
         HttpModule,
         NgIdleKeepaliveModule.forRoot(),
-        ChartsModule,
-        MatTabsModule
+        ChartsModule
     ],
     providers: [SurveyService,
         PreguntasService,
