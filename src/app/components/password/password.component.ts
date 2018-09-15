@@ -66,7 +66,10 @@ export class PasswordComponent {
             this.model.passwordUsuario,
             this.currentUser.fechaAlta,
             this.currentUser.ultimaEncuesta,
-            this.currentUser.encuestasCreadas)
+            this.currentUser.encuestasCreadas,
+            this.currentUser.companyUsuario,
+            this.currentUser.ubicacionUsuario,
+            this.currentUser.avatarUser)
 
         if (this.currentUser.passwordUsuario === this.model.passwordUsuario1) {
             this.userService.update(usuarioMod)

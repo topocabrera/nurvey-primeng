@@ -1,19 +1,27 @@
+/* Modal styles */
+
 .container {
   padding: 20px;
 }
 input[type="radio"] {
   display: none;
 }
-img {
+.img-avatar {
   padding: 5px;
   margin: 5px;
   height: 171px;
+  cursor: pointer;
 }
+
 input[type="radio"]:checked + img {
   background-color: #aaa;
 }
 
+button.btn.btn-primary {
+  margin-bottom: 0px;
+}
 
+/* Datos de usuario */
 
 .card {
     border-radius: 6px;
