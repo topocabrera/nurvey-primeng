@@ -50,6 +50,8 @@ export class UserComponent {
         this.userService.update(usuarioMod)
             .subscribe(
                 data => {
+                    localStorage.clear();
+                    localStorage.setItem('currentUser', JSON.stringify(usuarioMod));
                     this.router.navigate(['/home']);
                 });
     }
@@ -67,10 +69,11 @@ export class UserComponent {
             this.currentUser.ubicacionUsuario,
             this.model.avatarUser,
         )
-        this.userService.update(usuarioMod)
-            .subscribe(
-                data => {
-                    this.router.navigate(['/user']);
-                });
+        // $('#exampleModal').hide();
+        // this.userService.update(usuarioMod)
+        //     .subscribe(
+        //         data => {
+        //             this.router.navigate(['/user']);
+        //         });
     }
 }
