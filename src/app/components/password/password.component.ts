@@ -9,6 +9,7 @@ import { UserModelClass } from '../../domain/UserModelClass';
     selector: 'password',
     // moduleId: module.id,
     templateUrl: 'password.html',
+    styleUrls: ['./password.css']
 })
 
 export class PasswordComponent {
