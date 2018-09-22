@@ -22,6 +22,8 @@ export class UserComponent {
     public name: AbstractControl;
     public email: AbstractControl;
     public form: FormGroup;
+    muestraMensajeToast: boolean;
+    mensajeToast: string;
 
     constructor(private router: Router,
         private userService: UserService,
@@ -52,7 +54,9 @@ export class UserComponent {
                 data => {
                     localStorage.clear();
                     localStorage.setItem('currentUser', JSON.stringify(usuarioMod));
-                    this.router.navigate(['/home']);
+                    this.muestraMensajeToast = true;
+                    this.mensajeToast = 'Perfil actualizado correctamente';
+                    // this.router.navigate(['/user']);
                 });
     }
 

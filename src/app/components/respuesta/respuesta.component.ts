@@ -51,12 +51,22 @@ export class respuestaComponent implements OnInit, OnDestroy {
                     var item;
                     var listaRespuestas = [];
                     for (var type in result.data) {
-                        item = {};
-                        item.codigoPregunta = type;
-                        item.descripcionRespuesta = result.data[type];
-                        item.idEncuesta = parseInt(parm);
-                        listaRespuestas.push(item);
-                        // console.log(item);
+                        if(Array.isArray(result.data[type])){
+                            for(resp in result.data[type]){
+                                item ={};
+                                item.codigoPregunta = type;
+                                item.descripcionRespuesta = result.data[type][resp];
+                                item.idEncuesta = parseInt(parm);
+                                listaRespuestas.push(item);
+                            }
+                        }
+                        else{
+                            item ={};
+                            item.codigoPregunta = type;
+                            item.descripcionRespuesta = result.data[type];
+                            item.idEncuesta = parseInt(parm);
+                            listaRespuestas.push(item);
+                        }
                     }
                     var salida;
                     salida = {};   

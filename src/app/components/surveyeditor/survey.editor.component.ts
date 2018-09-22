@@ -62,7 +62,7 @@ export class SurveyEditorComponent  {
                 let editorOptions = {   showEmbededSurveyTab: false, 
                                         generateValidJSON : true, 
                                         showJSONEditorTab: false,
-                                        questionTypes: ["text", "rating", "radiogroup", "dropdown"],
+                                        questionTypes: ["text", "rating", "radiogroup", "dropdown","checkbox"],
                                         showPropertyGrid: false,
                                         isRTL: true,
                                         designerHeight: "1200px",

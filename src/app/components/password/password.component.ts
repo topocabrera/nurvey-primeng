@@ -9,6 +9,7 @@ import { UserModelClass } from '../../domain/UserModelClass';
     selector: 'password',
     // moduleId: module.id,
     templateUrl: 'password.html',
+    styleUrls: ['./password.css']
 })
 
 export class PasswordComponent {
@@ -78,7 +79,7 @@ export class PasswordComponent {
                         this.muestraMensajeToast = true;
                         this.mensajeToast = "Contraseña modificada correctamente";
                         //TODO: timeout para redireccionar
-                        this.router.navigate(['/home']);    
+                        //this.router.navigate(['/home']);    
                     });
         } else {
             this.muestraMensajeToast = true;
