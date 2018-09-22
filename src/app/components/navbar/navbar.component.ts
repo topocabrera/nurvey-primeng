@@ -49,10 +49,10 @@ export class NavbarComponent implements OnInit {
         }
     }
 
-    login() {
+    // login() {
 
-        this.authenticationService.login(this.currentUser.emailUsuario, this.currentUser.passwordUsuario)
-    }
+    //     this.authenticationService.login(this.currentUser.emailUsuario, this.currentUser.passwordUsuario)
+    // }
 
     salir() {
         this.authenticationService.logout();

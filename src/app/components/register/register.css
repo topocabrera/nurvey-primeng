@@ -39,6 +39,19 @@ body, html {
     margin-left: 3px;
 }
 
+input.ng-touched.ng-invalid {
+    border-color: red
+}
+
+input.ng-touched.ng-valid {
+    border-color:lightgreen;
+}
+
+.ng-star-inserted{
+    color:red;
+    margin-left: 25px;
+}
+
 #snackbar {
     visibility: hidden;
     min-width: 250px;

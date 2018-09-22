@@ -38,6 +38,7 @@ export class RegisterComponent {
       }, { validator: EqualPasswordsValidator.validate('password', 'repeatPassword') })
     });
 
+    console.log(this.passwords);
     this.name = this.form.controls['name'];
     this.email = this.form.controls['email'];
     this.passwords = <FormGroup>this.form.controls['passwords'];
@@ -62,7 +63,7 @@ export class RegisterComponent {
                 data => {
                   this.muestraMensajeToast = true;
                   this.mensajeToast = 'Usuario registrado exitosamente';
-                  //TODO: timeout para rediccionar                   
+                  // TODO: timeout para rediccionar
                   this.router.navigate(['/login']);
                 },
                 error => {
