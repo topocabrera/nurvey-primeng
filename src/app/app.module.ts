@@ -39,6 +39,7 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ToastComponent } from './components/toast/toast.component'; 
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
         CategoriasComponent,
         CategoriaFormComponent,
         VistapreviaComponent,
-        SidebarComponent
+        SidebarComponent,
+        ToastComponent
     ],
     imports: [
         BrowserModule,
@@ -74,11 +76,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
         HttpModule,
         NgIdleKeepaliveModule.forRoot(),
         ChartsModule
-
     ],
     providers: [SurveyService,
         PreguntasService,
-        //customHttpProvider,
+        // customHttpProvider,
         AuthGuard,
         ResultadoService,
         AlertService,

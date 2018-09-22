@@ -117,9 +117,10 @@
             </div>
             <span class="col-sm-12 text-center"><app-loading *ngIf="loading"></app-loading></span>
             <div class="col-sm-8" *ngIf="encuestaActiva">
-                    <div class="survey-container contentcontainer codecontainer panel svd_content" id="surveyElement"> 
-                        <div id="surveyResult">
-                        </div>
+                <div class="survey-container contentcontainer codecontainer panel svd_content" id="surveyElement"> 
+                    <div id="surveyResult">
                     </div>
                 </div>
+            </div>
+            <app-toast *ngIf="muestraMensajeToast" [mensaje]="mensajeToast"></app-toast>
         </div>

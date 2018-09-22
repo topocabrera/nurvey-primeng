@@ -24,6 +24,6 @@
   border-radius: 0px;
 }
 
-.tituloEncuesta{
-  text-align: center;
+.capitalizate{
+  text-transform: capitalize;
 }

@@ -9,6 +9,7 @@ import { UserModelClass } from '../../domain/UserModelClass';
     selector: 'password',
     // moduleId: module.id,
     templateUrl: 'password.html',
+    styleUrls: ['./password.css']
 })
 
 export class PasswordComponent {
@@ -17,7 +18,8 @@ export class PasswordComponent {
     public password: AbstractControl;
     public repeatPassword: AbstractControl;
     public passwords: FormGroup;
-
+    muestraMensajeToast: boolean;
+    mensajeToast:string;
     currentUser: UserModelClass;
     users: UserModelClass[] = [];
 
@@ -65,16 +67,23 @@ export class PasswordComponent {
             this.model.passwordUsuario,
             this.currentUser.fechaAlta,
             this.currentUser.ultimaEncuesta,
-            this.currentUser.encuestasCreadas)
+            this.currentUser.encuestasCreadas,
+            this.currentUser.companyUsuario,
+            this.currentUser.ubicacionUsuario,
+            this.currentUser.avatarUser)
 
         if (this.currentUser.passwordUsuario === this.model.passwordUsuario1) {
             this.userService.update(usuarioMod)
                 .subscribe(
                     data => {
-                        this.router.navigate(['/home']);
+                        this.muestraMensajeToast = true;
+                        this.mensajeToast = "Contraseña modificada correctamente";
+                        //TODO: timeout para redireccionar
+                        //this.router.navigate(['/home']);    
                     });
         } else {
-            alert('Contraseña antigua incorrecta')
+            this.muestraMensajeToast = true;
+            this.mensajeToast = "Contraseña antigua incorrecta";
         }
     }
 }

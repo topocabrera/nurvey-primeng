@@ -23,8 +23,9 @@ export class misEncuestasComponent implements OnInit {
     loading:boolean;
     mensajeAlert:string;
     estiloAlert:string;
+    muestraMensajeToast: boolean;
+    mensajeToast: string;
 
-    
     encuesta = { 
         estadoEncuesta:"" 
     } 
@@ -163,8 +164,9 @@ export class misEncuestasComponent implements OnInit {
         this._surveyService.archivarEncuesta(idEncuesta,idUsuario) 
             .subscribe( 
                 res => { 
-                    alert("La encuesta ha sido archivada.") 
-                } 
+                    this.muestraMensajeToast = true;
+                    this.mensajeToast = "La encuesta ha sido archivada.";
+                }
             ) 
     }
 
