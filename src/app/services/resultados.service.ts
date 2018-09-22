@@ -11,8 +11,9 @@ export class ResultadoService {
     private http: Http;
     private serverRestAPIUrl: string;
     respuestasPosibles: any[];
-    respuestasPosiblesPreguntaAgrupada: any[]
+    respuestasPosiblesPreguntaAgrupada: any[];
     infoRespuestas: any[];
+    respuestasAgrupadasPorEdad: any[];
 
     constructor(http: Http) {
         this.http = http;
@@ -76,5 +77,15 @@ export class ResultadoService {
                 return res.json(); 
             });
 
+    }
+
+    getGraficosRespuestasPorEdad(idEncuesta:number , idPregunta:number, extremoInferior:number, extremoSuperior:number){
+        // 59/3/15/20
+        // resultadosGraficos/{idEncuesta}/{idPregunta}/{extremoInferior}/{extremoSuperior}"
+        this.respuestasAgrupadasPorEdad = [];
+        return this.http.get(this.serverRestAPIUrl +  idEncuesta + '/' + idPregunta + '/' + extremoInferior + '/' + extremoSuperior)
+            .map((res: any) => {
+                return res.json();
+            });
     }
 }

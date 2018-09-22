@@ -21,17 +21,17 @@ export class PreguntasService {
             .map(resp => {
                 for (let u of resp.json()) {
                     if(u.idEncuesta == idEncuesta && !u.esAgrupable){
-                        this.preguntas.push(
-                            new PreguntaModelClass(
-                                u.idEncuesta,
-                                u.idPregunta,
-                                u.idCategoria,
-                                u.idTipoPregunta,
-                                u.descripcion,
-                                u.name));
+                        this.preguntas.push(u);
+                            // new PreguntaModelClass(
+                            //     u.idEncuesta,
+                            //     u.idPregunta,
+                            //     u.idCategoria,
+                            //     u.idTipoPregunta,
+                            //     u.descripcion,
+                            //     u.name));
                     }
                 }
-
+                return this.preguntas;
             });
     }
 
@@ -41,17 +41,17 @@ export class PreguntasService {
             .map(resp => {
                 for (let u of resp.json()) {
                     if(u.idEncuesta == idEncuesta && u.esAgrupable){
-                        this.preguntasAgrupables.push(
-                            new PreguntaModelClass(
-                                u.idEncuesta,
-                                u.idPregunta,
-                                u.idCategoria,
-                                u.idTipoPregunta,
-                                u.descripcion,
-                                u.name));
+                        this.preguntasAgrupables.push(u);
+                            // new PreguntaModelClass(
+                            //     u.idEncuesta,
+                            //     u.idPregunta,
+                            //     u.idCategoria,
+                            //     u.idTipoPregunta,
+                            //     u.descripcion,
+                            //     u.name));
                     }
                 }
-
+                return this.preguntasAgrupables;
             });
     }
 

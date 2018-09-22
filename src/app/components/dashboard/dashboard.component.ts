@@ -34,7 +34,10 @@ export class DashboardComponent implements OnInit{
     tituloEncuesta:string;
     fechaEncuestaSeleccionada: string;
     estadoEncuestaSeleccionada: string;
-    
+    infoRespuestas: any;
+    respuesta:any;
+    infoVisible:boolean;
+    cantidadRtas: number;
     constructor(resultadoService: ResultadoService, 
                 surveyService: SurveyService, 
                 preguntasService:PreguntasService,
@@ -83,6 +86,7 @@ export class DashboardComponent implements OnInit{
 
     seleccionarEncuesta(){
       this.loading = true;
+      this.infoVisible = false;
       var idEncuesta = $("#selectorEncuesta").val();
       if(idEncuesta == ""){
         //error
@@ -91,6 +95,7 @@ export class DashboardComponent implements OnInit{
         this.mensajeAlert = "Debe seleccionar una encuesta."
         this.estiloAlert = "alert-warning"
       }else{
+            //TAB info de preguntas
             this.preguntasService.getPreguntasEncuesta(idEncuesta)
                 .subscribe(
                   res => {
@@ -103,23 +108,38 @@ export class DashboardComponent implements OnInit{
                   this.alert = true;
                   this.encuestaSeleccionada = false;
                 });
+            //TAB info de la encuesta
             this.surveyService.getEncuestasById(idEncuesta)
             .subscribe( res => {
+              console.log("getEncuestasById(idEncuesta)")
               console.log(res)
               this.tituloEncuesta = res.tituloEncuesta;
               this.estadoEncuestaSeleccionada = res.estadoEncuesta;
               this.fechaEncuestaSeleccionada = res.fechaEncuesta;
             });                  
-
+            //TAB info de cada respuesta (hacer por instancia de respuesta)
             this.resultadoService.getInfoRespuesta(idEncuesta,this.currentUser.idUsuario)
             .subscribe( res => {
               console.log(res)
+              this.infoRespuestas = res;
             });
 
             this.getPreguntasAgrupadas(idEncuesta);
-              //var preguntaAgrupable = {idPregunta:1, descripcion:"Sexo",activo:false, respuestasPosibles:["Masculino","Femenino"]}
-              //var preguntaAgrupableEdad = {idPregunta:2, descripcion:"Edad",activo:true, respuestasPosibles:["10-15","15-25","25-35"]}
             this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
+            console.log(this.preguntasAgrupables)
+            // var preguntaAgrupable = {idPregunta:1, descripcion:"Sexo",activo:false, respuestasPosibles:["Masculino","Femenino"]}
+            // var preguntaAgrupableEdad = {idPregunta:2, descripcion:"Edad",activo:true, respuestasPosibles:["10-15","15-25","25-35"]}
+            
           }
+    }
+
+    mostrarInfoRta(value:number) {
+      this.cantidadRtas = this.infoRespuestas.length;
+      if(value > 0 && value < this.infoRespuestas.length){
+        this.respuesta = this.infoRespuestas[value-1];
+        this.infoVisible = true;
+      }else{
+        console.log("value incorrecto")
+      }
     }
 }

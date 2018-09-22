@@ -25,11 +25,19 @@
                                 </select>
                             </div>
                                 <div class="col-md-6">
-                                    <button (click)="seleccionarEncuesta()" data-dismiss="alert" class="btn btn-outline-primary">Seleccionar</button>
+                                <button (click)="seleccionarEncuesta()" 
+                                    data-dismiss="alert" 
+                                    class="btn btn-outline-primary"
+                                    [disabled]="loading">
+                                <i [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
+                                <span *ngIf="!loading">Seleccionar</span>
+                                <span *ngIf="loading">Cargando...</span>
+                                </button>
+
                                 </div>
-                                <div class="col-md-12" >
+                                <!-- <div class="col-md-12" >
                                     <app-loading *ngIf="loading" class="text-center"></app-loading> 
-                                </div>
+                                </div> -->
                         </div>
                         <br>
                     </div>
@@ -42,13 +50,13 @@
         </div>
         
         <ul class="nav justify-content-center">
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoPreguntas">Información de preguntas</a></li>
+            <li class="nav-item active"><a data-toggle="tab" class="nav-link active show" href="#infoPreguntas" aria-expanded="true">Información de preguntas</a></li>
             <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoEncuesta">Información acerca la encuesta</a></li>
             <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoRespuestas">Información acerca las respuestas</a></li>
         </ul>
         
             <div class="tab-content">
-            <div id="infoPreguntas" class="tab-pane fade in active">
+            <div id="infoPreguntas" class="tab-pane fadeIn active">
                     <grafico-pregunta class="m-5" *ngFor="let pregunta of preguntasService.preguntas" 
                         title="{{pregunta.descripcion}}" 
                         idEncuesta="{{pregunta.idEncuesta}}"
@@ -63,9 +71,9 @@
                         </div>     
                         <div class="content">
                                 <ul class="list-group">
-                                    <li class="list-group-item capitalizate">Estado:              {{estadoEncuestaSeleccionada}}</li>
-                                    <li class="list-group-item">Fecha inicio:        15/10/2017 </li>
-                                    <li class="list-group-item">Última modificación: 02/08/2018 18:09:51</li>
+                                    <li class="list-group-item capitalizate">Estado: {{estadoEncuestaSeleccionada}}</li>
+                                    <li class="list-group-item">Fecha inicio: {{fechaEncuestaSeleccionada | date : 'dd/MM/yyyy'}} </li>
+                                    <!-- <li class="list-group-item">Última modificación: 02/08/2018 18:09:51</li> -->
                                     <!-- <li class="list-group-item">Tiempo destinado:    --</li> -->
                                 </ul>
                         </div>
@@ -79,15 +87,21 @@
                             placeholder="Nro de encuestado..." class="form-control">
                             <button type="button"
                             class="btn btn-outline-primary"
+                            [disabled]="loading"
                             (click)="mostrarInfoRta(indice.value)"
-                            ></button>
+                            ><i [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
+                            <span *ngIf="!loading">Buscar</span>
+                            <span *ngIf="loading">Cargando...</span>
+                        </button>
+                        <span *ngIf="infoVisible"><p>N° {{indice.value}} de {{cantidadRtas}} respuestas totales.</p></span>
                         </div>
                         <div *ngIf="infoVisible" class="content">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Pregunta:              {{estadoEncuestaSeleccionada}}</li>
-                                    <li class="list-group-item">Fecha inicio:        {{fechaEncuestaSeleccionada}}</li>
-                                    <li class="list-group-item">Última modificación: --</li>
-                                    <li class="list-group-item">Tiempo destinado:    --</li>
+                                    <li class="list-group-item">Pregunta: {{respuesta.descripcionPregunta}}</li>
+                                    <li class="list-group-item">Respuesta: {{respuesta.descripcionRespuesta}}</li>
+                                    <li class="list-group-item">Fecha de Respuesta: {{respuesta.fechaRespuesta | date : 'dd/MM/yyyy'}}</li>
+                                    <li class="list-group-item">Tiempo de Respuesta: {{respuesta.tiempoRespuesta | date : 'dd/MM/yyyy HH:mm:ss'}}</li>
+                                    <li class="list-group-item">Ubicacion: {{respuesta.ubicacion}}</li>
                                 </ul>
                         </div>
                     </div>

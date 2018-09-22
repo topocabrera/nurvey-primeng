@@ -35,25 +35,25 @@
                                         <h5>Analizar respuestas por </h5>
                                     </div>
                                     <div class="col-md-2">
-                                        <select id="selectorCorte" class="listaCortes btn-primary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
+                                        <select id="selectorCorte" class="listaCortes btn-primary dropdown-toggle" aria-haspopup="true" aria-expanded="false">
                                             <option *ngFor="let agrupada of preguntasAgrupables" (click)="handleChange(item)" value="{{agrupada.descripcion}}" class="dropdown-item" id="selectorCorte">        
                                                     {{agrupada.descripcion}}
                                             </option>
                                         </select>
                                     </div>
-                                    <!-- <div class="col-md-6">
-                                        <div class="col-md-2">
-                                            <select id="selectorTipoCorte" class="listaCortes btn-secondary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
-                                                <option *ngFor="let tipoFiltro of filtro" value="{{tipoFiltro}}" class="dropdown-item" id="selectorTipoCorte">        
-                                                        Prueba datos           
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div> -->
                                     <div class="col-md-6 text-right">
                                         <button class="btn btn-outline-danger" (click)="verFiltroPor(preguntasAgrupables,idEncuesta,idPregunta)">Analizar</button>
                                     </div>
                                 </div>
+                                    <div class="row m-2" style="width: 100%">
+                                        <div class="col-md-6" *ngIf="mostrarRangosEdad">
+                                            <label class="radio-inline"><input #rango1 type="radio" (click)="valorRandoEdad(rango1.value)" value="18-29" name="optradio" checked>Entre 18 y 29 años</label>
+                                            <label class="radio-inline"><input #rango2 type="radio" (click)="valorRandoEdad(rango2.value)" value="30-49" name="optradio">Entre 30 y 49 años</label>
+                                            <label class="radio-inline"><input #rango3 type="radio" (click)="valorRandoEdad(rango3.value)" value="50-65" name="optradio">Entre 50 y 65 años</label>
+                                            <label class="radio-inline"><input #rango4 type="radio" (click)="valorRandoEdad(rango4.value)" value="66-99" name="optradio">Mayores de 66 años</label>
+                                        </div>
+                                    </div>
+                                
                             </div>  
                                 <!-- <ul>
                                     <li *ngFor="let chart of filtro"> -->
