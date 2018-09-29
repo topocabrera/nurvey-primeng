@@ -52,6 +52,10 @@ input.ng-touched.ng-valid {
     margin-left: 25px;
 }
 
+.login-link {
+	color: blue;
+}
+
 #snackbar {
     visibility: hidden;
     min-width: 250px;

@@ -5,14 +5,16 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/fo
 import { AlertService, AuthenticationService } from '../../services/index';
 import { UserModelClass } from '../../domain/UserModelClass';
 import { EmailValidator } from '../register/validators';
-import { Http, Headers } from "@angular/http";
+import { Http, Headers } from '@angular/http';
 import { NgClass } from '@angular/common';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+
+declare const FB: any;
 
 @Component({
     selector: 'login',
-    //moduleId: module.id,
+    // moduleId: module.id,
     templateUrl: 'login.html',
     styleUrls: ['./login.css']
 
@@ -73,6 +75,14 @@ export class LoginComponent implements OnInit {
         localStorage.removeItem('currentUser');
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+
+        // tslint:disable-next-line:no-unused-expression
+        `FB.init({
+            appId: '333440677425322',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });`
     }
 
     login() {
@@ -80,10 +90,10 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.emailUsuario, this.model.passwordUsuario)
             .subscribe(
                 data => {
-                    //this.router.navigate([this.returnUrl]);
+                    // this.router.navigate([this.returnUrl]);
                     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
                     this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                    window.location.href = ""
+                    window.location.href = ''
                     // this.router.navigate([""])
                 },
                 error => {
@@ -92,8 +102,64 @@ export class LoginComponent implements OnInit {
                 });
     }
 
-    //     emiteLogueado(event){
-    //         this.estaLogueado.emit({logueado: this.isLoggedIn$});
-    // }
-}
+    onSignInGoogle(googleUser) {
+        const profile = googleUser.getBasicProfile();
+        const response = {
+            email: profile.getEmail(),
+        };
+        this.authenticationService.loginSocial(response.email)
+            .subscribe(
+                data => {
+                    // this.router.navigate([this.returnUrl]);
+                    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+                    this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+                    window.location.href = ''
+                    // this.router.navigate([""])
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
+    // Implementar??
+    // window.onbeforeunload = function (e) {
+    // Se ejecuta esto antes de que se termine de descargar la página para desloggear
+    // al que esté autenticado para que pueda elegir con qué se quiere loggear.
+    //     gapi.auth2.getAuthInstance().signOut();
+    // };
 
+    statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        if (response.status === 'connected') {
+            this.LoginFacebook();
+        }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            this.statusChangeCallback(response);
+        });
+    }
+
+    LoginFacebook() {
+        FB.api('/me?fields=email', function (response) {
+            this.authenticationService.loginSocial(response)
+                .subscribe(
+                    data => {
+                        // this.router.navigate([this.returnUrl]);
+                        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+                        this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+                        window.location.href = ''
+                        // this.router.navigate([""])
+                    },
+                    error => {
+                        this.alertService.error(error);
+                        this.loading = false;
+                    });
+        });
+    }
+}
