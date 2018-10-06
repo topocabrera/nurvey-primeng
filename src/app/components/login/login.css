@@ -1,7 +1,23 @@
-body, html {
-    height: 100%;
-    background-repeat: no-repeat;
-    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+.container {
+    background-image: url('https://wallup.net/wp-content/uploads/2015/12/77673-abstract-bokeh.jpg') !important;
+	max-width: none;
+}
+
+.login-container {
+	background-color: #FFFCF5;
+    border: 0 none;
+    border-radius: 3px;
+    font-weight: 300;
+    line-height: 1.6em;
+	margin-top: 55px;
+	margin-bottom: 50px;
+	padding: 0 30px;
+	max-width: 45%;
+}
+
+.about-login {
+	margin-top: 55px;
+	padding: 0 30px;
 }
 
 .panel-heading {
@@ -31,7 +47,7 @@ body, html {
 }
 
 .fb-login-button {
-	margin-left: 24px;
+	margin-left: 35px;
 }
 
 .login-google {
