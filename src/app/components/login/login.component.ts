@@ -138,10 +138,6 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    ngAfterViewInit() {
-        this.googleInit();
-    }
-
     // onSignInGoogle(googleUser) {
     //     const profile = googleUser.getBasicProfile();
     //     console.log('Profile', profile);
