@@ -80,6 +80,15 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+  window.onLoadCallback = function () {
+    gapi.auth2.init({
+      client_id: '709446252046-o5gc707q3696fgkhjd8abgqlft49to0i.apps.googleusercontent.com',
+      cookiepolicy: 'single_host_origin',
+      scope: 'profile email'
+    });
+  }
+</script>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="709446252046-o5gc707q3696fgkhjd8abgqlft49to0i.apps.googleusercontent.com">
 

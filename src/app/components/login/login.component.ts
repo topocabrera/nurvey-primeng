@@ -105,17 +105,6 @@ export class LoginComponent implements OnInit {
                 });
     }
 
-
-    public googleInit() {
-        gapi.load('auth2', () => {
-            this.auth2 = gapi.auth2.init({
-                client_id: '709446252046-o5gc707q3696fgkhjd8abgqlft49to0i.apps.googleusercontent.com',
-                cookiepolicy: 'single_host_origin',
-                scope: 'profile email'
-            });
-            this.attachSignin(document.getElementById('googleBtn'));
-        });
-    }
     public attachSignin(element) {
         this.auth2.attachClickHandler(element, {},
             (googleUser) => {
