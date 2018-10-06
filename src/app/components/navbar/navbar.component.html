@@ -1,80 +1,83 @@
-            
-            <!-- <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
+<!-- <a href="#" class="menu-button" (click)="onMenuButtonClick($event)">
                     <i class="fa fa-bars"></i>
                 </a>
                 
                 <a href="#" class="logo" [routerLink]="['/home']">
                     <img alt="logo" src="assets/showcase/favicon/logonurvey - Copy.png" />
                 </a>     -->
-                
-                
-        <!-- </div>
+
+
+<!-- </div>
     </div>
 </nav> -->
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <!-- <div class="row">
+<nav *ngIf="loggedIn" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- <div class="row">
                 <div class="col-md-6"> -->
-                    <button  *ngIf="loggedIn" type="button" id="sidebarCollapse" class="btn btn-primary">
-                        <i class="fas fa-align-left"></i>
-                        <span></span>
-                    </button>
-                    <button *ngIf="loggedIn" class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-                <!-- </div> -->
-                    <!-- <div class="col-md-6 text-left">
+        <button *ngIf="loggedIn" type="button" id="sidebarCollapse" class="btn btn-primary">
+            <i class="fas fa-align-left"></i>
+            <span></span>
+        </button>
+        <button *ngIf="loggedIn" class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <!-- </div> -->
+        <!-- <div class="col-md-6 text-left">
                         <a href="#" class="logo" [routerLink]="['/home']">
                             <img alt="logo" src="assets/showcase/favicon/logonurvey.png" />
                         </a>
                     </div> -->
-                    <!-- <div class="col-md-6 text-right"> -->
-                        <!-- Default dropleft button -->
-            <div class="btn-group dropleft" *ngIf="loggedIn">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon glyphicon-user"></span> 
-                            <strong *ngIf="loggedIn">
-                                {{currentUser.nombreUsuario}}
-                            </strong>
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <li>
-                                <div class="navbar-login">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <p class="text-center">
-                                                <img class="iconFace icon-size" src="assets/showcase/images/avatar/{{currentUser.avatarUser}}.PNG" alt="..."/>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-8" *ngIf="loggedIn">
-                                            <p class="text-left"><strong>{{currentUser.nombreUsuario}}</strong></p>
-                                            <p class="text-left small">{{currentUser.emailUsuario}}</p>
-                                            <p class="text-left">
-                                                <a href="#" class="btn btn-primary btn-block btn-sm" [routerLink]="['/user']">Actualizar Datos</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="navbar-login navbar-login-session">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <p>
-                                            <a href="#" (click)="salir()" 
-                                            class="btn btn-danger btn-block">Cerrar Sesion</a>
-                                        </p>
-                                    </div>
-                                </div>
+        <!-- <div class="col-md-6 text-right"> -->
+        <!-- Default dropleft button -->
+        <div class="btn-group dropleft" *ngIf="loggedIn">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span> 
+                <strong *ngIf="loggedIn">
+                    {{currentUser.nombreUsuario}}
+                </strong>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <div class="dropdown-menu">
+                <li>
+                    <div class="navbar-login">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <p class="text-center">
+                                    <img class="iconFace icon-size" src="assets/showcase/images/avatar/{{currentUser.avatarUser}}.PNG"
+                                        alt="..." />
+                                </p>
                             </div>
-                        </li>
+                            <div class="col-lg-8" *ngIf="loggedIn">
+                                <p class="text-left"><strong>{{currentUser.nombreUsuario}}</strong></p>
+                                <p class="text-left small">{{currentUser.emailUsuario}}</p>
+                                <p class="text-left">
+                                    <a href="#" class="btn btn-primary btn-block btn-sm" [routerLink]="['/user']">Actualizar
+                                        Datos</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <div class="navbar-login navbar-login-session">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p>
+                                    <a href="#" (click)="salir()" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </div>
-            <!-- <ul class="nav navbar-nav navbar-right">
+        </div>
+        <!-- <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" *ngIf="loggedIn">
                         <button href="#" type="button" class="btn btn-primary" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user"></span> 
@@ -118,5 +121,5 @@
                         </ul>
                 </li>
             </ul> -->
-        </div>
+    </div>
 </nav>

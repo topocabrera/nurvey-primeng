@@ -48,7 +48,8 @@
             <div class="form-group">
               <button [disabled]="!form.valid" class="btn btn-lg btn-primary btn-block">Aceptar</button>
               <div class="panel-footer ">
-                Ya tiene cuenta en Nurvey? <a [routerLink]="['/login']" onClick=""> Ingresar! </a>
+                Ya tiene cuenta en Nurvey?
+                <a class="login-link" [routerLink]="['/login']" onClick=""> Ingresar! </a>
               </div>
               <app-toast *ngIf="muestraMensajeToast" [mensaje]="mensajeToast"></app-toast>
             </div>
