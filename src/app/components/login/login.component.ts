@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 declare const FB: any;
+declare const gapi: any;
 
 @Component({
     selector: 'login',
@@ -27,6 +28,8 @@ export class LoginComponent implements OnInit {
     public isLoggedIn$: Observable<boolean>;
     public currentUser: UserModelClass;
     @Output() currentUserEmitter = new EventEmitter();
+    public auth2: any;
+
 
     nome: any = localStorage['app-appHeader'];
     model: any = {};
@@ -102,28 +105,76 @@ export class LoginComponent implements OnInit {
                 });
     }
 
-    onSignInGoogle(googleUser) {
-        const profile = googleUser.getBasicProfile();
-        console.log('Profile', profile);
-        const response = {
-            email: profile.getEmail(),
-        };
-        console.log('response', response);
-        this.authenticationService.loginSocial(response.email)
-            .subscribe(
-                data => {
-                    // this.router.navigate([this.returnUrl]);
-                    console.log('entro al suscribeeee');
-                    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-                    this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                    window.location.href = ''
-                    // this.router.navigate([""])
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+
+    public googleInit() {
+        gapi.load('auth2', () => {
+            this.auth2 = gapi.auth2.init({
+                client_id: '709446252046-o5gc707q3696fgkhjd8abgqlft49to0i.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile email'
+            });
+            this.attachSignin(document.getElementById('googleBtn'));
+        });
     }
+    public attachSignin(element) {
+        this.auth2.attachClickHandler(element, {},
+            (googleUser) => {
+
+                const profile = googleUser.getBasicProfile();
+                console.log('Token || ' + googleUser.getAuthResponse().id_token);
+                console.log('ID: ' + profile.getId());
+                console.log('Name: ' + profile.getName());
+                console.log('Image URL: ' + profile.getImageUrl());
+                console.log('Email: ' + profile.getEmail());
+                const response = {
+                    email: profile.getEmail(),
+                };
+                console.log('response', response);
+                this.authenticationService.loginSocial(response.email)
+                    .subscribe(
+                        data => {
+                            console.log('entro al suscribeeee');
+                            this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+                            this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+                            window.location.href = ''
+                        },
+                        error => {
+                            this.alertService.error(error);
+                            this.loading = false;
+                        });
+
+
+            }, (error) => {
+                alert(JSON.stringify(error, undefined, 2));
+            });
+    }
+
+    ngAfterViewInit() {
+        this.googleInit();
+    }
+
+    // onSignInGoogle(googleUser) {
+    //     const profile = googleUser.getBasicProfile();
+    //     console.log('Profile', profile);
+    //     const response = {
+    //         email: profile.getEmail(),
+    //     };
+    //     console.log('response', response);
+    //     this.authenticationService.loginSocial(response.email)
+    //         .subscribe(
+    //             data => {
+    //                 // this.router.navigate([this.returnUrl]);
+    //                 console.log('entro al suscribeeee');
+    //                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    //                 this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+    //                 window.location.href = ''
+    //                 // this.router.navigate([""])
+    //             },
+    //             error => {
+    //                 this.alertService.error(error);
+    //                 this.loading = false;
+    //             });
+    // }
     // Implementar??
     // window.onbeforeunload = function (e) {
     // Se ejecuta esto antes de que se termine de descargar la página para desloggear
