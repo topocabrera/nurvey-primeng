@@ -104,13 +104,16 @@ export class LoginComponent implements OnInit {
 
     onSignInGoogle(googleUser) {
         const profile = googleUser.getBasicProfile();
+        console.log('Profile', profile);
         const response = {
             email: profile.getEmail(),
         };
+        console.log('response', response);
         this.authenticationService.loginSocial(response.email)
             .subscribe(
                 data => {
                     // this.router.navigate([this.returnUrl]);
+                    console.log('entro al suscribeeee');
                     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
                     this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
                     window.location.href = ''
