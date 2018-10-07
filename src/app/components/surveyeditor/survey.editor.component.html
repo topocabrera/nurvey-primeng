@@ -7,6 +7,8 @@
                             <div class="col-sm-12 col-md-12">
                                 <h5>Ingrese un título para su encuesta: <a  class="col-sm-2 far fa-question-circle fa-2px" href="http://nurvey.sytes.net:5000/doku.php?id=editor" target="_blank"></a></h5>
                                 <input type="text" class="form-control border-input" required placeholder="Título Encuesta" [(ngModel)]="titulo"> 
+                                <br>
+                                <button type="submit" class="btn btn-primary" (click)="saveCustomQuestions()">Guardar Preguntas Customizadas</button>
                             </div>
                         </div>
                     </div>
@@ -16,10 +18,8 @@
         <div class="container-fluid">   
             <div class="row">
                 <div class="col-md-12">
-                        <div  id="surveyEditorContainer"></div>  
-                        
+                    <div id="surveyEditorContainer"></div> 
                 </div>
-                
             </div>
         </div>
         <app-toast *ngIf="muestraMensajeToast" [mensaje]="mensajeToast"></app-toast>

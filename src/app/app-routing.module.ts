@@ -15,6 +15,7 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 import { misUsuariosComponent } from './components/misusuarios/misusuarios.component';
+import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component';
 import { AuthGuard } from './components/guards';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AuthGuard } from './components/guards';
             {path: 'dashboard/:id', component: DashboardComponent, canActivate: [AuthGuard]},
             {path: 'password', component: PasswordComponent, canActivate: [AuthGuard]},
             {path: 'misencuestas', component: misEncuestasComponent, canActivate: [AuthGuard]},
+            {path: 'mispreguntascustom', component: MispreguntascustomComponent, canActivate: [AuthGuard]},
             {path: 'register', component: RegisterComponent},
             {path: 'misusuarios', component: misUsuariosComponent, canActivate: [AuthGuard]},
             {path: 'editor/:id', component: SurveyEditorComponent, canActivate: [AuthGuard]},

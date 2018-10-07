@@ -39,7 +39,8 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ToastComponent } from './components/toast/toast.component'; 
+import { ToastComponent } from './components/toast/toast.component';
+import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component'; 
 
 @NgModule({
     declarations: [
@@ -64,7 +65,8 @@ import { ToastComponent } from './components/toast/toast.component';
         CategoriaFormComponent,
         VistapreviaComponent,
         SidebarComponent,
-        ToastComponent
+        ToastComponent,
+        MispreguntascustomComponent
     ],
     imports: [
         BrowserModule,

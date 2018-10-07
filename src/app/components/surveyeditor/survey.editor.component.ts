@@ -1,12 +1,17 @@
-
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as SurveyEditor from 'surveyjs-editor';
 import * as Survey from "survey-angular";
 import 'bootstrap';
 
+//Servicios
+import { UserService } from '../../services';
 import { SurveyService } from '../../services/survey.service';
+import { PreguntasCustomService } from '../../services/preguntas-custom.service';
+
+//Modelos
 import { SurveyModelClass } from '../../domain/SurveyModelClass';
+import { PreguntasCustomModelClass } from '../../domain/PreguntasCustomModelClass';
 
 SurveyEditor.editorLocalization.currentLocale = "es";
 /**
@@ -26,10 +31,13 @@ export class SurveyEditorComponent  {
     titulo: string;
     question: SurveyEditor.SurveyQuestionEditor;
     surveyService: SurveyService;
+    userService: UserService;
+    preguntasCustomService: PreguntasCustomService;
     newSurvey: SurveyModelClass;
     returnUrl: string;
     muestraMensajeToast: boolean;
     mensajeToast: string;   
+    preguntasCustom: PreguntasCustomModelClass;
     
     @Input() json: any;
     @Output() surveySaved: EventEmitter<Object> = new EventEmitter();
@@ -37,17 +45,21 @@ export class SurveyEditorComponent  {
     /**
      * Metodo de inicio del componente
     **/ 
-    constructor(surveyService: SurveyService, private route: ActivatedRoute, private router: Router) {
+    constructor(surveyService: SurveyService, private route: ActivatedRoute, private router: Router, userService: UserService, PreguntasCustomService: PreguntasCustomService) {
         Survey.JsonObject.metaData.removeProperty("selectbase", "choicesUrl");
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.surveyService = surveyService;
+        this.userService = userService;
+        this.preguntasCustomService = PreguntasCustomService;
         this.muestraMensajeToast = false;
         this.mensajeToast = "";
-        console.log(Survey.JsonObject.metaData)
+
+        var editorOptions = {};
+        this.editor = new SurveyEditor.SurveyEditor("editorElement", editorOptions);
     }
     
     ngOnInit() {
-        
+
         var editorDefinition = SurveyEditor.SurveyQuestionEditorDefinition.definition["questionbase"];
         editorDefinition.tabs = []
         editorDefinition.tabs.push({ name: "enableIf", visible: false });
@@ -56,18 +68,17 @@ export class SurveyEditorComponent  {
         this.sub = this.route.params.subscribe(params => 
         {
             this.id = +params['id']; // (+) converts string 'id' to a number
-            // var esCreacion = isNaN(this.id)
             if(isNaN(this.id))
             {
                 let editorOptions = {   showEmbededSurveyTab: false, 
                                         generateValidJSON : true, 
                                         showJSONEditorTab: false,
-                                        questionTypes: ["text", "rating", "radiogroup", "dropdown","checkbox"],
+                                        questionTypes: ["text", "rating", "radiogroup", "dropdown","checkbox", "panel"],
                                         showPropertyGrid: false,
                                         isRTL: true,
                                         designerHeight: "1200px",
                                         useTabsInElementEditor: true,
-                                        showState: true
+                                        // showState: true
                                     };
                 this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
                 this.editor.text = JSON.stringify(this.json);
@@ -80,7 +91,12 @@ export class SurveyEditorComponent  {
                         let editorOptions = 
                             {   showEmbededSurveyTab: false,
                                 generateValidJSON : true,
-                                showJSONEditorTab: false
+                                showJSONEditorTab: false,
+                                questionTypes: ["text", "rating", "radiogroup", "dropdown","checkbox"],
+                                showPropertyGrid: false,
+                                isRTL: true,
+                                designerHeight: "1200px",
+                                useTabsInElementEditor: true,
                             };
                 this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
                 this.editor.text = res.definicionJSON
@@ -92,57 +108,30 @@ export class SurveyEditorComponent  {
         });
 
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/misencuestas';
-
-        //Add all countries question into toolbox
-        this.editor.toolbox.addItem(
-        {
-            name: "countries",
-            isCopied: true,
-            iconName: "icon-default",
-            title: "Países",
-            category: "Banco de preguntas",
-            json: {
-                    "type": "dropdown",
-                    optionsCaption: "Elije un país...",
-                    choicesByUrl: {
-                                    url: "https://restcountries.eu/rest/v2/all"
-                                  }
-                  }
-        });
-
-        this.editor.toolbox.addItem(
-            {   name:"mail",
-                title:"Email",
-                isCopied:true,
-                iconName:"icon-default",
-                json:{  
-                    name:"mail",
-                    title:"Ingrese su email:",
-                    isRequired:true,
-                    inputType:"email",
-                    type:"text"
-                },
-                category:"Banco de preguntas"
+        this.preguntasCustomService.getCustomQuestions(this.currentUser.idUsuario)
+            .subscribe(res => {
+                var customQuestions = JSON.parse(res.preguntaCustomJson)
+                customQuestions.forEach(element => {
+                    console.log(element)
+                    this.editor.toolbox.addItem(element);
+                });  
             });
 }
-    saveMySurvey = () => {
-        console.log(this.editor.text); // json puro
-        console.log(JSON.stringify(this.editor.text)); //json stringify
-        console.log(JSON.parse(this.editor.text)); // json parseado a Objeto para emitir
-        this.surveySaved.emit(JSON.parse(this.editor.text));
 
-        this.newSurvey = JSON.parse(this.editor.text);
-        if(this.titulo === undefined){
-            
-        }
+    saveCustomQuestions() {
         var savedItems = this.editor.toolbox.copiedJsonText; //save into localstorage or your database
-        console.log(savedItems)
-        //....
-        //Restored savedItems from localstorage or your database.
-        this.editor.toolbox.copiedJsonText = savedItems;
-
+                    if(savedItems !== '[]'){
+                        this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,savedItems);
+                        this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
+                            .subscribe( res => this.editor.toolbox.copiedJsonText = this.preguntasCustom.preguntaCustomJson );
+                    }else{ console.log("-- No hay preguntas custom...") }
+    }
+    saveMySurvey = () => {
+        this.surveySaved.emit(JSON.parse(this.editor.text));
+        this.newSurvey = JSON.parse(this.editor.text);
         if (this.titulo)
-            {   this.surveyService.saveSurvey(this.newSurvey,this.titulo)
+            {   
+                this.surveyService.saveSurvey(this.newSurvey,this.titulo)
                 .subscribe(
                     data => {
                     this.muestraMensajeToast = true;
@@ -153,9 +142,7 @@ export class SurveyEditorComponent  {
                     // alert("Su encuesta se ha guardada satisfactoriamente.")
                     // this.router.navigate([this.returnUrl]);
                     },
-                    error => {
-                        
-                    });
+                    error => {});
             }
         else {
             this.muestraMensajeToast = true;
