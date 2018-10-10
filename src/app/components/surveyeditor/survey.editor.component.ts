@@ -8,6 +8,7 @@ import 'bootstrap';
 import { UserService } from '../../services';
 import { SurveyService } from '../../services/survey.service';
 import { PreguntasCustomService } from '../../services/preguntas-custom.service';
+import { BloquePreguntasService } from '../../services/bloque-preguntas.service';
 
 //Modelos
 import { SurveyModelClass } from '../../domain/SurveyModelClass';
@@ -33,6 +34,7 @@ export class SurveyEditorComponent  {
     surveyService: SurveyService;
     userService: UserService;
     preguntasCustomService: PreguntasCustomService;
+    bloquePreguntasService: BloquePreguntasService;
     newSurvey: SurveyModelClass;
     returnUrl: string;
     muestraMensajeToast: boolean;
@@ -45,12 +47,15 @@ export class SurveyEditorComponent  {
     /**
      * Metodo de inicio del componente
     **/ 
-    constructor(surveyService: SurveyService, private route: ActivatedRoute, private router: Router, userService: UserService, PreguntasCustomService: PreguntasCustomService) {
+    constructor(surveyService: SurveyService, private route: ActivatedRoute, private router: Router, 
+                userService: UserService, preguntasCustomService: PreguntasCustomService,
+                bloquePreguntasService: BloquePreguntasService) {
         Survey.JsonObject.metaData.removeProperty("selectbase", "choicesUrl");
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.surveyService = surveyService;
         this.userService = userService;
-        this.preguntasCustomService = PreguntasCustomService;
+        this.preguntasCustomService = preguntasCustomService;
+        this.bloquePreguntasService = bloquePreguntasService;
         this.muestraMensajeToast = false;
         this.mensajeToast = "";
 
@@ -112,9 +117,19 @@ export class SurveyEditorComponent  {
             .subscribe(res => {
                 var customQuestions = JSON.parse(res.preguntaCustomJson)
                 customQuestions.forEach(element => {
+                    console.log("PREGUNTAS-CUSTOM")
                     console.log(element)
                     this.editor.toolbox.addItem(element);
                 });  
+            });
+        this.bloquePreguntasService.getAllBloquePreguntas()
+            .subscribe(res => {
+                var bloquePreguntas = JSON.parse(res.contenidoBloque)
+                bloquePreguntas.forEach(element => {
+                    console.log("BLOQUE-PREGUNTAS")
+                    console.log(element)
+                    this.editor.toolbox.addItem(element);
+                });
             });
 }
 
