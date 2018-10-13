@@ -106,6 +106,7 @@ export class LoginComponent implements OnInit {
     }
 
     public attachSignin(element) {
+        console.log('elemnt google', element);
         this.auth2.attachClickHandler(element, {},
             (googleUser) => {
 
@@ -179,6 +180,7 @@ export class LoginComponent implements OnInit {
     // Button.  See the onlogin handler attached to it in the sample
     // code below.
     checkLoginState() {
+        console.log('checkLoginState');
         FB.getLoginStatus(function (response) {
             this.statusChangeCallback(response);
         });
@@ -186,9 +188,11 @@ export class LoginComponent implements OnInit {
 
     LoginFacebook() {
         FB.api('/me?fields=email', function (response) {
+            console.log('fb respo', response);
             this.authenticationService.loginSocial(response)
                 .subscribe(
                     data => {
+                        console.log('entro al susc');
                         // this.router.navigate([this.returnUrl]);
                         this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
                         this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
