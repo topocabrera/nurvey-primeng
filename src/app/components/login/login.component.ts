@@ -186,9 +186,11 @@ export class LoginComponent implements OnInit {
 
     LoginFacebook() {
         FB.api('/me?fields=email', function (response) {
+            console.log('fb respo', response);
             this.authenticationService.loginSocial(response)
                 .subscribe(
                     data => {
+                        console.log('entro al susc');
                         // this.router.navigate([this.returnUrl]);
                         this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
                         this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
