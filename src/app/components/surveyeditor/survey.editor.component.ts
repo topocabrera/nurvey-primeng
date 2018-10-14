@@ -3,12 +3,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as SurveyEditor from 'surveyjs-editor';
 import * as Survey from "survey-angular";
 import 'bootstrap';
+//import { MaterialModal } from '../material-modal/material-modal';
+
 
 //Servicios
 import { UserService } from '../../services';
 import { SurveyService } from '../../services/survey.service';
 import { PreguntasCustomService } from '../../services/preguntas-custom.service';
 import { BloquePreguntasService } from '../../services/bloque-preguntas.service';
+import { AlertService, AuthenticationService } from '../../services/index';
 
 //Modelos
 import { SurveyModelClass } from '../../domain/SurveyModelClass';
@@ -49,7 +52,7 @@ export class SurveyEditorComponent  {
     **/ 
     constructor(surveyService: SurveyService, private route: ActivatedRoute, private router: Router, 
                 userService: UserService, preguntasCustomService: PreguntasCustomService,
-                bloquePreguntasService: BloquePreguntasService) {
+                bloquePreguntasService: BloquePreguntasService, private alertify: AlertService) {
         Survey.JsonObject.metaData.removeProperty("selectbase", "choicesUrl");
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.surveyService = surveyService;
@@ -114,13 +117,26 @@ export class SurveyEditorComponent  {
 
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/misencuestas';
         this.preguntasCustomService.getCustomQuestions(this.currentUser.idUsuario)
-            .subscribe(res => {
-                var customQuestions = JSON.parse(res.preguntaCustomJson)
-                customQuestions.forEach(element => {
-                    console.log("PREGUNTAS-CUSTOM")
-                    console.log(element)
-                    this.editor.toolbox.addItem(element);
-                });  
+            .subscribe(
+            (res:any) => {
+                if(res.status===200){
+                    var data = res.json();
+                    console.log(data)
+                    var customQuestions = JSON.parse(data.preguntaCustomJson)
+                    if (customQuestions){
+                        JSON.parse(data.preguntaCustomJson).forEach(element => {
+                            console.log("PREGUNTAS-CUSTOM")
+                            console.log(element)
+                            this.editor.toolbox.addItem(element);
+                        });  
+                    }
+                }else{
+                    console.log("No existen preguntas custom guardadas por el usuario logueado")
+                    console.log(res.statusText)
+                }
+            },
+            error => {
+                console.log(error)
             });
         this.bloquePreguntasService.getAllBloquePreguntas()
             .subscribe(res => {
@@ -136,10 +152,30 @@ export class SurveyEditorComponent  {
     saveCustomQuestions() {
         var savedItems = this.editor.toolbox.copiedJsonText; //save into localstorage or your database
                     if(savedItems !== '[]'){
-                        this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,savedItems);
+                        var preguntasCustomAll = JSON.parse(savedItems);
+                        var preguntasCustomUser = [];
+                        var flagUser = false;
+                        preguntasCustomAll.forEach(element => {
+                            if(element.category===""){
+                                preguntasCustomUser.push(element);
+                                flagUser=true;
+                            }
+                        });
+                        if(flagUser){
+                            this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(preguntasCustomUser));
+                            console.log(this.preguntasCustom.preguntaCustomJson)
+                        }
+                        // else{
+                        //     this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(preguntasCustomAll));
+                        // }
+                        // console.log(savedItems)
+                        
                         this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
                             .subscribe( res => this.editor.toolbox.copiedJsonText = this.preguntasCustom.preguntaCustomJson );
-                    }else{ console.log("-- No hay preguntas custom...") }
+
+                        this.alertify.alert('Sus preguntas custom han sido guardadas exitosamente.')
+                        
+                    }else{ this.alertify.error('No hay preguntas custom para salvar') }
     }
     saveMySurvey = () => {
         this.surveySaved.emit(JSON.parse(this.editor.text));
@@ -151,17 +187,31 @@ export class SurveyEditorComponent  {
                     data => {
                     this.muestraMensajeToast = true;
                     this.mensajeToast = "Su encuesta ha sido guardada exitosamente";
+                    this.alertify.alert(this.mensajeToast);
                     this.router.navigate([this.returnUrl]);
                     // survey => this.newSurvey
                     // this.surveySaved.emit({Survey: this.newSurvey});
                     // alert("Su encuesta se ha guardada satisfactoriamente.")
                     // this.router.navigate([this.returnUrl]);
                     },
-                    error => {});
+                    error => {
+                        this.alertify.error(error.toString())
+                    });
             }
         else {
             this.muestraMensajeToast = true;
             this.mensajeToast = "Debe ingresar un titulo a la encuesta";
         }
     }
+
+    getResponse(res: Response): any {
+        switch (res.status) {
+          case 200:
+              return res.json();
+          case 204:
+              return res
+          default:
+            break;
+        }
+      }
 }

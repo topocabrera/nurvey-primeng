@@ -80,20 +80,20 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.emailUsuario, this.model.passwordUsuario)
             .subscribe(
                 data => {
-                    //this.router.navigate([this.returnUrl]);
-                    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-                    this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                    window.location.href = ""
-                    // this.router.navigate([""])
+                    if(data.status === 200){
+                        const user = data.json();
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+                        this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+                        window.location.href = ""
+                    }else {
+                        this.alertService.error('Usuario o contraseña incorrectos.');
+                    }
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
     }
-
-    //     emiteLogueado(event){
-    //         this.estaLogueado.emit({logueado: this.isLoggedIn$});
-    // }
 }
 

@@ -21,6 +21,7 @@ export class PreguntasCustomService {
 
      addCustomQuestions( customQuestions: PreguntasCustomModelClass ) {
       let customQuestionBody = JSON.stringify(customQuestions);
+      console.log(customQuestionBody)
       let headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8','Accept': 'application/json' }); 
       let options = new RequestOptions({
          method: 'POST',
@@ -29,11 +30,11 @@ export class PreguntasCustomService {
          body: customQuestionBody 
       });
       return this.http.post(options.url, customQuestionBody, options)
-          .map( res => { res.json() }); 
+          .map( res => { return res.json() }); 
   }
 
   getCustomQuestions(idUsuario: string) {
       return this.http.get(this.serverRestAPIUrl + '/idUsuario/' + idUsuario)
-        .map((response: Response) => response.json());
+        .map((response: Response) => response);
   }
 }

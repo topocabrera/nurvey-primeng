@@ -42,6 +42,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component'; 
 
+//angular material
+import {MatDialogModule} from '@angular/material/dialog';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -77,7 +80,8 @@ import { MispreguntascustomComponent } from './components/mispreguntascustom/mis
         AppRoutingModule,
         HttpModule,
         NgIdleKeepaliveModule.forRoot(),
-        ChartsModule
+        ChartsModule,
+        MatDialogModule
     ],
     providers: [SurveyService,
         PreguntasService,

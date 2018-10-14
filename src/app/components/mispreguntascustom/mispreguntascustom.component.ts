@@ -43,17 +43,24 @@ export class MispreguntascustomComponent implements OnInit {
         });
       });
     this.preguntasCustomService.getCustomQuestions(this.currentUser.idUsuario)
-      .subscribe((res:any) => {
-        console.log(JSON.parse(res.preguntaCustomJson))
-        this.response = JSON.parse(res.preguntaCustomJson)
-        JSON.parse(res.preguntaCustomJson).forEach(element => {
-          console.log(element)
-          console.log(element.json)
-          console.log(element.json.name)
-          this.preguntas.push(new SurveyJSCustomQuestionsModelClass(element.name,element.title,element.isCopied,
-          element.iconName, element.json, element.category))
-        });
+      .subscribe(
+        (res:any) => {
+          if(res.status===200){
+            var data = res.json();
+            this.response = JSON.parse(data.preguntaCustomJson)
+            JSON.parse(data.preguntaCustomJson).forEach(element => {
+              this.preguntas.push(new SurveyJSCustomQuestionsModelClass(element.name,element.title,element.isCopied,
+              element.iconName, element.json, element.category))
+            });
+        }else{
+            console.log("No existen preguntas custom guardadas por el usuario logueado")
+            console.log(res.statusText)
+        }
+        },
+      error => {
+          console.log(error)
       });
+      
   }
 
    onNew() {

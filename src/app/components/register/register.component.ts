@@ -44,9 +44,10 @@ export class RegisterComponent {
     this.passwords = <FormGroup>this.form.controls['passwords'];
     this.password = this.passwords.controls['password'];
     this.repeatPassword = this.passwords.controls['repeatPassword'];
+    this.alertService = this.alertService;
     // this.router = this.router;
     // this.userService = this.userService;
-    // this.alertService = this.alertService;
+    
   }
 
 
@@ -63,6 +64,7 @@ export class RegisterComponent {
                 data => {
                   this.muestraMensajeToast = true;
                   this.mensajeToast = 'Usuario registrado exitosamente';
+                  this.alertService.alert(this.mensajeToast);
                   // TODO: timeout para rediccionar
                   this.router.navigate(['/login']);
                 },
