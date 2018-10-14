@@ -55,5 +55,12 @@ export class PreguntasService {
             });
     }
 
+    getAllTipoPreguntas() {
+        return this.http.get(this.serverRestAPIUrl + "/TipoPregunta")
+            .map(resp => {
+                return resp.json();
+            } );
+    }
+
 
 }

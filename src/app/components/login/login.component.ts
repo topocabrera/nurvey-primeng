@@ -93,116 +93,19 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.emailUsuario, this.model.passwordUsuario)
             .subscribe(
                 data => {
-                    // this.router.navigate([this.returnUrl]);
-                    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-                    this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                    window.location.href = ''
-                    // this.router.navigate([""])
+                    if(data.status === 200){
+                        const user = data.json();
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+                        this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+                        window.location.href = ""
+                    }else {
+                        this.alertService.error('Usuario o contraseña incorrectos.');
+                    }
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
-    }
-
-    public attachSignin(element) {
-        console.log('elemnt google', element);
-        this.auth2.attachClickHandler(element, {},
-            (googleUser) => {
-
-                const profile = googleUser.getBasicProfile();
-                console.log('Token || ' + googleUser.getAuthResponse().id_token);
-                console.log('ID: ' + profile.getId());
-                console.log('Name: ' + profile.getName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail());
-                const response = {
-                    email: profile.getEmail(),
-                };
-                console.log('response', response);
-                this.authenticationService.loginSocial(response.email)
-                    .subscribe(
-                        data => {
-                            console.log('entro al suscribeeee');
-                            this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-                            this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                            window.location.href = ''
-                        },
-                        error => {
-                            this.alertService.error(error);
-                            this.loading = false;
-                        });
-
-
-            }, (error) => {
-                alert(JSON.stringify(error, undefined, 2));
-            });
-    }
-
-    // onSignInGoogle(googleUser) {
-    //     const profile = googleUser.getBasicProfile();
-    //     console.log('Profile', profile);
-    //     const response = {
-    //         email: profile.getEmail(),
-    //     };
-    //     console.log('response', response);
-    //     this.authenticationService.loginSocial(response.email)
-    //         .subscribe(
-    //             data => {
-    //                 // this.router.navigate([this.returnUrl]);
-    //                 console.log('entro al suscribeeee');
-    //                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-    //                 this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-    //                 window.location.href = ''
-    //                 // this.router.navigate([""])
-    //             },
-    //             error => {
-    //                 this.alertService.error(error);
-    //                 this.loading = false;
-    //             });
-    // }
-    // Implementar??
-    // window.onbeforeunload = function (e) {
-    // Se ejecuta esto antes de que se termine de descargar la página para desloggear
-    // al que esté autenticado para que pueda elegir con qué se quiere loggear.
-    //     gapi.auth2.getAuthInstance().signOut();
-    // };
-
-    statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        console.log(response);
-        if (response.status === 'connected') {
-            this.LoginFacebook();
-        }
-    }
-
-    // This function is called when someone finishes with the Login
-    // Button.  See the onlogin handler attached to it in the sample
-    // code below.
-    checkLoginState() {
-        console.log('checkLoginState');
-        FB.getLoginStatus(function (response) {
-            this.statusChangeCallback(response);
-        });
-    }
-
-    LoginFacebook() {
-        FB.api('/me?fields=email', function (response) {
-            console.log('fb respo', response);
-            this.authenticationService.loginSocial(response)
-                .subscribe(
-                    data => {
-                        console.log('entro al susc');
-                        // this.router.navigate([this.returnUrl]);
-                        this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-                        this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                        window.location.href = ''
-                        // this.router.navigate([""])
-                    },
-                    error => {
-                        this.alertService.error(error);
-                        this.loading = false;
-                    });
-        });
     }
 }

@@ -1,39 +1,46 @@
 ﻿import { Injectable } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
+declare let alertify: any;
 
 @Injectable()
 export class AlertService {
-    private subject = new Subject<any>();
-    private keepAfterNavigationChange = false;
+    constructor () {}
 
-    constructor(private router: Router) {
-        // clear alert message on route change
-        router.events.subscribe(event => {
-            if (event instanceof NavigationStart) {
-                if (this.keepAfterNavigationChange) {
-                    // only keep for a single location change
-                    this.keepAfterNavigationChange = false;
-                } else {
-                    // clear alert
-                    this.subject.next();
-                }
-            }
-        });
+    confirm(mensaje: string) {
+        alertify.confirm(mensaje,
+            function(){
+                alertify.success('Ok');
+            },
+            function(){
+                alertify.error('Cancel');
+            });
     }
 
-    success(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'success', text: message });
+    alert(mensaje: string){
+        alertify.alert(mensaje, function(){
+                alertify.success('OK');
+            });
     }
 
-    error(message: string, keepAfterNavigationChange = false) {
-        this.keepAfterNavigationChange = keepAfterNavigationChange;
-        this.subject.next({ type: 'error', text: message });
+    prompt(titleDialog: string,defaultValue: string){
+        alertify.prompt(titleDialog, defaultValue,
+            function(evt, value ){
+                alertify.success('Ok: ' + value);
+            },
+            function(){
+                alertify.error('Cancel');
+            })
+            ;
     }
 
-    getMessage(): Observable<any> {
-        return this.subject.asObservable();
+    success(mensaje: string) {
+        alertify.success(mensaje);
+    }
+
+    error(mensaje: string) {
+        alertify.error(mensaje);
+    }
+
+    warning(mensaje: string){
+        alertify.warning(mensaje);
     }
 }

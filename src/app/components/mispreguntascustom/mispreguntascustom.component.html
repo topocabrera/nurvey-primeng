@@ -1,0 +1,153 @@
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Contenido de la pregunta </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <div class="container">
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Tipo Pregunta</th>
+                        <th *ngIf="isChoice">Opciones</th>
+                        <th>Editar</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let item of contenido;">
+                          <td>
+                            <input type="text" [(ngModel)]="item.name" [disabled]="!item.isEditable"/>
+                          </td>
+                          <td>
+                            {{item.type}}
+                          </td>
+                          <td *ngIf="isChoice">
+                            {{item.choices}}
+                          </td>
+                          <td>
+                            <button type="button"
+                            class="btn btn-outline-primary"
+                            (click)="item.isEditable=!item.isEditable" 
+                                    *ngIf="!item.isEditable">
+                            Editar</button>
+                            <button type="button"
+                            class="btn btn-outline-primary"
+                            *ngIf="item.isEditable" (click)="item.isEditable=!item.isEditable" 
+                                    (click)="saveChanges(i)">
+                            Guardar</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="reglist">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Título</th>
+            <th>Categoria</th>
+            <th>Contenido</th>
+            <!-- <th>Country</th> -->
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pregunta of preguntas; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ pregunta.name }}</td>
+            <td>{{ pregunta.title }}</td>
+            <td>{{ pregunta.category }}<span *ngIf="!pregunta.category">Categoria General</span></td>
+            <td><div class="col-sm-10" (click)="verContenidoPreguntaCustom(pregunta.name)" class="far fa-eye" data-toggle="modal" data-target="#exampleModal"> </div></td>
+            <!-- <td>{{ pregunta.iconName }}</td> -->
+            <td>
+              <button type="button" class="btn btn-info" (click)="onEdit(i)">Editar</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="onDelete(i)">Borrar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="preguntas.length == 0">No hay preguntas para el usuario {{currentUser.nombreUsuario}}</div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary" (click)="onNew()">Nuevo</button>
+      </div>
+    </div>
+    <br>
+     <div class="regentry" *ngIf="showNew">
+      <form (ngSubmit)="onSave()">
+        <div class="form-group row">
+          <label for="name-input" class="col-2 col-form-label">Nombre</label>
+          <div class="col-10">
+            <input class="form-control" type="text" [(ngModel)]="preguntaCustomModel.name" name="name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="title-input" class="col-2 col-form-label">Título</label>
+          <div class="col-10">
+            <input class="form-control" type="text" [(ngModel)]="preguntaCustomModel.title" name="title">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="category-input" class="col-2 col-form-label">Categoría</label>
+          <div class="col-10">
+            <input class="form-control" type="text" [(ngModel)]="preguntaCustomModel.category" name="category">
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <label for="iconName-input" class="col-2 col-form-label">Icono</label>
+          <div class="col-10">
+            <input class="form-control" type="text" [(ngModel)]="preguntaCustomModel.iconName" name="iconName">
+          </div>
+        </div> -->
+        <hr>
+        <h4>Contenido</h4>
+        <hr>
+        <div class="form-group row">
+          <label for="contenidoName-input" class="col-2 col-form-label">Nombre</label>
+          <div class="col-10">
+            <input class="form-control" type="text" [(ngModel)]="preguntaCustomModel.json.name" name="contenidoName">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="contenidoType-input" class="col-2 col-form-label">Tipo</label>
+
+          <div class="col-10 dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownManual" data-toggle="dropdown" name="contenidoType">{{preguntaCustomModel.json.type}}</button>
+            <div class="dropdown-menu">
+              <button type="button" class="dropdown-item" *ngFor="let type of types" (click)="onChangeType(type)">{{type}}</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <button type="submit" class="btn btn-success">{{submitType}}</button>
+          </div>
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary" (click)="onCancel(preguntaCustomModel.json)">Cancelar</button>
+          </div>
+       </div>
+      </form>
+    </div> 
+  </div>
+  
