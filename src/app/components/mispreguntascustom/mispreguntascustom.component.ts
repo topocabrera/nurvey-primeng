@@ -3,6 +3,8 @@ import { PreguntasCustomService } from '../../services/preguntas-custom.service'
 import { PreguntasService } from '../../services/preguntas.service';
 import { PreguntasCustomModelClass } from '../../domain/PreguntasCustomModelClass';
 import { SurveyJSCustomQuestionsModelClass, contenido, choiceObject } from '../../domain/SurveyJSCustomQuestionsModelClass';
+import { AlertService } from '../../services/index';
+
 
 
 @Component({
@@ -25,10 +27,11 @@ export class MispreguntascustomComponent implements OnInit {
   showNew: Boolean = false;
   submitType: string = 'Save';
   selectedRow: number;
-  // types: string[] = ['dropdown', 'text', 'radiogroup', 'rating', 'checkbox'];
   types: string[] = []; 
 
-  constructor(preguntasCustomService: PreguntasCustomService, preguntasService: PreguntasService) {
+  constructor(preguntasCustomService: PreguntasCustomService, 
+              preguntasService: PreguntasService,
+              private alertService: AlertService) {
     this.preguntasCustomService = preguntasCustomService;
     this.preguntasService = preguntasService;
    }
@@ -76,28 +79,35 @@ export class MispreguntascustomComponent implements OnInit {
 
   // This method associate to Save Button.
   onSave() {
-    if (this.submitType === 'Save') {
-      // Push registration model object into registration list.
-      this.preguntas.push(this.preguntaCustomModel);
-    } else {
-      // Update the existing properties values based on model.
-      this.preguntas[this.selectedRow].name = this.preguntaCustomModel.name;
-      this.preguntas[this.selectedRow].title = this.preguntaCustomModel.title;
-      this.preguntas[this.selectedRow].category = this.preguntaCustomModel.category;
-      this.preguntas[this.selectedRow].iconName = this.preguntaCustomModel.iconName;
-      this.preguntas[this.selectedRow].isCopied = this.preguntaCustomModel.isCopied;
-      this.preguntas[this.selectedRow].json.name = this.preguntaCustomModel.json.name;
-      this.preguntas[this.selectedRow].json.type = this.preguntaCustomModel.json.type;
-    }
-    this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(this.preguntas));
-    console.log(JSON.stringify(this.preguntasCustom.preguntaCustomJson))
-    this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
-      .subscribe((res:any) => {
-        console.log(JSON.parse(res.preguntaCustomJson))
-        this.preguntas = JSON.parse(res.preguntaCustomJson)
-      });
-    // Hide registration entry section.
-    this.showNew = false;
+    this.alertService.confirm(
+      'Guardar Pregunta Custom',
+      '¿ Desea guardar los cambios ?',
+      () => {
+        if (this.submitType === 'Save') {
+          // Push registration model object into registration list.
+          this.preguntas.push(this.preguntaCustomModel);
+        } else {
+          // Update the existing properties values based on model.
+          this.preguntas[this.selectedRow].name = this.preguntaCustomModel.name;
+          this.preguntas[this.selectedRow].title = this.preguntaCustomModel.title;
+          this.preguntas[this.selectedRow].category = this.preguntaCustomModel.category;
+          this.preguntas[this.selectedRow].iconName = this.preguntaCustomModel.iconName;
+          this.preguntas[this.selectedRow].isCopied = this.preguntaCustomModel.isCopied;
+          this.preguntas[this.selectedRow].json.name = this.preguntaCustomModel.json.name;
+          this.preguntas[this.selectedRow].json.type = this.preguntaCustomModel.json.type;
+        }
+        this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(this.preguntas));
+        console.log(JSON.stringify(this.preguntasCustom.preguntaCustomJson))
+        this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
+          .subscribe((res:any) => {
+            console.log(JSON.parse(res.preguntaCustomJson))
+            this.preguntas = JSON.parse(res.preguntaCustomJson)
+          });
+        // Hide registration entry section.
+        this.showNew = false;
+      },
+      () => {/*no hay accion al cancelar*/},
+      'Los cambios han sido guardados.');
   }
 
   // This method associate to Edit Button.
@@ -119,22 +129,32 @@ export class MispreguntascustomComponent implements OnInit {
   // This method associate to Delete Button.
   onDelete(index: number) {
     // Delete the corresponding registration entry from the list.
-    this.preguntas.splice(index, 1);
-    console.log(JSON.stringify(this.preguntas))
-    this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(this.preguntas));
-    console.log(JSON.stringify(this.preguntasCustom.preguntaCustomJson))
-    this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
-      .subscribe((res:any) => {
-        console.log(JSON.parse(res.preguntaCustomJson))
-        this.preguntas = JSON.parse(res.preguntaCustomJson)
-      });
+    this.alertService.confirm('Eliminar Pregunta Custom.',
+    '¿ Desea eliminar la pregunta "'+ this.preguntas[index].name +'" ?',
+    () => {
+      this.preguntas.splice(index, 1);
+      console.log(JSON.stringify(this.preguntas))
+      this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(this.preguntas));
+      console.log(JSON.stringify(this.preguntasCustom.preguntaCustomJson))
+      this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
+        .subscribe((res:any) => {
+          console.log(JSON.parse(res.preguntaCustomJson))
+          this.preguntas = JSON.parse(res.preguntaCustomJson)
+        });    
+    },
+    () => {/*no hay accion al cancelar*/},
+    'La pregunta ha sido eliminada.');
   }
 
   // This method associate toCancel Button.
-  onCancel(parm: any) {
+  onCancel() {
     // Hide registration entry section.
-    console.log(parm)
-    this.showNew = false;
+    // this.alertService.confirm('Preguntas Custom.',
+    // '¿ Desea cancelar la acción ?',
+    // () => {
+      this.showNew = false;
+    // },
+    // () => {/*no hay accion al cancelar*/});
   }
 
   // This method associate to Bootstrap dropdown selection change.

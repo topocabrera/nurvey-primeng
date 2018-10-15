@@ -1,23 +1,33 @@
 ﻿import { Injectable } from '@angular/core';
+import { Router} from '@angular/router'
+import 'rxjs/add/operator/toPromise'
 declare let alertify: any;
 
 @Injectable()
 export class AlertService {
-    constructor () {}
-
-    confirm(mensaje: string) {
-        alertify.confirm(mensaje,
-            function(){
-                alertify.success('Ok');
-            },
-            function(){
-                alertify.error('Cancel');
-            });
+    public router: Router
+    constructor (router: Router) {
+        this.router = router;
     }
 
-    alert(mensaje: string){
+    confirm(title:string, mensaje: string, onok: (e) => any, oncancel: () => any, mensajeToast?:string) {
+        alertify.confirm(title, mensaje, 
+            (e) => {
+            if(e.button.text === 'OK'){
+                onok(e);
+                if(mensajeToast){alertify.success(mensajeToast);}
+            }}
+            ,(r) =>{
+            if(r.button.text === 'Cancel'){
+                oncancel();
+                alertify.error('Cancel');
+            }
+        });
+    }
+
+    alert(mensaje: string, mensajeToast?:string){
         alertify.alert(mensaje, function(){
-                alertify.success('OK');
+                if(mensajeToast){alertify.success(mensajeToast);}
             });
     }
 
@@ -28,8 +38,7 @@ export class AlertService {
             },
             function(){
                 alertify.error('Cancel');
-            })
-            ;
+            });
     }
 
     success(mensaje: string) {

@@ -85,12 +85,13 @@ export class SurveyEditorComponent  {
                                         showPropertyGrid: false,
                                         isRTL: true,
                                         designerHeight: "1200px",
-                                        useTabsInElementEditor: true,
+                                        useTabsInElementEditor: true
                                         // showState: true
                                     };
                 this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
                 this.editor.text = JSON.stringify(this.json);
                 this.editor.saveSurveyFunc = this.saveMySurvey;
+                this.editor.toolbox.copiedItemMaxCount = 20;
             }             
             else
             {
@@ -104,13 +105,13 @@ export class SurveyEditorComponent  {
                                 showPropertyGrid: false,
                                 isRTL: true,
                                 designerHeight: "1200px",
-                                useTabsInElementEditor: true,
+                                useTabsInElementEditor: true
                             };
                 this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
                 this.editor.text = res.definicionJSON
                 this.editor.saveSurveyFunc = this.saveMySurvey;
                 this.editor.onQuestionAdded
-                
+                this.editor.toolbox.copiedItemMaxCount = 20;
                     });
             }
         });
@@ -147,6 +148,9 @@ export class SurveyEditorComponent  {
                     this.editor.toolbox.addItem(element);
                 });
             });
+        this.editor.toolbox.allowExpandMultipleCategories = true;
+        this.editor.toolbox.expandAllCategories();
+        this.editor.toolbox.expandCategory('nurvey');
 }
 
     saveCustomQuestions() {
@@ -156,7 +160,7 @@ export class SurveyEditorComponent  {
                         var preguntasCustomUser = [];
                         var flagUser = false;
                         preguntasCustomAll.forEach(element => {
-                            if(element.category===""){
+                            if(element.category === ""){
                                 preguntasCustomUser.push(element);
                                 flagUser=true;
                             }
@@ -171,11 +175,13 @@ export class SurveyEditorComponent  {
                         // console.log(savedItems)
                         
                         this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
-                            .subscribe( res => this.editor.toolbox.copiedJsonText = this.preguntasCustom.preguntaCustomJson );
+                            .subscribe( res => {
+                                // this.editor.toolbox.copiedJsonText = this.preguntasCustom.preguntaCustomJson
+                            } );
 
                         this.alertify.alert('Sus preguntas custom han sido guardadas exitosamente.')
                         
-                    }else{ this.alertify.error('No hay preguntas custom para salvar') }
+                    }else{ this.alertify.error('No hay preguntas custom para guardar.') }
     }
     saveMySurvey = () => {
         this.surveySaved.emit(JSON.parse(this.editor.text));
@@ -185,8 +191,8 @@ export class SurveyEditorComponent  {
                 this.surveyService.saveSurvey(this.newSurvey,this.titulo)
                 .subscribe(
                     data => {
-                    this.muestraMensajeToast = true;
-                    this.mensajeToast = "Su encuesta ha sido guardada exitosamente";
+                    // this.muestraMensajeToast = true;
+                    this.mensajeToast = 'La encuesta "'+ this.titulo +'" ha sido guardada exitosamente.';
                     this.alertify.alert(this.mensajeToast);
                     this.router.navigate([this.returnUrl]);
                     // survey => this.newSurvey
@@ -199,19 +205,9 @@ export class SurveyEditorComponent  {
                     });
             }
         else {
-            this.muestraMensajeToast = true;
-            this.mensajeToast = "Debe ingresar un titulo a la encuesta";
+            // this.muestraMensajeToast = true;
+            this.mensajeToast = "Debe ingresar un titulo para la encuesta.";
+            this.alertify.alert(this.mensajeToast);
         }
     }
-
-    getResponse(res: Response): any {
-        switch (res.status) {
-          case 200:
-              return res.json();
-          case 204:
-              return res
-          default:
-            break;
-        }
-      }
 }

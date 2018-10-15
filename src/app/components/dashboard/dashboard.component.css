@@ -27,3 +27,7 @@
 .capitalizate{
   text-transform: capitalize;
 }
+
+.span{
+  padding-left: 30px;
+}

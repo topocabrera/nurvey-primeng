@@ -30,7 +30,7 @@ export class UserService {
     getByEmail(emailUsuario: string) {
         let parNull = null
         return this.http.get(this.serverRestAPIUrl + '/Usuario/autenticacion/' + emailUsuario + '/' + parNull)
-        .map((response: Response) => response.json());
+        .map((response: Response) => response);
     }
 
     create(user: UserModelClass){
@@ -68,7 +68,7 @@ export class UserService {
            headers: headers,
            body: JSON.stringify(user)});
         return this.http.put(this.serverRestAPIUrl + '/Usuario', userJson, options)
-            .map(res => res.json());
+            .map(res => res);
     }
 
     delete(idUsuario: string) {

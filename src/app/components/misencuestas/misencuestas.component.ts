@@ -1,17 +1,19 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router'
+import { Component, OnInit } from '@angular/core';
+import { Router} from '@angular/router'
 import * as Survey from 'survey-angular';
 
 import { SurveyService } from './../../services/survey.service';
-import { ClienteModelClass } from './../../domain/ClienteModelClass';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
-//import { EncuestaModelClass } from './../shared/models/EncuestaModelClass';
+import { AlertService } from './../../services/index';
+declare let routerAlert: Router;
 
 @Component({
     selector: 'misEncuestas',
     templateUrl: './misencuestas.component.html',
     styleUrls: ['./misencuestas.component.css']
 })
+
+
 export class misEncuestasComponent implements OnInit {
     surveyRender: object;
     encuestas:SurveyModelClass[] = [];
@@ -45,10 +47,12 @@ export class misEncuestasComponent implements OnInit {
         }] 
 
     constructor(private _surveyService: SurveyService, 
-                private router: Router){
+                private router: Router,
+                private alertService: AlertService,
+                routerAlert: Router){
            this.loading = true;
-        // this.surveyService = SurveyService;
-        // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+           this.alertService = alertService;
+           routerAlert = routerAlert;
     }
 
     /** 
@@ -101,19 +105,6 @@ export class misEncuestasComponent implements OnInit {
                 }
             });
         }
-
-
-        // if(termino.length > 0){
-        // this._surveyService.getEncuestaByName(termino,this.currentUser.idUsuario)
-        // .subscribe( (data:any) => {
-        //     console.log(data)
-        //     this.encuestas = data;
-        //     this.loading = false;
-        // });
-        // }else{
-        //     this.loading = false;
-        // }
-        
     } 
 
     /**
@@ -159,31 +150,53 @@ export class misEncuestasComponent implements OnInit {
      * Mediante el servicio surveyService.archivarEncuesta permite modificar el estado de la encuesta a ARCHIVADA 
      * @param idEncuesta id de Encuesta 
      */ 
-    archivarEncuesta(idEncuesta){ 
+    archivarEncuesta(idEncuesta,i){ 
         let idUsuario = this.currentUser.idUsuario; 
-        this._surveyService.archivarEncuesta(idEncuesta,idUsuario) 
-            .subscribe( 
-                res => { 
-                    this.muestraMensajeToast = true;
-                    this.mensajeToast = "La encuesta ha sido archivada.";
-                }
-            ) 
+        if(this.encuestas[i].estadoEncuesta != "archivada"){
+            this.alertService.confirm(
+            'Archivar encuesta.',
+            '¿ Desea archivar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" ?',
+            () => {
+                this._surveyService.archivarEncuesta(idEncuesta,idUsuario) 
+                .subscribe( 
+                    res => { 
+                        this.encuestas[i].estadoEncuesta = "archivada";
+                    }
+                )
+            },
+            () => {/*no hay accion al cancelar*/},
+            'La encuesta ha sido archivada.');
+        }else{
+            this.alertService.warning("La encuesta ya está archivada.");
+        }
     }
 
     /**
      * Redirije a pantalla de estadisticas de la encuesta seleccionada.
      * @param idEncuesta id de Encuesta
      */
-    verEstadisticas(idEncuesta){
-        this.router.navigate(["dashboard",idEncuesta]);
+    verEstadisticas(idEncuesta,i){
+        if(this.encuestas[i].estadoEncuesta === "respondida"){
+            this.router.navigate(["dashboard/"+idEncuesta]); 
+        }else {
+            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[i].estadoEncuesta);
+        }
     }
 
     /**
      * Redirije a pantalla de respuesta de la encuesta seleccionada.
      * @param idEncuesta id de Encuesta
      */
-    responderEncuesta(idEncuesta){
-        this.router.navigate(["respuesta/"+idEncuesta]); 
+    responderEncuesta(idEncuesta,i){
+        if(this.encuestas[i].estadoEncuesta === "creada"){
+            this.alertService.confirm('Compartir respuestas.',
+            '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',
+            () => {this.router.navigate(["respuesta/"+idEncuesta]);},
+            () => {/*no hay accion al cancelar*/},
+            'La encuesta ha comenzado su estado de "Respondido".');
+        }else {
+            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[i].estadoEncuesta);
+        }
     }
 
     /**
@@ -191,9 +204,11 @@ export class misEncuestasComponent implements OnInit {
      * para modificar su contenido y crear una nueva encuesta
      * @param idEncuesta id de Encuesta
      */
-    clonarEncuesta(idEncuesta){
-        this.router.navigate(["editor/"+idEncuesta]);
+    clonarEncuesta(idEncuesta,i){
+        this.alertService.confirm('Duplicado de encuesta.',
+        '¿ Desea duplicar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" ?',
+        () => {this.router.navigate(["editor/"+idEncuesta]);},
+        () => {/*no hay accion al cancelar*/},
+        'Se ha duplicado la encuesta.');
     }
-    
-    
 }

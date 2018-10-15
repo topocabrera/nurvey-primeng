@@ -4,6 +4,7 @@ import * as Chartist from 'chartist';
 import { SurveyService } from './../../services/survey.service';
 import { PreguntasService } from './../../services/preguntas.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlertService } from './../../services/index';
 
 declare var $:any;
 declare var labelsGrafico:any;
@@ -41,7 +42,8 @@ export class DashboardComponent implements OnInit{
     constructor(resultadoService: ResultadoService, 
                 surveyService: SurveyService, 
                 preguntasService:PreguntasService,
-                private activatedRouter:ActivatedRoute){
+                private activatedRouter:ActivatedRoute,
+                private alertService: AlertService){
       this.resultadoService = resultadoService;      
       this.surveyService = surveyService;
       this.preguntasService = preguntasService;
@@ -56,10 +58,29 @@ export class DashboardComponent implements OnInit{
       this.activatedRouter.params.subscribe( params => {
         if(params['id'] > 0 ){
           var idEncuesta = params['id'];
+          //TAB info de preguntas
           this.preguntasService.getPreguntasEncuesta(idEncuesta)
-              .subscribe(res => this.loading = false);              
-          this.getPreguntasAgrupadas(idEncuesta);
-          this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
+              .subscribe(res => {
+                console.log(res)
+                this.loading = false 
+                this.encuestaSeleccionada = true;
+              });
+          //TAB info de la encuesta
+          this.surveyService.getEncuestasById(idEncuesta)
+            .subscribe( res => {
+              this.tituloEncuesta = res.tituloEncuesta;
+              this.estadoEncuestaSeleccionada = res.estadoEncuesta;
+              this.fechaEncuestaSeleccionada = res.fechaEncuesta;
+            }); 
+            //TAB info de cada respuesta (hacer por instancia de respuesta)
+            this.resultadoService.getInfoRespuesta(idEncuesta,this.currentUser.idUsuario)
+            .subscribe( res => {
+              console.log(res)
+              this.infoRespuestas = res;
+            });
+
+            this.getPreguntasAgrupadas(idEncuesta);
+            this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
         }
       });
                 
@@ -90,10 +111,11 @@ export class DashboardComponent implements OnInit{
       var idEncuesta = $("#selectorEncuesta").val();
       if(idEncuesta == ""){
         //error
-        this.alert = true;
+        // this.alert = true;
         this.loading = false;
         this.mensajeAlert = "Debe seleccionar una encuesta."
         this.estiloAlert = "alert-warning"
+        this.alertService.alert(this.mensajeAlert);
       }else{
             //TAB info de preguntas
             this.preguntasService.getPreguntasEncuesta(idEncuesta)
