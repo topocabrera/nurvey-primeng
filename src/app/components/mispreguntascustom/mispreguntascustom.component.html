@@ -57,7 +57,7 @@
 <div class="container">
     <div class="reglist">
       <table class="table table-striped">
-        <thead>
+        <thead class="thead-dark">
           <tr>
             <th>#</th>
             <th>Nombre</th>
@@ -74,7 +74,7 @@
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ pregunta.name }}</td>
             <td>{{ pregunta.title }}</td>
-            <td>{{ pregunta.category }}<span *ngIf="!pregunta.category">Categoria General</span></td>
+            <td>{{ pregunta.category }}<span *ngIf="!pregunta.category">Mis Preguntas</span></td>
             <td><div class="col-sm-10" (click)="verContenidoPreguntaCustom(pregunta.name)" class="far fa-eye" data-toggle="modal" data-target="#exampleModal"> </div></td>
             <!-- <td>{{ pregunta.iconName }}</td> -->
             <td>
@@ -109,7 +109,7 @@
         <div class="form-group row">
           <label for="category-input" class="col-2 col-form-label">Categoría</label>
           <div class="col-10">
-            <input class="form-control" type="text" [(ngModel)]="preguntaCustomModel.category" name="category">
+            <input class="form-control" type="text"  value="Mis Preguntas" name="category" disabled>
           </div>
         </div>
         <!-- <div class="form-group row">
@@ -144,7 +144,7 @@
             <button type="submit" class="btn btn-success">{{submitType}}</button>
           </div>
           <div class="col-2">
-            <button type="submit" class="btn btn-primary" (click)="onCancel(preguntaCustomModel.json)">Cancelar</button>
+            <button class="btn btn-primary" (click)="onCancel()">Cancelar</button>
           </div>
        </div>
       </form>

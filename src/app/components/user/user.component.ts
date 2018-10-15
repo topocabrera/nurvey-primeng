@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserModelClass } from '../../domain/UserModelClass';
 import { UserService } from '../../services/user.service';
 import { FormGroup, AbstractControl, FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { EmailValidator, EqualPasswordsValidator } from '../register/validators';
-import { TabViewModule } from 'primeng/tabview';
-import { PanelModule } from 'primeng/panel';
+import { EmailValidator } from '../register/validators';
+import { AlertService } from '../../services/index';
 
 @Component({
     selector: 'user-cmp',
@@ -27,6 +26,7 @@ export class UserComponent {
 
     constructor(private router: Router,
         private userService: UserService,
+        private alertService: AlertService,
         fb: FormBuilder) {
         this.form = fb.group({
             'name': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -34,6 +34,7 @@ export class UserComponent {
         });
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.model = this.currentUser;
+        this.alertService = alertService;
     }
 
     actualizar() {
@@ -51,12 +52,17 @@ export class UserComponent {
         )
         this.userService.update(usuarioMod)
             .subscribe(
-                data => {
-                    localStorage.clear();
-                    localStorage.setItem('currentUser', JSON.stringify(usuarioMod));
-                    this.muestraMensajeToast = true;
-                    this.mensajeToast = 'Perfil actualizado correctamente';
-                    // this.router.navigate(['/user']);
+                response => {
+                    if(response.status === 200){
+                        localStorage.clear();
+                        localStorage.setItem('currentUser', JSON.stringify(usuarioMod));
+                        // this.muestraMensajeToast = true;
+                        this.mensajeToast = 'Perfil actualizado correctamente';
+                        this.alertService.alert(this.mensajeToast);
+                    }
+                },
+                error => {
+                    this.alertService.error(error);
                 });
     }
 

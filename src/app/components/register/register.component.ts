@@ -56,14 +56,14 @@ export class RegisterComponent {
     this.userService.getByEmail(this.model.emailUsuario)
       .subscribe(
         data => {
-          const userDevuelto = data;
-          console.log(userDevuelto);
-          if (userDevuelto.idUsuario === 0) {
+          // const userDevuelto = data;
+          // console.log(userDevuelto);
+          if (data.status===204) {
             this.userService.create(this.model)
               .subscribe(
                 data => {
                   this.muestraMensajeToast = true;
-                  this.mensajeToast = 'Usuario registrado exitosamente';
+                  this.mensajeToast = 'Usuario registrado exitosamente.';
                   this.alertService.alert(this.mensajeToast);
                   // TODO: timeout para rediccionar
                   this.router.navigate(['/login']);
@@ -76,7 +76,8 @@ export class RegisterComponent {
                 });
           } else {
             this.muestraMensajeToast = true;
-            this.mensajeToast = 'Email existente';
+            this.mensajeToast = 'El email ya existe, por favor ingrese otro email.';
+            this.alertService.alert(this.mensajeToast);
           }
         }
       )

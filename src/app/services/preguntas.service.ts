@@ -22,13 +22,6 @@ export class PreguntasService {
                 for (let u of resp.json()) {
                     if(u.idEncuesta == idEncuesta && !u.esAgrupable){
                         this.preguntas.push(u);
-                            // new PreguntaModelClass(
-                            //     u.idEncuesta,
-                            //     u.idPregunta,
-                            //     u.idCategoria,
-                            //     u.idTipoPregunta,
-                            //     u.descripcion,
-                            //     u.name));
                     }
                 }
                 return this.preguntas;

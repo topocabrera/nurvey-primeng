@@ -50,7 +50,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                    <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
+                                <input #fecha type="date" name="fechaEncuesta" id="fechaEncuesta" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
             <br>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="reglist">
+                        <table class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>#</th>
@@ -94,16 +94,16 @@
                                     <td>{{encuesta.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
                                     <td>{{encuesta.estadoEncuesta | uppercase}}</td>
                                     <td>
-                                        <div class="col-sm-1" (click)="clonarEncuesta(encuesta.idEncuesta)" class="ti-files" item-height="50px" item-width="50px"> </div>
+                                        <div class="col-sm-1" (click)="clonarEncuesta(encuesta.idEncuesta,i)" class="ti-files" item-height="50px" item-width="50px"> </div>
                                     </td>
                                     <td>
-                                        <div class="col-sm-1" (click)="archivarEncuesta(encuesta.idEncuesta)"  class="ti-trash" item-height="50px" item-width="50px"> </div>
+                                        <div class="col-sm-1" (click)="archivarEncuesta(encuesta.idEncuesta,i)"  class="ti-trash" item-height="50px" item-width="50px"> </div>
                                     </td>
                                     <td>
-                                        <div class="col-sm-1"  (click)="verEstadisticas(encuesta.idEncuesta)" class="ti-stats-up" item-height="50px" item-width="50px"> </div>
+                                        <div class="col-sm-1"  (click)="verEstadisticas(encuesta.idEncuesta,i)" class="ti-stats-up" item-height="50px" item-width="50px"> </div>
                                     </td>
                                     <td>
-                                        <div class="col-sm-1"  (click)="responderEncuesta(encuesta.idEncuesta)" class="ti-sharethis" item-height="50px" item-width="50px"> </div>
+                                        <div class="col-sm-1"  (click)="responderEncuesta(encuesta.idEncuesta,i)" class="ti-sharethis" item-height="50px" item-width="50px"> </div>
                                     </td>
                                     <td>
                                         <div class="col-sm-1" [routerLink]="['/vistaprevia',encuesta.idEncuesta]" class="far fa-eye" item-height="50px" item-width="50px"> </div>
