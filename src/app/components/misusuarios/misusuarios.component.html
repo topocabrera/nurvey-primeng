@@ -38,7 +38,8 @@
                         <div class="col-md-2 black" ><b>Encuestas Creadas</b></div>
                         <div class="col-md-2 black" ></div>
                     </div>                      
-                    <filaUsuario *ngFor="let usuario of usersFiltrados; let i = index;" [usuario]="usuario" i="{{i}}" class="animated fadeIn"></filaUsuario>                                            
+                    <filaUsuario *ngFor="let usuario of usersFiltrados | paginate: { itemsPerPage: 10, currentPage: p }; let i = index;" [usuario]="usuario" i="{{i}}" class="animated fadeIn"></filaUsuario>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
             </div>
         </div>
     </div>

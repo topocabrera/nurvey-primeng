@@ -70,7 +70,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pregunta of preguntas; let i = index">
+          <tr *ngFor="let pregunta of preguntas | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ pregunta.name }}</td>
             <td>{{ pregunta.title }}</td>
@@ -86,6 +86,7 @@
           </tr>
         </tbody>
       </table>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
       <div *ngIf="preguntas.length == 0">No hay preguntas para el usuario {{currentUser.nombreUsuario}}</div>
       <div class="text-right">
         <button type="submit" class="btn btn-primary" (click)="onNew()">Nuevo</button>

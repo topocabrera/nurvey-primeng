@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router'
 import * as Survey from 'survey-angular';
-
+import * as SurveyEditor from 'surveyjs-editor';
 import { SurveyService } from './../../services/survey.service';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
 import { AlertService } from './../../services/index';
@@ -20,13 +20,15 @@ export class misEncuestasComponent implements OnInit {
     activeEncuesta;
     encuestaActiva: boolean;
     surveyService: SurveyService;
-    // termino:string ="";
+    testSurveyModel: SurveyEditor.SurveyEditor;
     currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
     loading:boolean;
     mensajeAlert:string;
     estiloAlert:string;
     muestraMensajeToast: boolean;
     mensajeToast: string;
+    tituloVistaPrevia: string;
+    p: number = 1;
 
     encuesta = { 
         estadoEncuesta:"" 
@@ -189,11 +191,13 @@ export class misEncuestasComponent implements OnInit {
      */
     responderEncuesta(idEncuesta,i){
         if(this.encuestas[i].estadoEncuesta === "creada"){
-            this.alertService.confirm('Compartir respuestas.',
-            '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',
-            () => {this.router.navigate(["respuesta/"+idEncuesta]);},
-            () => {/*no hay accion al cancelar*/},
-            'La encuesta ha comenzado su estado de "Respondido".');
+            // this.alertService.confirm('Compartir respuestas.',
+            // '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',
+            // () => {this.router.navigate(["respuesta/"+idEncuesta]);},
+            // () => {/*no hay accion al cancelar*/},
+            // 'La encuesta ha comenzado su estado de "Respondido".');
+            this.alertService.prompt('Compartir respuestas.',
+            'http://localhost:4200/respuesta/'+idEncuesta);
         }else {
             this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[i].estadoEncuesta);
         }
@@ -210,5 +214,21 @@ export class misEncuestasComponent implements OnInit {
         () => {this.router.navigate(["editor/"+idEncuesta]);},
         () => {/*no hay accion al cancelar*/},
         'Se ha duplicado la encuesta.');
+    }
+
+    vistaPrevia(encuesta){
+        console.log(encuesta)
+        this.tituloVistaPrevia = encuesta.tituloEncuesta;
+        var editorOptions = {
+            showEmbededSurveyTab: false, 
+            showJSONEditorTab: false,
+            showApplyButtonInEditors: false
+        };
+        this.testSurveyModel = new SurveyEditor.SurveyEditor('surveyContainerInPopup',editorOptions);
+        this.testSurveyModel.text = encuesta.definicionJSON;
+        this.testSurveyModel.showTestSurvey();
+        var x = document.getElementsByClassName('nav-item');
+        for(var i=0, len=x.length; i<len; i++)
+            { x[i].remove(); }
     }
 }

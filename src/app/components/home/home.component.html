@@ -45,13 +45,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of encuestas; let i of index;" >
+                            <tr *ngFor="let item of encuestas | paginate: { itemsPerPage: 5, currentPage: p }; let i of index;" >
                                 <td>{{item.tituloEncuesta}}</td>
                                 <td>{{item.fechaEncuesta | date : 'dd/MM/yyyy'}}</td>
                                 <td>{{item.estadoEncuesta | uppercase}}</td>
                             </tr>
                         </tbody>
                     </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>

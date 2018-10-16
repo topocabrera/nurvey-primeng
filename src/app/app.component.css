@@ -31,3 +31,7 @@ a {
     width: 100%;
     height: auto;
 }
+
+.content-component {
+    min-height: 500px;
+}
