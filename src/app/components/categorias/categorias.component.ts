@@ -9,7 +9,7 @@ import { CategoriasService } from '../../services/categorias.service';
 export class CategoriasComponent implements OnInit {
 
   categorias:any[] = [];
-
+  p: number = 1;
   constructor(private _categoriasService:CategoriasService) {
     this._categoriasService.getAllCategories()
     .subscribe( res => {

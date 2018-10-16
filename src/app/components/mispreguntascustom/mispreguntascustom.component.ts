@@ -21,7 +21,7 @@ export class MispreguntascustomComponent implements OnInit {
   contenido:any[] = [];
   isChoice: boolean;
   preguntasCustom: PreguntasCustomModelClass;
-
+  p: number = 1;
   preguntas: SurveyJSCustomQuestionsModelClass[] = [];
   preguntaCustomModel: SurveyJSCustomQuestionsModelClass;
   showNew: Boolean = false;

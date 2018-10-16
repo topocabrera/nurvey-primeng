@@ -16,7 +16,8 @@ export class misUsuariosComponent implements OnInit {
     users: UserModelClass[] = [];
     usersFiltrados: UserModelClass[] = [];
     currentUser: any = JSON.parse(localStorage.getItem('currentUser'));
-
+    p: number = 1;
+    
     constructor(userService: UserService, private router: Router) {
         this.userService = userService
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

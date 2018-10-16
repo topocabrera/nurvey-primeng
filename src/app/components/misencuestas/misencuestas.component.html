@@ -83,7 +83,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let encuesta of encuestas; let i = index;">
+                                <tr *ngFor="let encuesta of encuestas | paginate: { itemsPerPage: 5, currentPage: p }; let i = index;">
                                     <td>{{ i + 1 }}</td>
                                     <td> 
                                         <div class="col-sm-10"> {{encuesta.idEncuesta}} </div>
@@ -106,11 +106,13 @@
                                         <div class="col-sm-1"  (click)="responderEncuesta(encuesta.idEncuesta,i)" class="ti-sharethis" item-height="50px" item-width="50px"> </div>
                                     </td>
                                     <td>
-                                        <div class="col-sm-1" [routerLink]="['/vistaprevia',encuesta.idEncuesta]" class="far fa-eye" item-height="50px" item-width="50px"> </div>
+                                        <!-- <div class="col-sm-1" [routerLink]="['/vistaprevia',encuesta.idEncuesta]" class="far fa-eye" item-height="50px" item-width="50px"> </div> -->
+                                        <div class="col-sm-1" (click)="vistaPrevia(encuesta)" data-toggle="modal" data-target="#modalSurvey" class="far fa-eye" item-height="50px" item-width="50px"> </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         <app-alert *ngIf="encuestas.length === 0" [mensaje]="mensajeAlert" [estilo]="estiloAlert" class="m-5"></app-alert>
                     </div>
                 </div>
@@ -123,4 +125,22 @@
                 </div>
             </div>
             <app-toast *ngIf="muestraMensajeToast" [mensaje]="mensajeToast"></app-toast>
+        </div>
+
+        <div class="modal fade" id="modalSurvey" tabindex="-1" role="dialog" aria-labelledby="modalSurveyLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" text-aling="center">
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button> -->
+                        <h4 class="modal-title" id="modalSurveyLabel">{{tituloVistaPrevia}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="surveyContainerInPopup"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
         </div>

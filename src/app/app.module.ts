@@ -44,6 +44,7 @@ import { MispreguntascustomComponent } from './components/mispreguntascustom/mis
 
 //angular material
 import {MatDialogModule} from '@angular/material/dialog';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import {MatDialogModule} from '@angular/material/dialog';
         HttpModule,
         NgIdleKeepaliveModule.forRoot(),
         ChartsModule,
-        MatDialogModule
+        MatDialogModule,
+        NgxPaginationModule
     ],
     providers: [SurveyService,
         PreguntasService,
