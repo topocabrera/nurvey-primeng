@@ -93,13 +93,13 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.emailUsuario, this.model.passwordUsuario)
             .subscribe(
                 data => {
-                    if(data.status === 200){
+                    if (data.status === 200) {
                         const user = data.json();
                         localStorage.setItem('currentUser', JSON.stringify(user));
                         this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
                         this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                        window.location.href = ""
-                    }else {
+                        window.location.href = ''
+                    } else {
                         this.alertService.error('Usuario o contraseña incorrectos.');
                     }
                 },
@@ -183,12 +183,11 @@ export class LoginComponent implements OnInit {
     // This function is called when someone finishes with the Login
     // Button.  See the onlogin handler attached to it in the sample
     // code below.
-    // checkLoginState() {
-    //     console.log('checkLoginState');
-    //     FB.getLoginStatus(function (response) {
-    //         this.statusChangeCallback(response);
-    //     });
-    // }
+    checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            this.statusChangeCallback(response);
+        });
+    }
 
     LoginFacebook() {
         FB.api('/me?fields=email', function (response) {
