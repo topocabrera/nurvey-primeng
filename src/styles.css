@@ -282,3 +282,119 @@ a.article:hover {
         display: none;
     }
 }
+
+/* ---------------------------------------------------
+    Respuesta styles
+----------------------------------------------------- */
+h5 span {
+    font-weight: bold;
+}
+
+.sv_row {
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.sv_nav {
+    margin-top: 25px;
+}
+
+.sv_row:nth-child(odd) {
+    background-color: #f4f4f4;
+}
+
+.sv_row:nth-child(even) {
+    background-color: #fff;
+}
+
+.sv_q_erbox {
+    color: red;
+}
+
+.sv_complete_btn {
+    width: 10%;
+    height: 50px;
+}
+
+/* Texto simple */
+.sv_q_text_root {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* Checkbox y Radio */
+fieldset.sv_qcbc.sv_qcbx {
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.sv_qstn fieldset.sv_qcbc {
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.sv_q_radiogroup_control_item {
+    margin: 0;
+    margin-right: 0.55em;
+    width: 1em;
+    height: 1.2em;
+    vertical-align: middle;
+    font-size: 1em;
+    margin-top: -0.1em;
+}
+
+.sv_q_checkbox_control_item {
+    margin: 0;
+    margin-right: 0.55em;
+    width: 1em;
+    height: 1.2em;
+    vertical-align: middle;
+    font-size: 1em;
+    margin-top: -0.1em;
+}
+
+/* Dropdown */
+.sv_q_dropdown_control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* Rating */
+label.sv_q_rating_item {
+    border-radius: 2px;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    line-height: 1em;
+    min-width: 6em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    cursor: pointer;
+    text-align: center;
+}
+
+label.sv_q_rating_item.active {
+    background-color: #33373c;
+    border-color: #4e555b;
+}
