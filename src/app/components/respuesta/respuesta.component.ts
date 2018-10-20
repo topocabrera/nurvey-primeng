@@ -76,8 +76,9 @@ export class respuestaComponent implements OnInit, OnDestroy {
                     salida.encuestado.tiempoRespuesta = "2017-09-26T00:00:50";
                     salida.encuestado.ubicacion = "UTN-FRC";
                 
-                    // this.respuesta = JSON.stringify(salida);
-                    // console.log("respuesta ->" + this.respuesta)
+                    this.respuesta = JSON.stringify(salida);
+                    console.log("respuesta ->")
+                    console.log(this.respuesta)
                     respuestaServicio.guardarRespuesta(salida)
                     .subscribe(
                         data => {
