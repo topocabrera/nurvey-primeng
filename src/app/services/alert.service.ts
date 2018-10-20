@@ -41,6 +41,10 @@ export class AlertService {
             });
     }
 
+    shareModal(title:string, content: string){
+        alertify.alert(title,content);
+    }
+
     success(mensaje: string) {
         alertify.success(mensaje);
     }
