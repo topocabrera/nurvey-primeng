@@ -29,6 +29,7 @@ export class misEncuestasComponent implements OnInit {
     mensajeToast: string;
     tituloVistaPrevia: string;
     p: number = 1;
+    itemsPerPage: number = 10;
 
     encuesta = { 
         estadoEncuesta:"" 
@@ -66,6 +67,7 @@ export class misEncuestasComponent implements OnInit {
         this.loadEncuestas(); 
         this.encuestaActiva = false; 
     } 
+
 
     /** 
      * Cargar encuestas por usuarios 
@@ -153,16 +155,17 @@ export class misEncuestasComponent implements OnInit {
      * @param idEncuesta id de Encuesta 
      */ 
     archivarEncuesta(idEncuesta,i){ 
+        var index = this.absoluteIndex(i);
         let idUsuario = this.currentUser.idUsuario; 
-        if(this.encuestas[i].estadoEncuesta != "archivada"){
+        if(this.encuestas[index].estadoEncuesta != "archivada"){
             this.alertService.confirm(
             'Archivar encuesta.',
-            '¿ Desea archivar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" ?',
+            '¿ Desea archivar la encuesta "'+ this.encuestas[index].tituloEncuesta +'" ?',
             () => {
                 this._surveyService.archivarEncuesta(idEncuesta,idUsuario) 
                 .subscribe( 
                     res => { 
-                        this.encuestas[i].estadoEncuesta = "archivada";
+                        this.encuestas[index].estadoEncuesta = "archivada";
                     }
                 )
             },
@@ -178,10 +181,11 @@ export class misEncuestasComponent implements OnInit {
      * @param idEncuesta id de Encuesta
      */
     verEstadisticas(idEncuesta,i){
-        if(this.encuestas[i].estadoEncuesta === "respondida"){
+        var index = this.absoluteIndex(i);
+        if(this.encuestas[index].estadoEncuesta === "respondida"){
             this.router.navigate(["dashboard/"+idEncuesta]); 
         }else {
-            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[i].estadoEncuesta);
+            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[index].estadoEncuesta);
         }
     }
 
@@ -190,17 +194,22 @@ export class misEncuestasComponent implements OnInit {
      * @param idEncuesta id de Encuesta
      */
     responderEncuesta(idEncuesta,i){
-        if(this.encuestas[i].estadoEncuesta === "creada"){
+        var index = this.absoluteIndex(i);
+        if(this.encuestas[index].estadoEncuesta === "creada" || this.encuestas[index].estadoEncuesta === "respondida"){
             // this.alertService.confirm('Compartir respuestas.',
             // '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',
             // () => {this.router.navigate(["respuesta/"+idEncuesta]);},
-            // () => {/*no hay accion al cancelar*/},
+            // () => {/*no hay accion al cancelar*/}, http://localhost:4200/respuesta/'+idEncuesta+'
             // 'La encuesta ha comenzado su estado de "Respondido".');
-            this.alertService.prompt('Compartir respuestas.',
-            'http://localhost:4200/respuesta/'+idEncuesta);
+            this.alertService.shareModal('Compartir respuestas', '<hr/> URL: <a target="_blank" rel="noopener noreferrer" href="http://localhost:4200/respuesta/'+idEncuesta+'">http://localhost:4200/respuesta/'+idEncuesta+
+                                         '</a><br/><hr/><button type="button" onclick="share()" class="btn btn-default">Via Email</button>');
         }else {
-            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[i].estadoEncuesta);
+            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[index].estadoEncuesta);
         }
+    }
+
+    share(){
+        console.log("shareddddd")
     }
 
     /**
@@ -209,8 +218,9 @@ export class misEncuestasComponent implements OnInit {
      * @param idEncuesta id de Encuesta
      */
     clonarEncuesta(idEncuesta,i){
+        var index = this.absoluteIndex(i);
         this.alertService.confirm('Duplicado de encuesta.',
-        '¿ Desea duplicar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" ?',
+        '¿ Desea duplicar la encuesta "'+ this.encuestas[index].tituloEncuesta +'" ?',
         () => {this.router.navigate(["editor/"+idEncuesta]);},
         () => {/*no hay accion al cancelar*/},
         'Se ha duplicado la encuesta.');
@@ -231,4 +241,8 @@ export class misEncuestasComponent implements OnInit {
         for(var i=0, len=x.length; i<len; i++)
             { x[i].remove(); }
     }
+
+    absoluteIndex(indexOnPage: number): number {
+        return this.itemsPerPage * (this.p - 1) + indexOnPage;
+      }
 }

@@ -22,6 +22,7 @@ export class MispreguntascustomComponent implements OnInit {
   isChoice: boolean;
   preguntasCustom: PreguntasCustomModelClass;
   p: number = 1;
+  itemsPerPage: number = 10;
   preguntas: SurveyJSCustomQuestionsModelClass[] = [];
   preguntaCustomModel: SurveyJSCustomQuestionsModelClass;
   showNew: Boolean = false;
@@ -111,7 +112,8 @@ export class MispreguntascustomComponent implements OnInit {
   }
 
   // This method associate to Edit Button.
-  onEdit(index: number) {
+  onEdit(i: number) {
+    var index = this.absoluteIndex(i);
     // Assign selected table row index.
     this.selectedRow = index;
     // Initiate new registration.
@@ -127,7 +129,8 @@ export class MispreguntascustomComponent implements OnInit {
   }
 
   // This method associate to Delete Button.
-  onDelete(index: number) {
+  onDelete(i: number) {
+    var index = this.absoluteIndex(i);
     // Delete the corresponding registration entry from the list.
     this.alertService.confirm('Eliminar Pregunta Custom.',
     '¿ Desea eliminar la pregunta "'+ this.preguntas[index].name +'" ?',
@@ -182,7 +185,8 @@ export class MispreguntascustomComponent implements OnInit {
 
   saveChanges(i:number){
     // pregunta.isEditable=!pregunta.isEditable
-    console.log(i)
+    var index = this.absoluteIndex(i);
+    console.log(index)
     console.log(this.response)
     this.preguntasCustom = new PreguntasCustomModelClass(this.currentUser.idUsuario,JSON.stringify(this.response));
                     this.preguntasCustomService.addCustomQuestions(this.preguntasCustom)
@@ -190,7 +194,12 @@ export class MispreguntascustomComponent implements OnInit {
   }
 
   borrarPregunta(i: number){
-    console.log(this.response[i-1])
-    this.response.splice(i,1)
+    var index = this.absoluteIndex(i);
+    console.log(this.response[index-1])
+    this.response.splice(index,1)
+  }
+
+  absoluteIndex(indexOnPage: number): number {
+    return this.itemsPerPage * (this.p - 1) + indexOnPage;
   }
 }
