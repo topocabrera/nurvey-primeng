@@ -1,0 +1,99 @@
+body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+}
+
+.panel-heading {
+    padding: 50px 15px;
+}
+
+.panel-footer {
+	padding: 1px 7px;
+	color: #A0A0A0;
+	text-align: left;
+	background-color: initial;
+	font-size: 11px;
+}
+
+.profile-img {
+	width: 96px;
+	height: 96px;
+	margin: 0 auto 10px;
+	display: block;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.input-group-addon {
+    margin-right: 8px;
+    padding-top: 5px;
+}
+
+.name-user {
+    margin-left: 5px;
+}
+
+.password-user {
+    margin-left: 3px;
+}
+
+input.ng-touched.ng-invalid {
+    border-color: red
+}
+
+input.ng-touched.ng-valid {
+    border-color:lightgreen;
+}
+
+.ng-star-inserted{
+    color:red;
+    margin-left: 25px;
+}
+
+.login-link {
+	color: blue;
+}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}

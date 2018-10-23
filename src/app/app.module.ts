@@ -13,6 +13,7 @@ import { HttpModule } from '@angular/http';
 import { SurveyService } from './services/survey.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ConfirmationComponent } from './components/register/confirmation.component';
 import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PasswordComponent } from './components/password/password.component';
@@ -53,6 +54,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
         SurveyEditorComponent,
         LoginComponent,
         RegisterComponent,
+        ConfirmationComponent,
         UserComponent,
         DashboardComponent,
         PasswordComponent,

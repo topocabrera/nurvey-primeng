@@ -79,4 +79,9 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         this.isLoggedIn.next(false);
     }
+
+    activarToken(token: string) {
+        return this.http.get(environment.apiEndPoint + '/api/Usuario/activarToken/' + token)
+            .map((res: Response) => res);
+    }
 }
