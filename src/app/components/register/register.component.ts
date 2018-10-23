@@ -45,8 +45,6 @@ export class RegisterComponent {
     this.password = this.passwords.controls['password'];
     this.repeatPassword = this.passwords.controls['repeatPassword'];
     this.alertService = this.alertService;
-    // this.router = this.router;
-    // this.userService = this.userService;
     
   }
 
@@ -56,21 +54,16 @@ export class RegisterComponent {
     this.userService.getByEmail(this.model.emailUsuario)
       .subscribe(
         data => {
-          // const userDevuelto = data;
-          // console.log(userDevuelto);
           if (data.status===204) {
             this.userService.create(this.model)
               .subscribe(
                 data => {
-                  this.muestraMensajeToast = true;
-                  this.mensajeToast = 'Usuario registrado exitosamente.';
+                  this.mensajeToast = 'Se ha enviado un mail a su correo con la confirmacion de su cuenta.';
                   this.alertService.alert(this.mensajeToast);
-                  // TODO: timeout para rediccionar
                   this.router.navigate(['/login']);
                 },
                 error => {
-                  this.muestraMensajeToast = true;
-                  this.alertService.error(error);
+                  this.alertService.error(error.statusText);
                   this.mensajeToast = error;
                   this.loading = false;
                 });

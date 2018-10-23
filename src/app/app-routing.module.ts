@@ -11,6 +11,7 @@ import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
 import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ConfirmationComponent } from './components/register/confirmation.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
@@ -31,8 +32,10 @@ import { AuthGuard } from './components/guards';
             {path: 'misencuestas', component: misEncuestasComponent, canActivate: [AuthGuard]},
             {path: 'mispreguntascustom', component: MispreguntascustomComponent, canActivate: [AuthGuard]},
             {path: 'register', component: RegisterComponent},
+            {path: 'confirmation/:token', component: ConfirmationComponent},
             {path: 'misusuarios', component: misUsuariosComponent, canActivate: [AuthGuard]},
             {path: 'editor/:id', component: SurveyEditorComponent, canActivate: [AuthGuard]},
+            {path: 'respuesta/:id', component: respuestaComponent},
             {path: 'respuesta/:id', component: respuestaComponent},
             {path: 'categorias', component: CategoriasComponent},
             {path: 'categoria/:id', component: CategoriaFormComponent},

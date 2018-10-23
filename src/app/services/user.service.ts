@@ -29,7 +29,7 @@ export class UserService {
     /**El segundo parametro password se envia nulo, validamos que el usuario a registrarse su mail no exista. */
     getByEmail(emailUsuario: string) {
         let parNull = null
-        return this.http.get(this.serverRestAPIUrl + '/Usuario/autenticacion/' + emailUsuario + '/' + parNull)
+        return this.http.get(this.serverRestAPIUrl + '/Usuario/autenticacion/' + emailUsuario)
         .map((response: Response) => response);
     }
 
