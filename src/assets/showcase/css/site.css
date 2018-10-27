@@ -27,6 +27,7 @@ html {
 }
 
 body {
+    position: relative;
     margin: 0px;
     min-height: 100%;
     padding: 0;
@@ -349,6 +350,9 @@ body {
     padding: 30px;
     overflow: hidden;
     background-color: #f5f7f8;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .content-section.introduction {
