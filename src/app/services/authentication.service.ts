@@ -42,21 +42,11 @@ export class AuthenticationService {
     }
 
     loginSocial(emailUsuario: string) {
-        return this.http.get(this.serverRestAPIUrl + '/' + emailUsuario)
+        return this.http.get(this.serverRestAPIUrl + emailUsuario)
             .map((response: Response) => {
-                // login successful if there's a jwt token in the response
                 const user = response.json();
-                if (user.idUsuario !== 0) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    const userLogueado = localStorage.getItem('currentUser')
-                    console.log(userLogueado)
-                    this.isLoggedIn.next(true);
-                } else {
-                    alert('Usuario incorrecto')
-                }
-
-                return user;
+                if(user){ if (user.idUsuario !== 0) { this.isLoggedIn.next(true); } } 
+            return response;
             });
     }
 

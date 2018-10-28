@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router} from '@angular/router'
+import { Router, ActivatedRoute} from '@angular/router'
 import * as Survey from 'survey-angular';
 import * as SurveyEditor from 'surveyjs-editor';
 import { SurveyService } from './../../services/survey.service';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
 import { AlertService } from './../../services/index';
+declare var $:any;
 declare let routerAlert: Router;
 
 @Component({
@@ -30,6 +31,8 @@ export class misEncuestasComponent implements OnInit {
     tituloVistaPrevia: string;
     p: number = 1;
     itemsPerPage: number = 10;
+    url: string;
+    idEncuestaShare: number;
 
     encuesta = { 
         estadoEncuesta:"" 
@@ -52,6 +55,7 @@ export class misEncuestasComponent implements OnInit {
     constructor(private _surveyService: SurveyService, 
                 private router: Router,
                 private alertService: AlertService,
+                private route: ActivatedRoute,
                 routerAlert: Router){
            this.loading = true;
            this.alertService = alertService;
@@ -195,21 +199,24 @@ export class misEncuestasComponent implements OnInit {
      */
     responderEncuesta(idEncuesta,i){
         var index = this.absoluteIndex(i);
-        if(this.encuestas[index].estadoEncuesta === "creada" || this.encuestas[index].estadoEncuesta === "respondida"){
-            // this.alertService.confirm('Compartir respuestas.',
-            // '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',
-            // () => {this.router.navigate(["respuesta/"+idEncuesta]);},
-            // () => {/*no hay accion al cancelar*/}, http://localhost:4200/respuesta/'+idEncuesta+'
-            // 'La encuesta ha comenzado su estado de "Respondido".');
-            this.alertService.shareModal('Compartir respuestas', '<hr/> URL: <a target="_blank" rel="noopener noreferrer" href="http://localhost:4200/respuesta/'+idEncuesta+'">http://localhost:4200/respuesta/'+idEncuesta+
-                                         '</a><br/><hr/><button type="button" onclick="share()" class="btn btn-default">Via Email</button>');
-        }else {
-            this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[index].estadoEncuesta);
-        }
+        this.idEncuestaShare = idEncuesta;
+        this.url = 'https://nurvey-front-dev.herokuapp.com/respuesta/'+idEncuesta;
+        console.log(this.router.url);
+        // if(this.encuestas[index].estadoEncuesta === "creada" || this.encuestas[index].estadoEncuesta === "respondida"){
+        //     // this.alertService.confirm('Compartir respuestas.',
+        //     // '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',
+        //     // () => {this.router.navigate(["respuesta/"+idEncuesta]);},
+        //     // () => {/*no hay accion al cancelar*/}, http://localhost:4200/respuesta/'+idEncuesta+'
+        //     // 'La encuesta ha comenzado su estado de "Respondido".');
+        //     this.alertService.shareModal('Compartir respuestas', '<hr/> URL: <a target="_blank" rel="noopener noreferrer" href="http://localhost:4200/respuesta/'+idEncuesta+'">http://localhost:4200/respuesta/'+idEncuesta+
+        //                                  '</a><br/><hr/><button type="button" onclick="share()" class="btn btn-default">Via Email</button>');
+        // }else {
+        //     this.alertService.warning("La encuesta se encuentra en estado "+ this.encuestas[index].estadoEncuesta);
+        // }
     }
 
-    share(){
-        console.log("shareddddd")
+    share(idEncuesta){
+        this.router.navigate(["sharesurvey/"+idEncuesta]);
     }
 
     /**
@@ -245,4 +252,12 @@ export class misEncuestasComponent implements OnInit {
     absoluteIndex(indexOnPage: number): number {
         return this.itemsPerPage * (this.p - 1) + indexOnPage;
       }
+
+    copyClipboard() {
+        /* Get the text field */
+        var copyText = document.getElementById("modalSurveySubtitle");
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    }
 }
