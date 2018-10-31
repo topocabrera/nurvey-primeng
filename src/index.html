@@ -6,6 +6,10 @@
   <title>Nurvey</title>
   <base href="/">
 
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="293307805235-pepe6d7f81dscghvs6ruv194praoosor.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="stylesheet" type=type="text/html" href="assets/showcase/css/splash.css">
@@ -55,7 +59,7 @@
 </head>
 
     <!-- Continuing the <head> section -->
-    <script>
+    <!-- <script>
         function start() {
           gapi.load('auth2', function() {
             auth2 = gapi.auth2.init({
@@ -83,7 +87,7 @@
           console.log('Image URL: ' + profile.getImageUrl());
           console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
-      </script>
+      </script> -->
     </head>
 
 <body class="perfect-scrollbar-off">
@@ -118,10 +122,11 @@
 <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 
 <!-- BEGIN Pre-requisites -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
 </script>
 <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-</script>
+</script> -->
+
 <!-- END Pre-requisites -->
 
 <!-- <script>

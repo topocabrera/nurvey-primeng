@@ -32,9 +32,9 @@ export class ConfirmationComponent {
     this.sub = this.route.params.subscribe(params => 
         {
             var token:string = params['token'];
-            var tokenToSend = token.substr(3);
-            console.log(tokenToSend)
-            this.authenticationService.activarToken(tokenToSend)
+            // var tokenToSend = token.substr(3);
+            // console.log(tokenToSend)
+            this.authenticationService.activarToken(token)
                 .subscribe((res:any) =>{
                     var resp = res.json();
                     if(resp===true){

@@ -32,6 +32,9 @@ import { ResultadoService } from './services/resultados.service'
 
 import { AuthGuard } from './components/guards';
 import { ChartsModule } from 'ng2-charts';
+import { NgxEditorModule } from 'ngx-editor';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TagInputModule } from 'ngx-chips'; 
 
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -46,6 +49,7 @@ import { MispreguntascustomComponent } from './components/mispreguntascustom/mis
 //angular material
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
 
 @NgModule({
     declarations: [
@@ -72,7 +76,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
         VistapreviaComponent,
         SidebarComponent,
         ToastComponent,
-        MispreguntascustomComponent
+        MispreguntascustomComponent,
+        ShareSurveyComponent
     ],
     imports: [
         BrowserModule,
@@ -85,7 +90,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
         NgIdleKeepaliveModule.forRoot(),
         ChartsModule,
         MatDialogModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        NgxEditorModule,
+        TooltipModule.forRoot(),
+        TagInputModule
     ],
     providers: [SurveyService,
         PreguntasService,

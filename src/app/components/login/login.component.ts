@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, AfterViewInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     returnUrl: string;
 
     constructor(
+        private element: ElementRef,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit {
         idle.watch();
 
         this.isLoggedIn$ = this.authenticationService.isAuthenticated();
+        
     }
 
     ngOnInit() {
@@ -86,6 +88,14 @@ export class LoginComponent implements OnInit {
             xfbml: true,
             version: 'v3.0'
         });`
+        gapi.signin2.render('googleBtn', {
+            'scope': 'profile email',
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'light',
+            'onsuccess': param => this.attachSignin(param)
+        });
     }
 
     login() {
@@ -109,39 +119,39 @@ export class LoginComponent implements OnInit {
                 });
     }
 
-    public attachSignin(element) {
-        console.log('elemnt google', element);
-        this.auth2.attachClickHandler(element, {},
-            (googleUser) => {
+    // public attachSignin(element) {
+    //     console.log('elemnt google', element);
+    //     this.auth2.attachClickHandler(element, {},
+    //         (googleUser) => {
 
-                const profile = googleUser.getBasicProfile();
-                console.log('Token || ' + googleUser.getAuthResponse().id_token);
-                console.log('ID: ' + profile.getId());
-                console.log('Name: ' + profile.getName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail());
-                const response = {
-                    email: profile.getEmail(),
-                };
-                console.log('response', response);
-                this.authenticationService.loginSocial(response.email)
-                    .subscribe(
-                        data => {
-                            console.log('entro al suscribeeee');
-                            this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
-                            this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
-                            window.location.href = ''
-                        },
-                        error => {
-                            this.alertService.error(error);
-                            this.loading = false;
-                        });
+    //             const profile = googleUser.getBasicProfile();
+    //             console.log('Token || ' + googleUser.getAuthResponse().id_token);
+    //             console.log('ID: ' + profile.getId());
+    //             console.log('Name: ' + profile.getName());
+    //             console.log('Image URL: ' + profile.getImageUrl());
+    //             console.log('Email: ' + profile.getEmail());
+    //             const response = {
+    //                 email: profile.getEmail(),
+    //             };
+    //             console.log('response', response);
+    //             this.authenticationService.loginSocial(response.email)
+    //                 .subscribe(
+    //                     data => {
+    //                         console.log('entro al suscribeeee');
+    //                         this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    //                         this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+    //                         window.location.href = ''
+    //                     },
+    //                     error => {
+    //                         this.alertService.error(error);
+    //                         this.loading = false;
+    //                     });
 
 
-            }, (error) => {
-                alert(JSON.stringify(error, undefined, 2));
-            });
-    }
+    //         }, (error) => {
+    //             alert(JSON.stringify(error, undefined, 2));
+    //         });
+    // }
 
     // onSignInGoogle(googleUser) {
     //     const profile = googleUser.getBasicProfile();
@@ -209,13 +219,70 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    onSignIn(googleUser) {
-        debugger
-        var profile = googleUser.getBasicProfile();
-        console.log(profile)
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    onSignIn() {
+        this.googleInit();
       }
+
+      googleInit() {
+        gapi.load('auth2', () => {
+          this.auth2 = gapi.auth2.init({
+            client_id: '293307805235-pepe6d7f81dscghvs6ruv194praoosor.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin',
+            scope: 'profile email'
+          });
+          this.attachSignin(document.getElementById('googleBtn'));
+        });
+        // this.auth2.signOut();
+        // this.auth2.disconnect();
+      }
+
+      attachSignin(element) {
+        console.log(element)
+        this.auth2.attachClickHandler(element, {},
+          (googleUser) => {
+        // if(!this.auth2.isSignedIn.get()){
+
+            let profile = googleUser.getBasicProfile();
+            console.log('Token || ' + googleUser.getAuthResponse().id_token);
+            console.log('ID: ' + profile.getId());
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+            //YOUR CODE HERE
+            this.authenticationService.loginSocial(profile.getEmail())
+                .subscribe(
+                    data => {
+                        if (data.status === 200) {
+                            const user = data.json();
+                            localStorage.setItem('currentUser', JSON.stringify(user));
+                            this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+                            this.currentUserEmitter.emit(this.currentUser.nombreUsuario)
+                            window.location.href = ''
+                        } else {
+                            this.alertService.error('El email no está registrado en nuestro sistema.');
+                        }
+                    },
+                    error => {
+                        this.alertService.error(error);
+                        this.loading = false;
+                    });
+        // }else{
+        //     this.alertService.error('else');
+        // }
+          }, (error) => {
+            alert(JSON.stringify(error, undefined, 2));
+          });
+      }
+
+    //   ngAfterViewInit(){
+    //     this.googleInit();
+    //     gapi.signin2.render('googleBtn', {
+    //         'scope': 'profile email',
+    //         'width': 240,
+    //         'height': 50,
+    //         'longtitle': true,
+    //         'theme': 'light',
+    //         'onsuccess': param => this.attachSignin(param)
+    //     });
+    //}
 }

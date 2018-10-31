@@ -18,6 +18,8 @@ import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.compo
 import { misUsuariosComponent } from './components/misusuarios/misusuarios.component';
 import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component';
 import { AuthGuard } from './components/guards';
+import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
+
 
 @NgModule({
     imports: [
@@ -40,6 +42,7 @@ import { AuthGuard } from './components/guards';
             {path: 'categorias', component: CategoriasComponent},
             {path: 'categoria/:id', component: CategoriaFormComponent},
             {path: 'vistaprevia/:id', component: VistapreviaComponent, canActivate: [AuthGuard]},
+            {path: 'sharesurvey/:id', component: ShareSurveyComponent, canActivate: [AuthGuard]},
             { path:'', pathMatch:'full', redirectTo:'home'},
             { path:'**', pathMatch:'full', redirectTo:'home'}
         ])
