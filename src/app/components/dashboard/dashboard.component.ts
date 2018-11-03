@@ -61,7 +61,6 @@ export class DashboardComponent implements OnInit{
           //TAB info de preguntas
           this.preguntasService.getPreguntasEncuesta(idEncuesta)
               .subscribe(res => {
-                console.log(res)
                 this.loading = false 
                 this.encuestaSeleccionada = true;
               });
@@ -74,10 +73,7 @@ export class DashboardComponent implements OnInit{
             }); 
             //TAB info de cada respuesta (hacer por instancia de respuesta)
             this.resultadoService.getInfoRespuesta(idEncuesta,this.currentUser.idUsuario)
-            .subscribe( res => {
-              console.log(res)
-              this.infoRespuestas = res;
-            });
+            .subscribe( res => this.infoRespuestas = res );
 
             this.getPreguntasAgrupadas(idEncuesta);
             this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
@@ -133,18 +129,13 @@ export class DashboardComponent implements OnInit{
             //TAB info de la encuesta
             this.surveyService.getEncuestasById(idEncuesta)
             .subscribe( res => {
-              console.log("getEncuestasById(idEncuesta)")
-              console.log(res)
               this.tituloEncuesta = res.tituloEncuesta;
               this.estadoEncuestaSeleccionada = res.estadoEncuesta;
               this.fechaEncuestaSeleccionada = res.fechaEncuesta;
             });                  
             //TAB info de cada respuesta (hacer por instancia de respuesta)
             this.resultadoService.getInfoRespuesta(idEncuesta,this.currentUser.idUsuario)
-            .subscribe( res => {
-              console.log(res)
-              this.infoRespuestas = res;
-            });
+            .subscribe( res => this.infoRespuestas = res);
 
             this.getPreguntasAgrupadas(idEncuesta);
             this.preguntasAgrupables = this.preguntasService.preguntasAgrupables;
