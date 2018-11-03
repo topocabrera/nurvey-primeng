@@ -1,7 +1,31 @@
     <div class="home m-1">
     <div class="container-fluid">   
         <div class="row">
-                <div class="col-md-8">
+                <div class="card" style="width: 100%">
+                        <h5 class="card-header">Analisis de resultados <a  class="col-sm-6 far fa-question-circle fa-2px" href="http://nurvey.sytes.net:5000/doku.php?id=estadisticas" target="_blank"></a></h5>
+                    <div class="card-body">
+                        <p class="card-text">Seleccione una encuesta, mira todas las respuestas y obtén un poderoso análisis</p>
+                        <!-- <div class="col-md-4"> -->
+                            <select id="selectorEncuesta" class="listaEncuestas form-control" aria-haspopup="true" aria-expanded="false">                            
+                                <option value="">Seleccione una encuesta</option>
+                                <option *ngFor="let encuesta of surveyService.encuestas"  value="{{encuesta.idEncuesta}}" class="dropdown-item" id="selectorOpcion">        
+                                        {{encuesta.tituloEncuesta}}            
+                                </option>
+                            </select>
+                        <!-- </div> -->
+                        <!-- <div class="col-md-6"> -->
+                            <button (click)="seleccionarEncuesta()" 
+                                data-dismiss="alert" 
+                                class="btn btn-outline-primary"
+                                [disabled]="loading">
+                            <i [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
+                            <span *ngIf="!loading">Seleccionar</span>
+                            <span *ngIf="loading"> Cargando...</span>
+                            </button>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <!-- <div class="col-md-8">
                     <div class="form-group animated fadeIn">
                         <div class="header">
                             <div class="row">
@@ -35,17 +59,14 @@
                                 </button>
 
                                 </div>
-                                <!-- <div class="col-md-12" >
-                                    <app-loading *ngIf="loading" class="text-center"></app-loading> 
-                                </div> -->
                         </div>
                         <br>
                     </div>
-                </div>
+                </div> -->
         </div>   
     </div>
-    <div *ngIf="!loading && encuestaSeleccionada" class="container animated fadeIn">
-        <div class="row" class="text-center">
+    <div *ngIf="!loading && encuestaSeleccionada" class="card animated fadeIn">
+        <div class="row" class="text-center card-header">
             <h3> {{tituloEncuesta}}</h3>
         </div>
         

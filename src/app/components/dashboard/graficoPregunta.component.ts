@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SurveyService } from './../../services/survey.service';
 import { ResultadoService } from '../../services/resultados.service';
+import { NgProgress } from 'ngx-progressbar';
 import * as Chartist from 'chartist';
 
 @Component({
@@ -20,15 +21,65 @@ export class GraficoPreguntaComponent implements OnInit{
     seriesGrafico = [];
     ultimaActualizacion: string;
     cantidadTotalRespuestas : number;
+    cantidadTotalEncuestados: number;
     mostrarDetalleAgrupable:boolean;
     mostrarRangosEdad:boolean;
     extremoSup:number;
     extremoInf:number;
     filtro:string[] = [];
+    tipoGrafico:string;
+    tiposGraficos:any = [
+      { valor:'doughnut',
+        descripcion:'Porcentual/Dona'
+      },
+      { valor:'pie',
+        descripcion:'Porcentual/Torta'
+      },
+      { valor:'polarArea',
+        descripcion:'Porcentual/Area'
+      },
+      { valor:'bar',
+        descripcion:'Cantidades/Barra'
+      }
+    ];
+    optionSelected: any;
+    progress:number=0;
     // Doughnut
     public doughnutChartLabels:string[] = [];
     public doughnutChartData:number[] = [];
     public doughnutChartType:string = 'doughnut';
+    public optionsChart: any = {};
+    public optionsDoughnutChart:any = {
+      tooltips: {
+         callbacks: {
+          label: function(t, d) {
+              var label = d.labels[t.index];
+              var valor = d.datasets[t.datasetIndex].data[t.index];
+            return label + ': ' + valor + ' %';
+          }
+         }
+      },
+      legend: {
+         display: true,
+         position: 'top'
+      }
+    };
+
+   public optionsBarChart:any = {
+    tooltips: {
+       callbacks: {
+        label: function(t, d) {
+            var label = d.labels[t.index];
+            var valor = d.datasets[t.datasetIndex].data[t.index];
+          return label + ': ' + valor;
+        }
+       },
+       legend: {
+          display: false,
+          position: 'left'
+       }
+    }
+ };
     // Bar
     public barChartOptions:any = {
       scaleShowVerticalLines: false,
@@ -40,12 +91,11 @@ export class GraficoPreguntaComponent implements OnInit{
   
     public barChartData:any[] = [];
 
-    constructor(private resultadoService: ResultadoService,surveyService: SurveyService){
+    constructor(private resultadoService: ResultadoService,surveyService: SurveyService,public ngProgress: NgProgress){
         this.surveyService = surveyService;
-        // this.mostrarDetalleAgrupable = false;
     }
     ngOnInit(){
-        this.actualizarGrafico();
+      this.actualizarGrafico();
     }
 
     // events
@@ -66,21 +116,56 @@ export class GraficoPreguntaComponent implements OnInit{
       console.log(e);
     }
 
-    actualizarGrafico(){        
+    actualizarGrafico(){
+        this.ngProgress.start();
+        this.progress=0
         this.resultadoService.getResultadosGeneral(this.idEncuesta,this.idPregunta)
-        .subscribe((resp) => {        
-          this.cantidadTotalRespuestas = resp.cantidadTotalRespuestas; 
+        .subscribe((resp) => {
+          this.cantidadTotalRespuestas = resp.cantidadTotalRespuestas;
+          this.cantidadTotalEncuestados = resp.cantidadTotalEncuestados;
           this.ultimaActualizacion = resp.ultimaActualizacion;
-          for(var item = 0; item < resp.labels.length; item++){
-            this.labelsGrafico.push(resp.labels[item]);
-            var serie = resp.series[item];
-            this.seriesGrafico.push({value:serie,className:"myclass"+(item+1), nombre:resp.labels[item]});
+          console.log(resp)
+          // while(this.progress!=100){this.progress += 0.5}
+          var flagCheckbox = false;
+
+          if(resp.tipoPregunta==='checkbox'){
+            this.doughnutChartType = 'bar';
+            this.optionsChart = this.optionsBarChart;
+            this.optionSelected = this.tiposGraficos[3].valor
+            flagCheckbox = true;
+          }else{
+            this.doughnutChartType = 'doughnut';
+            this.optionSelected = this.tiposGraficos[0].valor
+            this.optionsChart = this.optionsDoughnutChart;
+            flagCheckbox = false;
+            
           }
+
+          var serie;
+          var serieCantidades;
+          var seriePorcentajes;
+
+          for(var item = 0; item < resp.labels.length; item++){
+            serieCantidades = resp.series[item];
+            seriePorcentajes = resp.porcentajes[item];
+            if(flagCheckbox){serie=serieCantidades}else{serie=seriePorcentajes}
+            this.labelsGrafico.push(resp.labels[item]);
+            this.seriesGrafico.push({
+              value: serie,
+              className: "myclass"+(item+1),
+              nombre: resp.labels[item]
+            });
+          }
+
           //carga datos para grafico de dona
-          this.doughnutChartLabels = this.labelsGrafico; 
+          this.doughnutChartLabels = this.labelsGrafico;
           for(var item = 0; item < this.seriesGrafico.length; item++){
-            this.doughnutChartData.push(this.seriesGrafico[item].value)
-          }    
+            this.doughnutChartData.push(this.seriesGrafico[item].value);
+          }
+          // console.log(this.doughnutChartLabels)
+          // console.log(this.doughnutChartData)
+          this.ngProgress.done();
+          this.progress=100
         });
     }
 
@@ -90,12 +175,12 @@ export class GraficoPreguntaComponent implements OnInit{
       this.filtro = [];
       var agruparPor = $("#selectorCorte").val();
       this.actualizarGraficoPreguntaAgrupada(agruparPor,this.idEncuesta,this.idPregunta,preguntaAgrupable[0].idPregunta);
-      console.log(preguntaAgrupable)
-      console.log(preguntaAgrupable[0].idPregunta)
+      // console.log(preguntaAgrupable)
+      // console.log(preguntaAgrupable[0].idPregunta)
     }
 
     seleccionAgrupado(descripcion:string){
-      console.log(descripcion)
+      // console.log(descripcion)
       if(descripcion === "Sexo"){
         this.filtro.push("Masculino","Femenino")
       }
@@ -116,6 +201,7 @@ export class GraficoPreguntaComponent implements OnInit{
     // this.mostrarDetalleAgrupable = !this.mostrarDetalleAgrupable;
     var item4 = 0
     console.log(agruparPor)
+
     if(agruparPor === "Sexo"){
       this.filtro.push("Masculino","Femenino")
       this.mostrarRangosEdad = false;
@@ -154,10 +240,10 @@ export class GraficoPreguntaComponent implements OnInit{
             console.log(this.barChartData)
             item4 ++;
             this.mostrarDetalleAgrupable = true;
-            console.log(this.filtro)
-            console.log(series)
-            console.log(this.barChartLabels)
-            console.log(this.barChartData)
+            // console.log(this.filtro)
+            // console.log(series)
+            // console.log(this.barChartLabels)
+            // console.log(this.barChartData)
           });
       }
     }else{
@@ -192,16 +278,6 @@ export class GraficoPreguntaComponent implements OnInit{
         // }
       }
     }
-
-    //   this.resultadoService.getResultadosGeneral(this.idEncuesta,this.idPregunta)
-    // .subscribe((resp) => {        
-    //   for(var item = 0; item < resp.labels.length; item++){
-    //     this.barChartLabels.push(resp.labels[item]);
-    //   }
-    // });
-        // console.log(this.barChartLabels)
-        // console.log(this.barChartData)
-        //api/ResultadosPorCorte/59/3/1/Femenino
     }
 
     valorRandoEdad(rango:string){
@@ -209,5 +285,51 @@ export class GraficoPreguntaComponent implements OnInit{
       console.log(rango)
       this.extremoInf = parseInt(rango.substring(0,2));
       this.extremoSup = parseInt(rango.substring(3,5));
+    }
+
+    seleccionTipoGrafico(tipoGrafico){
+      var flagEsPorcentaje = false;
+      this.doughnutChartType = tipoGrafico;
+      if(tipoGrafico==='bar'){this.optionsChart = this.optionsBarChart; flagEsPorcentaje=false}
+      if(tipoGrafico==='doughnut' || tipoGrafico==='pie' || tipoGrafico==='polarArea'){this.optionsChart = this.optionsDoughnutChart; flagEsPorcentaje=true}
+      this.resultadoService.getResultadosGeneral(this.idEncuesta,this.idPregunta)
+        .subscribe(
+          resp => {
+            this.cantidadTotalRespuestas = resp.cantidadTotalRespuestas;
+            this.cantidadTotalEncuestados = resp.cantidadTotalEncuestados;
+            this.ultimaActualizacion = resp.ultimaActualizacion;
+            
+            this.labelsGrafico = [];
+            this.seriesGrafico = [];
+            this.doughnutChartData = [];
+            this.doughnutChartLabels = [];
+
+            var serie;
+            var serieCantidades;
+            var seriePorcentajes;
+
+            for(var item = 0; item < resp.labels.length; item++){
+              serieCantidades = resp.series[item];
+              seriePorcentajes = resp.porcentajes[item];
+              if(flagEsPorcentaje){serie=seriePorcentajes}else{serie=serieCantidades}
+              this.labelsGrafico.push(resp.labels[item]);
+              this.seriesGrafico.push({
+                value: serie,
+                className: "myclass"+(item+1),
+                nombre: resp.labels[item]
+              });
+            }
+
+            this.doughnutChartLabels = this.labelsGrafico;
+            for(var item = 0; item < this.seriesGrafico.length; item++){
+              this.doughnutChartData.push(this.seriesGrafico[item].value);
+            }
+
+            console.log(this.labelsGrafico)
+            console.log(this.seriesGrafico)
+            console.log(this.doughnutChartData)
+            console.log(this.doughnutChartLabels)
+          }
+        );
     }
 }
