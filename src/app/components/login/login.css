@@ -11,8 +11,8 @@
     line-height: 1.6em;
 	margin-top: 55px;
 	margin-bottom: 50px;
-	padding: 0 30px;
-	max-width: 45%;
+	padding: 0 15px;
+	max-width: 95%;
 }
 
 .about-login {
@@ -86,4 +86,22 @@
 	background-color: #fafafa;
 	width: 3em;
 	text-align: center;
+}
+
+.col-md-11.icon {
+	padding: 5px 0 0;
+    width: 10%;
+}
+
+.col-md-11.input {
+	width: 87%;
+	padding: 0;
+}
+
+/* Style Large */
+@media (min-width: 768px) {
+    .login-container {
+		padding: 0 30px;
+		max-width: 45%;
+	}
 }

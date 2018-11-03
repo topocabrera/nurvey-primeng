@@ -268,20 +268,10 @@ a.article:hover {
     transition: all 0.3s;
 }
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #sidebarCollapse span {
-        display: none;
-    }
+.sv_complete_btn {
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
 }
 
 /* ---------------------------------------------------
@@ -310,12 +300,6 @@ h5 span {
 
 .sv_q_erbox {
     color: red;
-}
-
-.sv_complete_btn {
-    width: 10%;
-    height: 50px;
-    cursor: pointer;
 }
 
 /* Texto simple */
@@ -385,6 +369,8 @@ fieldset.sv_qcbc.sv_qcbx {
 label.sv_q_rating_item {
     border-radius: 2px;
     padding: 0.5em 1em;
+    margin: 8px 30px;
+    display: block;
     font-size: 1em;
     line-height: 1em;
     min-width: 6em;
@@ -417,6 +403,7 @@ label.sv_q_rating_item.active {
 h3.hero-text-2 {
     color: #fff;
     display: table-cell;
+    padding: 20px;
     line-height: 3.625rem;
     vertical-align: middle;
 }
@@ -458,7 +445,7 @@ h3.topic-title {
 }
 
 img.logo-fallback {
-    width: 36%;
+    width: 80%;
     height: auto;
 }
 
@@ -470,4 +457,23 @@ img.logo-fallback {
 a.large-btn.solid-blue-btn:hover {
     color: #fff;
     background-color: #0069d9;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES LARGE STYLE
+----------------------------------------------------- */
+
+@media (min-width: 768px) {
+    .sv_complete_btn {
+        width: 20%;
+    }
+
+    label.sv_q_rating_item {
+        margin: 0 0 0 .5rem;
+        display: inline-block;
+    }
+
+    img.logo-fallback {
+        width: 36%;
+    }
 }
