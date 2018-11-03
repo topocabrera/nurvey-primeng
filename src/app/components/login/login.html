@@ -46,12 +46,12 @@
 
                         <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched)}">
                             <div class="input-group">
-                                <div class="col-md-1">
+                                <div class="col-md-1 icon">
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope fa"></i>
                                     </span>
                                 </div>
-                                <div class="col-md-11">
+                                <div class="col-md-11 input">
                                     <input [formControl]="email" type="email" class="form-control" name="emailUsuario"
                                         placeholder="Email" [(ngModel)]="model.emailUsuario" />
                                 </div>
@@ -61,12 +61,12 @@
 
                         <div class="form-group" [ngClass]="{ 'has-error': (!password.valid && password.touched)}">
                             <div class="input-group">
-                                <div class="col-md-1">
+                                <div class="col-md-1 icon">
                                     <span class="input-group-addon">
                                         <i class="fas fa-lock"></i>
                                     </span>
                                 </div>
-                                <div class="col-md-11">
+                                <div class="col-md-11 input">
                                     <input [formControl]="password" type="password" class="form-control" name="passwordUsuario"
                                         placeholder="Contraseña" [(ngModel)]="model.passwordUsuario" />
                                 </div>
