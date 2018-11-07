@@ -10,6 +10,9 @@ import { ClienteModelClass } from './../../domain/ClienteModelClass';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
 // import { EncuestaModelClass } from './../shared/models/EncuestaModelClass';
 
+declare var require: any
+
+var CryptoJS = require("crypto-js");
 
 @Component({
     selector: 'respuestaEncuesta',
@@ -32,8 +35,15 @@ export class respuestaComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id']; // (+) converts string 'id' to a number
+            this.id = params['id']; // (+) converts string 'id' to a number
             if (this.id != null) {
+                //Desencriptado
+                var bytes  = CryptoJS.DES.decrypt(this.id.toString(), 'Nurvey123');
+                console.log(bytes)
+                var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+                console.log(plaintext)
+                this.id = plaintext;
+
                 this.encuestas = [];
                 let parm: string;
                 parm = this.id.toString()

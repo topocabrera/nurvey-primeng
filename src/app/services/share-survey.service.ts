@@ -8,6 +8,8 @@ export interface ContentToSend {
   destinatarios: string[];
   asunto: string;
   cuerpo: string;
+  idUsuario: string;
+  idEncuesta: string;
 }
 
 @Injectable({
@@ -21,11 +23,13 @@ export class ShareSurveyService {
     this.serverRestAPIUrl = environment.apiEndPoint + "/api/ShareSurvey";
    }
 
-   sendEmailsToShareSurvey(destinatarios,asunto,cuerpo) {
+   sendEmailsToShareSurvey(destinatarios,asunto,cuerpo,idUsuario,idEncuesta) {
      var contentToSend: ContentToSend = {
        destinatarios: [],
        asunto: '',
-       cuerpo: ''
+       cuerpo: '',
+       idUsuario: '',
+       idEncuesta: ''
      };
 
     destinatarios.forEach(element => {
@@ -33,6 +37,8 @@ export class ShareSurveyService {
     });
     contentToSend.asunto = asunto;
     contentToSend.cuerpo = cuerpo;
+    contentToSend.idUsuario = idUsuario;
+    contentToSend.idEncuesta = idEncuesta;
 
     console.log(contentToSend)
 
@@ -45,5 +51,10 @@ export class ShareSurveyService {
     });
 
     return this.http.post(this.serverRestAPIUrl, JSON.stringify(contentToSend), options)
+   }
+
+   getRegistrosEnvioEmails(idUsuario: string){
+     return this.http.get(this.serverRestAPIUrl + '/registroEnvioEmails/'+ idUsuario)
+        .map(resp => resp);
    }
 }
