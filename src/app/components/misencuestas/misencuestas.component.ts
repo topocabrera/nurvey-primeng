@@ -11,6 +11,7 @@ declare var require: any
 declare let routerAlert: Router;
 
 var CryptoJS = require("crypto-js");
+
 @Component({
     selector: 'misEncuestas',
     templateUrl: './misencuestas.component.html',
