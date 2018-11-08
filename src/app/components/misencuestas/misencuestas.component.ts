@@ -5,8 +5,12 @@ import * as SurveyEditor from 'surveyjs-editor';
 import { SurveyService } from './../../services/survey.service';
 import { SurveyModelClass } from './../../domain/SurveyModelClass';
 import { AlertService } from './../../services/index';
+
 declare var $:any;
+declare var require: any
 declare let routerAlert: Router;
+
+var CryptoJS = require("crypto-js");
 
 @Component({
     selector: 'misEncuestas',
@@ -200,8 +204,12 @@ export class misEncuestasComponent implements OnInit {
     responderEncuesta(idEncuesta,i){
         var index = this.absoluteIndex(i);
         this.idEncuestaShare = idEncuesta;
-        this.url = 'https://nurvey-front-dev.herokuapp.com/respuesta/'+idEncuesta;
-        console.log(this.router.url);
+        var ciphertext = CryptoJS.DES.encrypt(idEncuesta.toString(), 'Nurvey123');
+        this.url = 'https://nurvey-front-dev.herokuapp.com/respuesta/'+ciphertext.toString();
+
+        // var bytes  = CryptoJS.Rabbit.decrypt(ciphertext.toString(), 'Nurvey123');
+        // var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+        // console.log(plaintext);
         // if(this.encuestas[index].estadoEncuesta === "creada" || this.encuestas[index].estadoEncuesta === "respondida"){
         //     // this.alertService.confirm('Compartir respuestas.',
         //     // '¿ Desea iniciar la encuesta "'+ this.encuestas[i].tituloEncuesta +'" en estado de "Respondido" ?',

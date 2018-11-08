@@ -51,6 +51,7 @@ import { MispreguntascustomComponent } from './components/mispreguntascustom/mis
 import {MatDialogModule} from '@angular/material/dialog';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
+import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails/registro-envio-emails.component';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { ShareSurveyComponent } from './components/share-survey/share-survey.com
         SidebarComponent,
         ToastComponent,
         MispreguntascustomComponent,
-        ShareSurveyComponent
+        ShareSurveyComponent,
+        RegistroEnvioEmailsComponent
     ],
     imports: [
         BrowserModule,

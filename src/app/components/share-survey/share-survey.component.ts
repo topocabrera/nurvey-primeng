@@ -4,6 +4,8 @@ import { SurveyService } from './../../services/survey.service';
 import { AlertService } from './../../services/alert.service';
 import { ShareSurveyService } from './../../services/share-survey.service';
 
+declare var require: any
+var CryptoJS = require("crypto-js");
 
 @Component({
   selector: 'app-share-survey',
@@ -15,8 +17,10 @@ export class ShareSurveyComponent implements OnInit {
   htmlContent: string;
   asunto: string;
   destinatarios: string[];
+  idEncuesta: string;
   titulo: string;
   urlEncuesta: string;
+  currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,8 +34,10 @@ export class ShareSurveyComponent implements OnInit {
       await this.surveyService.getEncuestasById(params['id'])
         .subscribe(res => {
           console.log(res)
+          this.idEncuesta = params['id'];
           this.titulo = res.tituloEncuesta;
-          this.urlEncuesta = 'https://nurvey-front-dev.herokuapp.com/respuesta/' + params['id'];
+          var ciphertext = CryptoJS.DES.encrypt(this.idEncuesta.toString(), 'Nurvey123');
+          this.urlEncuesta = 'https://nurvey-front-dev.herokuapp.com/respuesta/' + ciphertext.toString();
 
           this.htmlContent = '<body>' +
             '<div style=\'width: 100%; background-color: #00bf6f; display: table; margin: 0 auto; padding: 36px 0; text-align: center;\'>' +
@@ -61,8 +67,17 @@ export class ShareSurveyComponent implements OnInit {
 
   enviar() {
     if (this.destinatarios && this.asunto) {
-      this.shareSurveyService.sendEmailsToShareSurvey(this.destinatarios, this.asunto, this.htmlContent)
-        .subscribe();
+      this.shareSurveyService.sendEmailsToShareSurvey(this.destinatarios, this.asunto, this.htmlContent, this.currentUser.idUsuario, this.idEncuesta)
+        .subscribe(res => {
+          if(res.status===200)
+          {
+            this.alertService.alert("La encuesta "+this.titulo+" ha sido enviada exitosamente. Aquí puede hacer un seguimiento del envío y sus respuestas.");
+            this.router.navigate(['registroenvios']); 
+          }
+        },
+        error => {
+          this.alertService.error(error);
+        });
     }
     else {
       this.alertService.alert('Debe ingresar Destinatarios y Asunto.')
