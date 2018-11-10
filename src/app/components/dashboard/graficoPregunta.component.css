@@ -19,3 +19,8 @@
   border: 1px solid #c0c0c0;
   border-radius: 0px;
 }
+
+.dropdown-item {
+  color: #fff;
+  cursor: pointer;
+}
