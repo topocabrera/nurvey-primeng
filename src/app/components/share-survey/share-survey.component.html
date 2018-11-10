@@ -1,0 +1,22 @@
+<!-- <form > -->
+<div class="form-group row">
+  <label for="dest-input" class="col-10 col-form-label">Destinatarios</label>
+  <div class="col-12">
+    <tag-input [(ngModel)]="destinatarios"
+      [errorMessages]="errorMessages"
+      [validators]="validators"
+      (onAdd)="validarFormatoEmail($event)">
+  </tag-input>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="asunto-input" class="col-10 col-form-label">Asunto</label>
+  <div class="col-12">
+    <input class="form-control" type="text" name="asunto" id="asunto" [(ngModel)]="asunto">
+  </div>
+</div>
+<p>
+  <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="htmlContent"></app-ngx-editor>
+</p>
+<button class="btn btn-outline-primary" (click)="enviar()">Enviar</button>
+<!-- </form> -->

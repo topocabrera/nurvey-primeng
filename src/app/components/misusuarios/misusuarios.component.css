@@ -1,0 +1,10 @@
+.black{
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+    font-family: 'Poppins', sans-serif;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    text-align: inherit;
+}

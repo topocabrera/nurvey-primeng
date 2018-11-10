@@ -1,15 +1,9 @@
-<div>
+<div class="container m-3">
   <div class="row">
     <div class="col-md-6">
         <h3>Categoria</h3>
     </div>
-    <div class="col-md-6">
-        <button [routerLink]="['/categorias']" type="button" class="btn">
-            Regresar
-          </button>
-    </div>
   </div> 
-</div>
 <div class="row">
   <div class="col-md-9">
     <form (ngSubmit)="confirmar()" #forma="ngForm">
@@ -31,8 +25,20 @@
           </textarea>  
         </div>
         <div class="form-group" >
-          <button  [disabled]="!forma.valid"  type="submit" class="btn btn-outline-primary">Confirmar</button>
+          <div class="row">
+            <div class="col-md-6">
+                <button  [disabled]="!forma.valid"  type="submit" class="btn btn-outline-primary">
+                  Confirmar
+                </button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button [routerLink]="['/categorias']" type="button" class="btn">
+                    Regresar
+                  </button>
+            </div>
+          </div>
         </div>
     </form>
   </div>
+</div>
 </div>

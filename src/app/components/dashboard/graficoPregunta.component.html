@@ -1,69 +1,104 @@
-<div class="container-fluid">       
-    <div class="row">     
-        <div class="col-md-8">       
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Pregunta: {{title}}</h4>                        
-                </div>     
-                <div class="content">                                            
-                    <div id="chart_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div> 
-                    <div *ngIf="cantidadTotalRespuestas > 0" style="display: block">
-                        <canvas baseChart
-                                    [data]="doughnutChartData"
-                                    [labels]="doughnutChartLabels"
-                                    [chartType]="doughnutChartType"
-                                    (chartHover)="chartHovered($event)"
-                                    (chartClick)="chartClicked($event)"></canvas>
-                      </div>
-                      <div *ngIf="cantidadTotalRespuestas == 0" style="display: block" class="text-center">
-                        <h3>No se registraron respuestas para esta pregunta.</h3>
-                      </div> 
-                    <div class="footer">
-                        <div class="chart-legend" style="width: 100%">
-                            <hr>
-                            <div class="stats" style="width: 100%">
-                                <i class="ti-timer"></i>Actualizado: {{ultimaActualizacion | date : 'dd/MM/yyyy HH:mm:ss'}}
-                                <div class="pull-right">Respuestas: {{cantidadTotalRespuestas}}</div>                                 
-                            </div>
-                        </div>
-                    
-                    
-                           <div *ngIf="preguntasAgrupables.length > 0">
-                                <div class="stats m-3" style="width: 100%">
-                                    <div class="col-md-3">
-                                        <h5>Analizar respuestas por </h5>
-                                    </div>
-                                    <div class="col-md-1 text-left">
-                                        <select id="selectorCorte" class="listaCortes btn-secondary dropdown-toggle" aria-haspopup="true" aria-expanded="false">                            
-                                            <option *ngFor="let agrupada of preguntasAgrupables" value="{{agrupada.descripcion}}" class="dropdown-item" id="selectorCorte">        
-                                                    {{agrupada.descripcion}}            
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <button class="btn btn-outline-danger" (click)="verFiltroPor(preguntasAgrupables,idEncuesta,idPregunta)">Analizar</button>
-                                    </div>
-                                </div>
-                            </div>                        
-                        <div *ngIf="mostrarDetalleAgrupable">
-                                <div style="display: block">
-                                  <canvas baseChart
-                                          [datasets]="barChartData"
-                                          [labels]="barChartLabels"
-                                          [options]="barChartOptions"
-                                          [legend]="barChartLegend"
-                                          [chartType]="barChartType"
-                                          (chartHover)="chartBarHovered($event)"
-                                          (chartClick)="chartBarClicked($event)"></canvas>
-                                </div>
-                                <!-- <button (click)="randomize()">Update</button> -->
-                              </div>
-                              <br/>
-                              <hr>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card text-center">
+                <div class="card-header text-left">
+                    <h5 class="title">Pregunta</h5>
+                    <h4 class="title">{{title}}</h4>
+                    <div>
+                        <span>Tipo de grafico: 
+                            <select id="selectorGrafico" class="listaCortes btn-primary dropdown-toggle" [(ngModel)]='optionSelected' (ngModelChange)="seleccionTipoGrafico($event)">
+                                <option *ngFor="let tipo of tiposGraficos" [value]="tipo.valor" class="dropdown-item" id="selectorGrafico">
+                                        {{tipo.descripcion}}
+                                </option>
+                            </select>
+                        </span>
                     </div>
-                                
                 </div>
-            </div>                         
+                <div class="content">
+                    <div id="chart_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div>
+                    <!-- <progress-bar *ngIf="progress!=100" [progress]="progress" [color-degraded]="{'0': '#00cbcb',  '15': '#f9c3d3', '25': '#fd8c8e'}"></progress-bar> -->
+                    <ng-progress></ng-progress>
+                    <div *ngIf="progress===100">
+                        <div *ngIf="cantidadTotalRespuestas > 0" style="display: block">
+                            <canvas baseChart
+                                [data]="doughnutChartData"
+                                [labels]="doughnutChartLabels"
+                                [options]="optionsChart"
+                                [chartType]="doughnutChartType"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+                        <div *ngIf="cantidadTotalRespuestas == 0" style="display: block" class="text-center">
+                            <h3>No se registraron respuestas para esta pregunta.</h3>
+                        </div>
+                        <div class="footer">
+                            <div class="chart-legend" style="width: 100%">
+                                <hr>
+                                <div class="card" style="width: 100%">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><i class="ti-timer"></i>Actualizado: {{ultimaActualizacion | date : 'dd/MM/yyyy HH:mm:ss'}}</li>
+                                        <li class="list-group-item">Cantidad total de Respuestas: {{cantidadTotalRespuestas}}</li>
+                                        <li class="list-group-item">Cantidad total de Encuestados: {{cantidadTotalEncuestados}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                        <div *ngIf="preguntasAgrupables.length > 0">
+                                            <div class="row m-2" style="width: 100%">
+                                                <div class="col">
+                                                    <div class="card" style="width: 50%">
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item">Ver datos filtrados</li>
+                                                            <li class="list-group-item">
+                                                                <select id="selectorCorte" class="listaCortes btn-primary dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                                                                    <option *ngFor="let agrupada of preguntasAgrupables" (click)="handleChange(item)" value="{{agrupada.descripcion}}" class="dropdown-item" id="selectorCorte">
+                                                                            {{agrupada.descripcion}}
+                                                                    </option>
+                                                                </select>
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalVerDatosFiltrados" (click)="verFiltroPor(preguntasAgrupables,idEncuesta,idPregunta)">Analizar</button>
+                                                            </li>
+                                                            <!-- <li class="list-group-item"><a class="badge badge-info">Ver datos filtrados</a></li> -->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div *ngIf="mostrarDetalleAgrupable">
+                                                        <div style="display: block; width: 100%">
+                                                            <canvas baseChart
+                                                                [datasets]="barChartData"
+                                                                [labels]="barChartLabels"
+                                                                [options]="barChartOptions"
+                                                                [legend]="barChartLegend"
+                                                                [chartType]="barChartType"
+                                                                (chartHover)="chartBarHovered($event)"
+                                                                (chartClick)="chartBarClicked($event)">
+                                                            </canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row m-2" style="width: 100%">
+                                                <div class="col-md-6" *ngIf="mostrarRangosEdad">
+                                                    <label class="radio-inline"><input #rango1 type="radio" (click)="valorRandoEdad(rango1.value)" value="18-29" name="optradio" checked>Entre 18 y 29 años</label>
+                                                    <label class="radio-inline"><input #rango2 type="radio" (click)="valorRandoEdad(rango2.value)" value="30-49" name="optradio">Entre 30 y 49 años</label>
+                                                    <label class="radio-inline"><input #rango3 type="radio" (click)="valorRandoEdad(rango3.value)" value="50-65" name="optradio">Entre 50 y 65 años</label>
+                                                    <label class="radio-inline"><input #rango4 type="radio" (click)="valorRandoEdad(rango4.value)" value="66-99" name="optradio">Mayores de 66 años</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <hr>
+                        </div>
+                    </div>    
+                </div>
+            </div>
         </div>
     </div>
 </div>

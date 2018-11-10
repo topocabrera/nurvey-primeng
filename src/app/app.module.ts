@@ -3,10 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
@@ -17,6 +13,7 @@ import { HttpModule } from '@angular/http';
 import { SurveyService } from './services/survey.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ConfirmationComponent } from './components/register/confirmation.component';
 import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PasswordComponent } from './components/password/password.component';
@@ -25,19 +22,20 @@ import { GraficoPreguntaComponent } from './components/dashboard/graficoPregunta
 import { misEncuestasComponent } from './components/misencuestas/misencuestas.component';
 import { respuestaComponent } from './components/respuesta/respuesta.component';
 import { NavbarComponent } from './components/navbar/navbar.component'
+import { misUsuariosComponent } from './components/misusuarios/misusuarios.component'
+import { filaUsuarioComponent } from './components/misusuarios/filausuario.component'
 
-// import { AlertComponent } from './shared/directives/index';
-import { AuthGuard } from './components/guards';
+/*Servicios */
 import { AlertService, AuthenticationService, UserService } from './services';
 import { PreguntasService } from './services/preguntas.service';
 import { ResultadoService } from './services/resultados.service'
 
-import { DataListModule } from 'primeng/primeng';
-import { TabViewModule } from 'primeng/tabview';
-import { PanelModule } from 'primeng/panel';
-import { Growl } from 'primeng/growl';
-
+import { AuthGuard } from './components/guards';
 import { ChartsModule } from 'ng2-charts';
+import { NgxEditorModule } from 'ngx-editor';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TagInputModule } from 'ngx-chips'; 
+import { NgProgressModule } from 'ngx-progressbar';
 
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -45,6 +43,15 @@ import { AlertComponent } from './components/alert/alert.component';
 import { CategoriasComponent } from './components/categorias/categorias.component';
 import { CategoriaFormComponent } from './components/categorias/categoria-form.component';
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component'; 
+
+//angular material
+import {MatDialogModule} from '@angular/material/dialog';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
+import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails/registro-envio-emails.component';
 
 @NgModule({
     declarations: [
@@ -53,44 +60,50 @@ import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.compo
         SurveyEditorComponent,
         LoginComponent,
         RegisterComponent,
+        ConfirmationComponent,
         UserComponent,
         DashboardComponent,
         PasswordComponent,
         FiltrodashComponent,
         GraficoPreguntaComponent,
         misEncuestasComponent,
+        misUsuariosComponent,
+        filaUsuarioComponent,
         respuestaComponent,
         NavbarComponent,
         LoadingComponent,
         AlertComponent,
         CategoriasComponent,
         CategoriaFormComponent,
-        VistapreviaComponent
+        VistapreviaComponent,
+        SidebarComponent,
+        ToastComponent,
+        MispreguntascustomComponent,
+        ShareSurveyComponent,
+        RegistroEnvioEmailsComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        TableModule,
         HttpClientModule,
-        InputTextModule,
-        DialogModule,
-        ButtonModule,
         AppRoutingModule,
         HttpModule,
         NgIdleKeepaliveModule.forRoot(),
-        DataListModule,
-        TabViewModule,
-        PanelModule,
-        ChartsModule
-
+        ChartsModule,
+        MatDialogModule,
+        NgxPaginationModule,
+        NgxEditorModule,
+        TooltipModule.forRoot(),
+        TagInputModule,
+        NgProgressModule
     ],
     providers: [SurveyService,
         PreguntasService,
-        //customHttpProvider,
-        ResultadoService,
+        // customHttpProvider,
         AuthGuard,
+        ResultadoService,
         AlertService,
         AuthenticationService,
         UserService],

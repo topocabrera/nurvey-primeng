@@ -1,64 +1,95 @@
-<div class="container" style="margin-top:40px">
-  <div class="row">
-      <div class="col-sm-6 col-md-6 col-md-offset-4">
-      <div class="panel panel-default">
-          <div class="panel-heading">
-              <h2 class="form-group text-center">Iniciar Sesión</h2>
-              <div class="row">
-                  <div class="col-md-12">
-                    <div class="center-block">
-                        <img class="profile-img" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="">
-                    </div>
-                   </div>
-              </div>
-      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-
-          <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched)}">
-              <div class="input-group">
-                  <div class="col-md-1">
-                        <span class="input-group-addon">
-                            <i class="fa fa-envelope fa"></i>
-                        </span>
-                  </div>
-                  <div class="col-md-11">
-                        <input [formControl]="email" type="email" class="form-control" name="emailUsuario" 
-                        placeholder="Email" [(ngModel)]="model.emailUsuario" />
-                  </div>
-              </div>
-              <div *ngIf="f.submitted && !email.valid" class="form-control-feedback">Ingrese Email</div>
-          </div>
-
-          <div class="form-group" [ngClass]="{ 'has-error': (!password.valid && password.touched)}">
-              <div class="input-group">
-                    <div class="col-md-1">
-                        <span class="input-group-addon">
-                        <i class="fas fa-lock"></i>
-                        </span>
-                    </div>
-                    <div class="col-md-11">
-                        <input [formControl]="password" type="password" class="form-control" name="passwordUsuario" 
-                        placeholder="Contraseña" [(ngModel)]="model.passwordUsuario" />
-                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-1 col-sm-7 col-xs-12 about-login">
+            <div class="info info-horizontal">
+                <div class="description">
+                    <h3> Nurvey </h3>
+                    <p>Somos una solución de encuestas.</p>
                 </div>
-                <div *ngIf="f.submitted && !password.valid" class="form-control-feedback">Contraseña es requerida</div>
             </div>
-            <div class="form-group">
-                <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-                <label for="remember"> Recordarme</label>
-              </div>
-          <div class="form-group">
-              <button (click)="login()" 
-              class="btn btn-lg btn-primary btn-block">Iniciar Sesión</button>
-              <!-- <div *ngIf="f.submitted && !login().valid" class="help-block">Usuario o constraseña incorrectos</div> -->
-              <!-- [disabled]="loading"  -->
-              <div class="panel-footer ">
-                  Aún no tiene cuenta en Nurvey? <a [routerLink]="['/register']" onClick=""> Registrarse </a>
+            <div class="info info-horizontal">
+                <div class="description">
+                    <h3> Nurvey </h3>
+                    <p>Somos una solución de encuestas.</p>
                 </div>
-          </div>
-      </form>
-          </div>
-      </div>
-    </div>
-  </div>
-</div>
+            </div>
+            <div class="info info-horizontal">
+                <div class="description">
+                    <h3> Nurvey </h3>
+                    <p>Somos una solución de encuestas.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 login-container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="form-group text-center">Iniciar Sesión</h2>
 
+                    <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+                        data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" data-onlogin="checkLoginState();">
+                    </div>
+
+                    <div class="col-md-12 login-google">
+                        <!-- <div id="googleBtn" class="g-signin2" data-width="200" data-height="45" data-onsuccess="googleInit('google');"></div> -->
+                        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+                        <button id="googleBtn" (click)="onSignIn()"></button>
+                    </div>
+
+                    <div class="row omb_row-sm-offset-3 omb_loginOr">
+                        <div class="col-xs-12 col-sm-6 div-or">
+                            <hr class="omb_hrOr">
+                            <span class="omb_spanOr">O</span>
+                        </div>
+                    </div>
+
+                    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+
+                        <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched)}">
+                            <div class="input-group">
+                                <div class="col-md-1 icon">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope fa"></i>
+                                    </span>
+                                </div>
+                                <div class="col-md-11 input">
+                                    <input [formControl]="email" type="email" class="form-control" name="emailUsuario"
+                                        placeholder="Email" [(ngModel)]="model.emailUsuario" />
+                                </div>
+                            </div>
+                            <div *ngIf="f.submitted && !email.valid" class="form-control-feedback">Ingrese Email</div>
+                        </div>
+
+                        <div class="form-group" [ngClass]="{ 'has-error': (!password.valid && password.touched)}">
+                            <div class="input-group">
+                                <div class="col-md-1 icon">
+                                    <span class="input-group-addon">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </div>
+                                <div class="col-md-11 input">
+                                    <input [formControl]="password" type="password" class="form-control" name="passwordUsuario"
+                                        placeholder="Contraseña" [(ngModel)]="model.passwordUsuario" />
+                                </div>
+                            </div>
+                            <div *ngIf="f.submitted && !password.valid" class="form-control-feedback">Contraseña es
+                                requerida</div>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                            <label for="remember"> Recordarme</label>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="!form.valid" class="btn btn-lg btn-primary btn-block">Iniciar Sesión</button>
+                            <!-- <div *ngIf="f.submitted && !login().valid" class="help-block">Usuario o constraseña incorrectos</div> -->
+                            <!-- [disabled]="loading"  -->
+                            <div class="panel-footer ">
+                                Aún no tiene cuenta en Nurvey?
+                                <a class="register-link" [routerLink]="['/register']" onClick=""> Registrarse</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

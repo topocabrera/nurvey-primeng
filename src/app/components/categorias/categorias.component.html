@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container m-3">
 <h3>Categorias</h3>
 <hr>
 <div class="row">
@@ -12,12 +12,12 @@
     </button>
   </div>
 </div>
-
+<br>
 <div class="row">
   <div class="col-md-9">
     <div class="table-responsive">
       <table class="table table-inverse table-hover">
-        <thead class="thead-inverse">
+        <thead class="thead-dark">
           <tr>
             <th>Id</th>
             <th>Nombre</th>
@@ -25,13 +25,14 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let categoria of categorias">
+            <tr *ngFor="let categoria of categorias | paginate: { itemsPerPage: 5, currentPage: p };">
               <td>{{categoria.idCategoria}}</td>
               <td>{{categoria.nombre}}</td>
               <td>{{categoria.descripcion}}</td>
             </tr>
         </tbody>
       </table>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
   </div>
 </div>

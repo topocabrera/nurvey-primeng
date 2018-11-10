@@ -9,6 +9,7 @@ import { UserModelClass } from '../../domain/UserModelClass';
     selector: 'password',
     // moduleId: module.id,
     templateUrl: 'password.html',
+    styleUrls: ['./password.css']
 })
 
 export class PasswordComponent {
@@ -17,7 +18,8 @@ export class PasswordComponent {
     public password: AbstractControl;
     public repeatPassword: AbstractControl;
     public passwords: FormGroup;
-
+    muestraMensajeToast: boolean;
+    mensajeToast:string;
     currentUser: UserModelClass;
     users: UserModelClass[] = [];
 
@@ -35,6 +37,7 @@ export class PasswordComponent {
     constructor(
         private router: Router,
         private userService: UserService,
+        private alertService: AlertService,
         fb: FormBuilder) {
         this.form = fb.group({
             'password1': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -51,7 +54,7 @@ export class PasswordComponent {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         // this.router = this.router;
         // this.userService = this.userService;
-        // this.alertService = this.alertService;
+        this.alertService = this.alertService;
     }
 
     /**
@@ -65,16 +68,32 @@ export class PasswordComponent {
             this.model.passwordUsuario,
             this.currentUser.fechaAlta,
             this.currentUser.ultimaEncuesta,
-            this.currentUser.encuestasCreadas)
+            this.currentUser.encuestasCreadas,
+            this.currentUser.companyUsuario,
+            this.currentUser.ubicacionUsuario,
+            this.currentUser.avatarUser)
 
         if (this.currentUser.passwordUsuario === this.model.passwordUsuario1) {
             this.userService.update(usuarioMod)
                 .subscribe(
-                    data => {
-                        this.router.navigate(['/home']);
+                    response => {
+                        if(response.status === 200){
+                            // this.muestraMensajeToast = true;
+                            localStorage.clear();
+                            localStorage.setItem('currentUser', JSON.stringify(usuarioMod));
+                            this.mensajeToast = "Contraseña modificada correctamente.";
+                            this.alertService.alert(this.mensajeToast);
+                            //TODO: timeout para redireccionar
+                            this.router.navigate(['/user']);    
+                        }
+                    },
+                    error => {
+                        this.alertService.error(error);
                     });
         } else {
-            alert('Contraseña antigua incorrecta')
+            // this.muestraMensajeToast = true;
+            this.mensajeToast = "Contraseña antigua incorrecta";
+            this.alertService.error(this.mensajeToast);
         }
     }
 }

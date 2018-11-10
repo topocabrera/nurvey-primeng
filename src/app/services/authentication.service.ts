@@ -18,9 +18,9 @@ export class AuthenticationService {
      * this.serverRestAPIUrl contiene la ruta donde se encuentra la api
      * @param http modulo http
      */
-    constructor(http: Http) { 
+    constructor(http: Http) {
         this.http = http;
-        this.serverRestAPIUrl = environment.apiEndPoint + "/api/Usuario/autenticacion/";
+        this.serverRestAPIUrl = environment.apiEndPoint + '/api/Usuario/autenticacion/';
     }
 
     /**
@@ -29,27 +29,24 @@ export class AuthenticationService {
      * Sino manda mensaje
      * Ejemplo
      * https://nurvey-back.herokuapp.com/api/Usuario/autenticacion/gaston@gmail.com/123456
-     * @param emailUsuario 
-     * @param passwordUsuario 
+     * @param emailUsuario
+     * @param passwordUsuario
      */
     login(emailUsuario: string, passwordUsuario: string) {
-        return this.http.get(this.serverRestAPIUrl + emailUsuario + '/' + passwordUsuario ) 
-        .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let user = response.json();
-                if (user.idUsuario != 0) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    let userLogueado = localStorage.getItem('currentUser')
-                    console.log(userLogueado)
-                    this.isLoggedIn.next(true);
-                }
-                else
-                {
-                    alert("Usuario o contraseña incorrectos")
-                }
+        return this.http.get(this.serverRestAPIUrl + emailUsuario + '/' + passwordUsuario)
+            .map((response: Response) => {
+                const user = response.json();
+                if(user){ if (user.idUsuario !== 0) { this.isLoggedIn.next(true); } } 
+            return response;
+            });
+    }
 
-                return user;
+    loginSocial(emailUsuario: string) {
+        return this.http.get(this.serverRestAPIUrl + emailUsuario)
+            .map((response: Response) => {
+                const user = response.json();
+                if(user){ if (user.idUsuario !== 0) { this.isLoggedIn.next(true); } } 
+            return response;
             });
     }
 
@@ -58,19 +55,23 @@ export class AuthenticationService {
      */
     public isAuthenticated() {
         return this.isLoggedIn.asObservable();
-      }
-      
-      
+    }
+
     // get isLoggedIn() {
     //     return this.loggedIn.asObservable();
     // }
 
-      /**
-       * Deslogueo de usuario borrando la sesion
-       */
+    /**
+     * Deslogueo de usuario borrando la sesion
+     */
     logout() {
         // remove user from local storage to log user out
-       localStorage.removeItem('currentUser');
-       this.isLoggedIn.next(false);
+        localStorage.removeItem('currentUser');
+        this.isLoggedIn.next(false);
+    }
+
+    activarToken(token: string) {
+        return this.http.get(environment.apiEndPoint + '/api/Usuario/activarToken/' + token)
+            .map((res: Response) => res);
     }
 }

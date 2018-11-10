@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   apiEndPoint: 'https://nurvey-back.herokuapp.com'
-  //apiEndPoint: "http://192.168.1.11"
+  // apiEndPoint: "http://192.168.0.7:49852"
   // apiEndPoint: "http://localhost:49852"
 };

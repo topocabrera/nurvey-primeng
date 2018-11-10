@@ -1,3 +1,29 @@
+/* Modal styles */
+
+.container {
+  padding: 20px;
+}
+input[type="radio"] {
+  display: none;
+}
+.img-avatar {
+  padding: 5px;
+  margin: 5px;
+  height: 171px;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + img {
+  background-color: #aaa;
+}
+
+button.btn.btn-primary {
+  margin-bottom: 0px;
+  margin-left: 87px;
+}
+
+/* Datos de usuario */
+
 .card {
     border-radius: 6px;
     box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
@@ -121,3 +147,12 @@
         text-align: unset;
     }
   }
+
+  .introduction {
+    background-image: linear-gradient(0deg,#fff, rgba(44,44,44,0.2));
+    /* background-image: linear-gradient(297deg,#2c3e50,#3498db); */
+}
+
+.introduction h1 {
+    color: black;
+}

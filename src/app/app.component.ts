@@ -49,19 +49,16 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => this.notification = true, 1000)
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    
     if (this.currentUser === null || this.currentUser === undefined) {
         this.loggedIn = false;
+        this.ocultarSideBar();
     } else {
         this.loggedIn = true;
     }
 
-    if (this.currentUser.idUsuario === 25) {
-      this.isAdmin = true;
-  } else {
-      this.isAdmin = false;
-  }
-  }
+    if (this.currentUser.idUsuario === 25) {this.isAdmin = true;} else {this.isAdmin = false;}
+            }       
 
   changeTheme(event: Event, theme: string) {
     let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
@@ -77,5 +74,13 @@ export class AppComponent implements OnInit {
   closeNotification(event) {
     this.notification = false;
     event.preventDefault();
+  }
+
+  ocultarSideBar(){
+    $(document).ready(function () {
+      // $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+      // });
+  });
   }
 }
