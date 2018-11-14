@@ -52,7 +52,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
 import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails/registro-envio-emails.component';
-import { BloquePreguntasNurveyComponent } from './components/bloque-preguntas-nurvey/bloque-preguntas-nurvey.component';
 
 @NgModule({
     declarations: [
@@ -81,8 +80,7 @@ import { BloquePreguntasNurveyComponent } from './components/bloque-preguntas-nu
         ToastComponent,
         MispreguntascustomComponent,
         ShareSurveyComponent,
-        RegistroEnvioEmailsComponent,
-        BloquePreguntasNurveyComponent
+        RegistroEnvioEmailsComponent
     ],
     imports: [
         BrowserModule,

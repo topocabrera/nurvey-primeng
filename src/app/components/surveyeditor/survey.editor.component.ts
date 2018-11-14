@@ -5,6 +5,7 @@ import * as Survey from "survey-angular";
 import 'bootstrap';
 //import { MaterialModal } from '../material-modal/material-modal';
 
+
 //Servicios
 import { UserService } from '../../services';
 import { SurveyService } from '../../services/survey.service';
@@ -140,9 +141,8 @@ export class SurveyEditorComponent  {
             });
         this.bloquePreguntasService.getAllBloquePreguntas()
             .subscribe(res => {
-                console.log(res)
-                // var bloquePreguntas = JSON.parse(res.contenidoBloque)
-                res.forEach(element => {
+                var bloquePreguntas = JSON.parse(res.contenidoBloque)
+                bloquePreguntas.forEach(element => {
                     console.log("BLOQUE-PREGUNTAS")
                     console.log(element)
                     this.editor.toolbox.addItem(element);
