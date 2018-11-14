@@ -20,6 +20,8 @@ import { MispreguntascustomComponent } from './components/mispreguntascustom/mis
 import { AuthGuard } from './components/guards';
 import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
 import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails/registro-envio-emails.component';
+import { BloquePreguntasNurveyComponent } from './components/bloque-preguntas-nurvey/bloque-preguntas-nurvey.component';
+
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails
             {path: 'vistaprevia/:id', component: VistapreviaComponent, canActivate: [AuthGuard]},
             {path: 'sharesurvey/:id', component: ShareSurveyComponent, canActivate: [AuthGuard]},
             {path: 'registroenvios', component: RegistroEnvioEmailsComponent, canActivate: [AuthGuard]},
+            {path: 'bloquePreguntasNurvey', component: BloquePreguntasNurveyComponent, canActivate: [AuthGuard]},
             { path:'', pathMatch:'full', redirectTo:'home'},
             { path:'**', pathMatch:'full', redirectTo:'home'}
         ])

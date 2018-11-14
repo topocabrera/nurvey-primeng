@@ -55,15 +55,14 @@
                         <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
                     </li>
             
-                    <!-- seccion perfil usuario -->
-                    <!-- <li routerLinkActive="active"> 
-                        <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
-                        <ul class="collapse list-unstyled" id="userSubmenu">
-                            <li routerLinkActive="active">
-                                    <a [routerLink]="['/user']"> Mis Datos</a>
-                            </li>
-                        </ul>
-                    </li> -->
+                    <!-- seccion bloque preguntas nurvey -->
+                    <li routerLinkActive="active"> 
+                        <a [routerLink]="['/bloquePreguntasNurvey']">
+                            <span class="layout-menu-icon-active fas fa-edit"> </span>
+                            Bloque Preguntas
+                        </a>
+                    </li>
+
                     <!-- seccion admin de usuarios -->
                     <li routerLinkActive="active">
                         <a [routerLink]="['/misusuarios']">
