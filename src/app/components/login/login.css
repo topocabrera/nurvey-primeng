@@ -1,22 +1,28 @@
 .container {
-    background-image: url('https://wallup.net/wp-content/uploads/2015/12/77673-abstract-bokeh.jpg') !important;
+	background: linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.85)), 
+	url(assets/showcase/images/online-survey.jpg);
 	max-width: none;
+	height: 600px;
+	background-size: cover;
+}
+
+img.logo-home-login {
+	width: 100%;
 }
 
 .login-container {
-	background-color: #FFFCF5;
+	background-color: #f5f7f8;
     border: 0 none;
     border-radius: 3px;
     font-weight: 300;
     line-height: 1.6em;
-	margin-top: 55px;
 	margin-bottom: 50px;
 	padding: 0 15px;
 	max-width: 95%;
 }
 
 .about-login {
-	margin-top: 55px;
+	margin-top: 12px;
 	padding: 0 30px;
 }
 
@@ -52,9 +58,15 @@
 
 .login-google {
 	display: inline-block;
-	width: 45%;
+	width: 100%;
 	position: relative;
-    top: 9px;
+	top: 9px;
+	text-align: center;
+}
+
+button#googleBtn {
+    background: none;
+    border-style: none;
 }
 
 .div-or {
@@ -83,12 +95,12 @@
 	left: 50%;
 	top: -0.6em;
 	margin-left: -1.5em;
-	background-color: #fafafa;
+	background-color: #f5f7f8;
 	width: 3em;
 	text-align: center;
 }
 
-.col-md-11.icon {
+.col-md-1.icon {
 	padding: 5px 0 0;
     width: 10%;
 }
@@ -98,10 +110,40 @@
 	padding: 0;
 }
 
+.description {
+    margin: 35px 0;
+}
+
+.title-home {
+	color: #1c85ba;
+	font-size: 26px;
+}
+
+.subtitle-home {
+	color: #fff;
+	font-size: 20px;
+}
+
 /* Style Large */
 @media (min-width: 768px) {
     .login-container {
 		padding: 0 30px;
 		max-width: 45%;
+		margin-top: 55px;
+	}
+
+	.about-login {
+		margin-top: 39px;
+	}
+
+	img.logo-home-login {
+		width: 65%;
+	}
+}
+
+@media (min-height: 800px) {
+	.container {
+		height: 950px;
+		padding: 100px;
 	}
 }
