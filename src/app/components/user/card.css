@@ -18,8 +18,21 @@ input[type="radio"]:checked + img {
 }
 
 button.btn.btn-primary {
-  margin-bottom: 0px;
-  margin-left: 87px;
+  margin-bottom: 7px;
+  margin-left: 75px;
+}
+
+.col-md-6.text-left {
+  margin-bottom: 10px;
+}
+
+.title span {
+  display: inline-block;
+}
+
+button.btn.btn-info.btn-fill.btn-wd {
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
 /* Datos de usuario */
@@ -134,6 +147,16 @@ button.btn.btn-primary {
   .card-user.card-plain .avatar {
     height: 190px;
     width: 190px;
+  }
+
+  @media (min-width: 768px) {
+    button.btn.btn-primary {
+      margin-bottom: 0px;
+      margin-left: 87px;
+    }
+    .title span {
+      display: initial;
+    }
   }
 
   @media (max-width: 64em) {

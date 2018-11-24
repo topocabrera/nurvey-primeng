@@ -1,76 +1,94 @@
 <div class="card">
-  <div class="card-header">
-    Registro de Mis Encuestas compartidas
-  </div>
-  <div class="card-body">
-    <blockquote class="blockquote mb-0">
-      <div class="reglist">
-          <table class="table table-striped">
-              <thead class="thead-dark">
-                  <tr>
-                      <th>#</th>
-                      <th>Encuesta</th>
-                      <th>Asunto</th>
-                      <th>Destinatarios</th>
-                      <th>Fecha Emisión</th>
-                      <th>Analizar</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let item of registroEnvioEmail | paginate: { itemsPerPage: 5, currentPage: p }; let i = index" >
-                    <td>{{i + 1}}</td>  
-                    <td>{{item.tituloEncuesta}}</td>
-                      <td>{{item.asunto}}</td>
-                      <td>
-                        <div class="col-sm-1" (click)="verDestinatarios(item.idRegistro)" class="far fa-eye" data-toggle="modal" data-target="#verDestinatariosModal"> </div>
-                      </td>
-                      <td>{{item.fechaEnvio | date : 'dd/MM/yyyy hh:mm:ss'}}</td>
-                      <td>
-                          <div class="col-sm-1"  (click)="verEstadisticas(item.idEncuesta)" class="ti-stats-up" item-height="50px" item-width="50px"> </div>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-      </div>
-      <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
-    </blockquote>
-  </div>
+    <div class="card-header">
+        Registro de Mis Encuestas compartidas
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <div class="reglist">
+                <table class="table table-striped" *ngIf="isDesktop">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Encuesta</th>
+                            <th>Asunto</th>
+                            <th class="table-center">Destinatarios</th>
+                            <th class="table-center">Fecha Emisión</th>
+                            <th class="table-center">Analizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of registroEnvioEmail | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{item.tituloEncuesta}}</td>
+                            <td>{{item.asunto}}</td>
+                            <td class="table-center">
+                                <div class="col-sm-1" (click)="verDestinatarios(item.idRegistro)" class="far fa-eye"
+                                    data-toggle="modal" data-target="#verDestinatariosModal"> </div>
+                            </td>
+                            <td class="table-center">{{item.fechaEnvio | date : 'dd/MM/yyyy hh:mm:ss'}}</td>
+                            <td class="table-center">
+                                <div class="col-sm-1" (click)="verEstadisticas(item.idEncuesta)" class="ti-stats-up"
+                                    item-height="50px" item-width="50px"> </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped" *ngIf="isMobile">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Encuesta</th>
+                            <th>Asunto</th>
+                            <th>Fecha Emisión</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of registroEnvioEmail | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                            <td>{{item.tituloEncuesta}}</td>
+                            <td>{{item.asunto}}</td>
+                            <td>{{item.fechaEnvio | date : 'dd/MM/yyyy hh:mm:ss'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <!-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+        </blockquote>
+    </div>
 </div>
 
 
-<div class="modal fade bd-example-modal-lg" id="verDestinatariosModal" tabindex="-1" role="dialog"
-  aria-labelledby="verDestinatariosModal" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="verDestinatariosModal">Lista de destinatarios </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <div class="container">
-                  <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th>#</th>
-                        <th>Email</th>
-                      </tr>
-                    </thead>
-                      <tbody>
-                        <tr *ngFor="let item of destinatarios | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-                          <td>{{i + 1}}</td>  
-                          <td>{{item}}</td>
-                        </tr>
-                      </tbody>
-                  </table>
-                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
-          </div>
-      </div>
-  </div>
+<div class="modal fade bd-example-modal-lg" id="verDestinatariosModal" tabindex="-1" role="dialog" aria-labelledby="verDestinatariosModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="verDestinatariosModal">Lista de destinatarios </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of destinatarios | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{item}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>

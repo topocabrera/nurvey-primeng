@@ -1,90 +1,93 @@
 <div class="wrapper">
     <nav id="sidebar">
-            <div class="sidebar-header">
-                <a href="#" class="logo" [routerLink]="['/home']">
-                    <img alt="logo" src="assets/showcase/images/Logo Nurvey FINAL CURVAS-02.png" class="logo img-circle" />
-                </a>
-            </div>
-            <div class="layout-menu" *ngIf="loggedIn && !isAdmin">
-                <ul class="list-unstyled components">
-                    <!-- seccion home -->
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
-                    </li>
-                    
-                    <!-- seccion perfil usuario -->
-                    <li> 
-                        <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
-                        <ul class="collapse list-unstyled" id="userSubmenu">
-                            <li routerLinkActive="active">
-                                    <a [routerLink]="['/user']"> Mis Datos</a>
-                            </li>
-                            <li routerLinkActive="active">
-                                    <a [routerLink]="['/misencuestas']"> Mis Encuestas</a>
-                            </li>
-                            <li routerLinkActive="active">
-                                <a [routerLink]="['/mispreguntascustom']"> Mis Preguntas</a>
-                            </li>
-                            <li routerLinkActive="active">
-                                    <a [routerLink]="['/dashboard']"> Mis Estadisticas</a>
-                            </li>
-                            <li routerLinkActive="active">
-                                <a [routerLink]="['/registroenvios']"> Mis Envíos</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- seccion editor -->
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/surveyeditor']"> <span class="layout-menu-icon-active fas fa-edit"></span> Editor de Encuestas</a>
-                    </li>
-                    <!-- seccion Contacto -->
-                    <li routerLinkActive="active">
-                        <a><span class="layout-menu-icon-active fab fa-telegram-plane"></span> Contacto</a>
-                    </li>
-                    <!-- seccion Acerca -->
-                    <li routerLinkActive="active">
-                        <a ><span class="layout-menu-icon-active fas fa-asterisk"> </span> Acerca de nosotros</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- menu administrador -->
-            <div class="layout-menu" *ngIf="loggedIn && isAdmin">
-                <ul class="list-unstyled components">
-                    <!-- seccion home -->
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
-                    </li>
-            
-                    <!-- seccion bloque preguntas nurvey -->
-                    <li routerLinkActive="active"> 
-                        <a [routerLink]="['/bloquePreguntasNurvey']">
-                            <span class="layout-menu-icon-active fas fa-edit"> </span>
-                            Bloque Preguntas
-                        </a>
-                    </li>
+        <div class="sidebar-header">
+            <a href="#" class="logo" [routerLink]="['/home']">
+                <img alt="logo" src="assets/showcase/images/Logo Nurvey FINAL CURVAS-02.png" class="logo img-circle" />
+            </a>
+        </div>
+        <div class="layout-menu" *ngIf="loggedIn && !isAdmin">
+            <ul class="list-unstyled components">
+                <!-- seccion home -->
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
+                </li>
 
-                    <!-- seccion admin de usuarios -->
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/misusuarios']">
-                            <span class="layout-menu-icon-active fas fa-users"> </span>
-                            Usuarios
-                        </a>
-                    </li>
+                <!-- seccion perfil usuario -->
+                <li>
+                    <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span
+                            class="layout-menu-icon-active fas fa-user"></span> Perfil de Usuario</a>
+                    <ul class="collapse list-unstyled" id="userSubmenu">
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/user']"> Mis Datos</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/misencuestas']"> Mis Encuestas</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/mispreguntascustom']"> Mis Preguntas</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/dashboard']"> Mis Estadisticas</a>
+                        </li>
+                        <li routerLinkActive="active">
+                            <a [routerLink]="['/registroenvios']"> Mis Envíos</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- seccion editor -->
+                <li routerLinkActive="active" *ngIf="isDesktop">
+                    <a [routerLink]="['/surveyeditor']"> <span class="layout-menu-icon-active fas fa-edit"></span>
+                        Editor de Encuestas</a>
+                </li>
+                <!-- seccion Contacto -->
+                <li routerLinkActive="active">
+                    <a><span class="layout-menu-icon-active fab fa-telegram-plane"></span> Contacto</a>
+                </li>
+                <!-- seccion Acerca -->
+                <li routerLinkActive="active">
+                    <a><span class="layout-menu-icon-active fas fa-asterisk"> </span> Acerca de nosotros</a>
+                </li>
+            </ul>
+        </div>
+        <!-- menu administrador -->
+        <div class="layout-menu" *ngIf="loggedIn && isAdmin">
+            <ul class="list-unstyled components">
+                <!-- seccion home -->
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/home']"><span class="layout-menu-icon-active fas fa-home"></span> Home</a>
+                </li>
 
-                    <!-- seccion categorias -->
-                    <li routerLinkActive="active">
-                        <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span> Categorias</a>
-                    </li>
-                    
-                </ul>
-            </div>
-        </nav>
+                <!-- seccion bloque preguntas nurvey -->
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/bloquePreguntasNurvey']">
+                        <span class="layout-menu-icon-active fas fa-edit"> </span>
+                        Bloque Preguntas
+                    </a>
+                </li>
+
+                <!-- seccion admin de usuarios -->
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/misusuarios']">
+                        <span class="layout-menu-icon-active fas fa-users"> </span>
+                        Usuarios
+                    </a>
+                </li>
+
+                <!-- seccion categorias -->
+                <li routerLinkActive="active">
+                    <a [routerLink]="['/categorias']"><span class="layout-menu-icon-active fas fa-newspaper"></span>
+                        Categorias</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
 
     <!-- <div class="layout-mask" *ngIf="menuActive">
     </div> -->
 
     <div id="content">
-            <navbar-cmp [currentUser]="currentUser"></navbar-cmp>
+        <navbar-cmp [currentUser]="currentUser"></navbar-cmp>
         <div class="content-component">
             <router-outlet></router-outlet>
         </div>
