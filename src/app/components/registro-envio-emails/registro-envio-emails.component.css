@@ -1,3 +1,11 @@
 .ti-stats-up, .fa-eye {
     cursor: pointer;
 }
+
+.blockquote {
+    font-size: 1em;
+}
+
+.table-center {
+    text-align: center;
+}

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-
+import { DeviceDetectorModule } from 'ngx-device-detector';
 import { HomeComponent } from './components/home/home.component';
 import { SurveyEditorComponent } from './components/surveyeditor/survey.editor.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +34,7 @@ import { AuthGuard } from './components/guards';
 import { ChartsModule } from 'ng2-charts';
 import { NgxEditorModule } from 'ngx-editor';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { TagInputModule } from 'ngx-chips'; 
+import { TagInputModule } from 'ngx-chips';
 import { NgProgressModule } from 'ngx-progressbar';
 
 import { AppComponent } from './app.component';
@@ -45,11 +45,11 @@ import { CategoriaFormComponent } from './components/categorias/categoria-form.c
 import { VistapreviaComponent } from './components/vistaprevia/vistaprevia.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToastComponent } from './components/toast/toast.component';
-import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component'; 
+import { MispreguntascustomComponent } from './components/mispreguntascustom/mispreguntascustom.component';
 
-//angular material
-import {MatDialogModule} from '@angular/material/dialog';
-import {NgxPaginationModule} from 'ngx-pagination';
+// angular material
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ShareSurveyComponent } from './components/share-survey/share-survey.component';
 import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails/registro-envio-emails.component';
 
@@ -97,7 +97,8 @@ import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails
         NgxEditorModule,
         TooltipModule.forRoot(),
         TagInputModule,
-        NgProgressModule
+        NgProgressModule,
+        DeviceDetectorModule.forRoot()
     ],
     providers: [SurveyService,
         PreguntasService,

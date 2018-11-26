@@ -5,6 +5,7 @@ import { UserModelClass } from './domain/UserModelClass';
 import { AuthenticationService } from './services/authentication.service'
 import { UserService } from './services/index';
 import { Observable } from 'rxjs/Observable';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-root',
@@ -42,26 +43,40 @@ export class AppComponent implements OnInit {
   location: Location;
   menuActive: boolean;
   activeMenuId: string;
-  notification: boolean = false;
+  notification = false;
   public loggedIn: boolean;
   public isAdmin: boolean;
+  public isDesktop: boolean;
+  public isMobile: boolean;
+  deviceInfo = null;
+
+  constructor(private deviceService: DeviceDetectorService) { }
 
   ngOnInit() {
+
+    this.isMobile = this.deviceService.isMobile();
+    // const isTablet = this.deviceService.isTablet();
+    this.isDesktop = this.deviceService.isDesktop();
+
     setTimeout(() => this.notification = true, 1000)
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
-    if (this.currentUser === null || this.currentUser === undefined) {
-        this.loggedIn = false;
-        this.ocultarSideBar();
-    } else {
-        this.loggedIn = true;
+
+    if (this.isMobile) {
+      this.ocultarSideBar();
     }
 
-    if (this.currentUser.idUsuario === 25) {this.isAdmin = true;} else {this.isAdmin = false;}
-            }       
+    if (this.currentUser === null || this.currentUser === undefined) {
+      this.loggedIn = false;
+      this.ocultarSideBar();
+    } else {
+      this.loggedIn = true;
+    }
+
+    if (this.currentUser.idUsuario === 25) { this.isAdmin = true; } else { this.isAdmin = false; }
+  }
 
   changeTheme(event: Event, theme: string) {
-    let themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
+    const themeLink: HTMLLinkElement = <HTMLLinkElement>document.getElementById('theme-css');
     themeLink.href = 'assets/components/themes/' + theme + '/theme.css';
     event.preventDefault();
   }
@@ -76,11 +91,11 @@ export class AppComponent implements OnInit {
     event.preventDefault();
   }
 
-  ocultarSideBar(){
+  ocultarSideBar() {
     $(document).ready(function () {
       // $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
+      $('#sidebar').toggleClass('active');
       // });
-  });
+    });
   }
 }
