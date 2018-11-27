@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShareSurveyService } from '../../services/share-survey.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-registro-envio-emails',
@@ -8,15 +9,21 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./registro-envio-emails.component.css']
 })
 export class RegistroEnvioEmailsComponent implements OnInit {
-  p: number = 1;
-  itemsPerPage: number = 10;
-  currentUser:any = JSON.parse(localStorage.getItem('currentUser'));
+  p = 1;
+  itemsPerPage = 10;
+  currentUser: any = JSON.parse(localStorage.getItem('currentUser'));
   registroEnvioEmail: any[] = [];
   destinatarios: any[] = [];
-  constructor(private shareSurveyService:ShareSurveyService,
-              private router: Router,) { }
+  isDesktop: boolean;
+  isMobile: boolean;
+
+  constructor(private shareSurveyService: ShareSurveyService, private deviceService: DeviceDetectorService,
+    private router: Router, ) { }
 
   ngOnInit() {
+    this.isMobile = this.deviceService.isMobile();
+    this.isDesktop = this.deviceService.isDesktop();
+
     this.shareSurveyService.getRegistrosEnvioEmails(this.currentUser.idUsuario)
       .subscribe(res => {
         res.json().forEach(element => {
@@ -25,7 +32,7 @@ export class RegistroEnvioEmailsComponent implements OnInit {
       })
   }
 
-  verDestinatarios(idRegistro){
+  verDestinatarios(idRegistro) {
     console.log(idRegistro)
     this.destinatarios = [];
     this.registroEnvioEmail.forEach(element => {
@@ -35,8 +42,8 @@ export class RegistroEnvioEmailsComponent implements OnInit {
     });
   }
 
-  verEstadisticas(idEncuesta){
-    this.router.navigate(["dashboard/"+idEncuesta]);
+  verEstadisticas(idEncuesta) {
+    this.router.navigate(['dashboard/' + idEncuesta]);
   }
 
   absoluteIndex(indexOnPage: number): number {
