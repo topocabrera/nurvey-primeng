@@ -1,0 +1,18 @@
+button#dropdownManual {
+    min-width: 8%;
+    height: 41px;
+}
+
+.far.fa-eye {
+    cursor: pointer;
+}
+
+.table td, .table th {
+    text-align: center;
+}
+
+.dropdown-toggle::after {
+    position: unset;
+    display: inline-block;
+    vertical-align: initial;
+}

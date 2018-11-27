@@ -396,7 +396,7 @@ label.sv_q_rating_item.active {
 .headline {
     display: table;
     margin: 0 auto;
-    padding: 36px 0;
+    padding: 0;
     text-align: center;
 }
 
@@ -475,5 +475,9 @@ a.large-btn.solid-blue-btn:hover {
 
     img.logo-fallback {
         width: 36%;
+    }
+
+    .headline {
+        padding: 36px 0;
     }
 }

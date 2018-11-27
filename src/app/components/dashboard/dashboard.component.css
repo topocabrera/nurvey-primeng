@@ -31,3 +31,11 @@
 .span{
   padding-left: 30px;
 }
+
+.listaEncuestas {
+  font-size: 18px;
+}
+
+button.btn.btn-outline-primary{
+  margin-top: 15px;
+}

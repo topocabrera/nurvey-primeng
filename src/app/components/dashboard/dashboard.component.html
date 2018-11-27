@@ -1,31 +1,33 @@
-    <div class="home m-1">
-    <div class="container-fluid">   
+<div class="home m-1">
+    <div class="container-fluid">
         <div class="row">
-                <div class="card" style="width: 100%">
-                        <h5 class="card-header">Analisis de resultados <a  class="col-sm-6 far fa-question-circle fa-2px" href="http://nurvey.sytes.net:5000/doku.php?id=estadisticas" target="_blank"></a></h5>
-                    <div class="card-body">
-                        <p class="card-text">Seleccione una encuesta, mira todas las respuestas y obtén un poderoso análisis</p>
-                        <!-- <div class="col-md-4"> -->
-                            <select id="selectorEncuesta" class="listaEncuestas form-control" aria-haspopup="true" aria-expanded="false">                            
-                                <option value="">Seleccione una encuesta</option>
-                                <option *ngFor="let encuesta of surveyService.encuestas"  value="{{encuesta.idEncuesta}}" class="dropdown-item" id="selectorOpcion">        
-                                        {{encuesta.tituloEncuesta}}            
-                                </option>
-                            </select>
-                        <!-- </div> -->
-                        <!-- <div class="col-md-6"> -->
-                            <button (click)="seleccionarEncuesta()" 
-                                data-dismiss="alert" 
-                                class="btn btn-outline-primary"
-                                [disabled]="loading">
-                            <i [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
-                            <span *ngIf="!loading">Seleccionar</span>
-                            <span *ngIf="loading"> Cargando...</span>
-                            </button>
-                        <!-- </div> -->
-                    </div>
+            <div class="card" style="width: 100%">
+                <h5 class="card-header">Análisis de resultados <a class="col-sm-6 far fa-question-circle fa-2px" href="http://nurvey.sytes.net:5000/doku.php?id=estadisticas"
+                        target="_blank"></a></h5>
+                <div class="card-body">
+                    <p class="card-text">Seleccione una encuesta, mira todas las respuestas y obtén un poderoso
+                        análisis</p>
+                    <!-- <div class="col-md-4"> -->
+                    <select id="selectorEncuesta" class="listaEncuestas form-control" aria-haspopup="true"
+                        aria-expanded="false">
+                        <option value="">Seleccione una encuesta</option>
+                        <option *ngFor="let encuesta of surveyService.encuestas" value="{{encuesta.idEncuesta}}" class="dropdown-item"
+                            id="selectorOpcion">
+                            {{encuesta.tituloEncuesta}}
+                        </option>
+                    </select>
+                    <!-- </div> -->
+                    <!-- <div class="col-md-6"> -->
+                    <button (click)="seleccionarEncuesta()" data-dismiss="alert" class="btn btn-outline-primary"
+                        [disabled]="loading">
+                        <i [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
+                        <span *ngIf="!loading">Seleccionar</span>
+                        <span *ngIf="loading"> Cargando...</span>
+                    </button>
+                    <!-- </div> -->
                 </div>
-                <!-- <div class="col-md-8">
+            </div>
+            <!-- <div class="col-md-8">
                     <div class="form-group animated fadeIn">
                         <div class="header">
                             <div class="row">
@@ -63,73 +65,75 @@
                         <br>
                     </div>
                 </div> -->
-        </div>   
+        </div>
     </div>
     <div *ngIf="!loading && encuestaSeleccionada" class="card animated fadeIn">
         <div class="row" class="text-center card-header">
             <h3> {{tituloEncuesta}}</h3>
         </div>
-        
+
         <ul class="nav justify-content-center">
-            <li class="nav-item active"><a data-toggle="tab" class="nav-link active show" href="#infoPreguntas" aria-expanded="true">Información de preguntas</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoEncuesta">Información acerca la encuesta</a></li>
-            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoRespuestas">Información acerca las respuestas</a></li>
+            <li class="nav-item active"><a data-toggle="tab" class="nav-link active show" href="#infoPreguntas"
+                    aria-expanded="true">Información de preguntas</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoEncuesta">Información acerca la
+                    encuesta</a></li>
+            <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#infoRespuestas">Información acerca las
+                    respuestas</a></li>
         </ul>
-        
-            <div class="tab-content">
+
+        <div class="tab-content">
             <div id="infoPreguntas" class="tab-pane fadeIn active">
-                    <grafico-pregunta class="m-5" *ngFor="let pregunta of preguntasService.preguntas" 
-                        title="{{pregunta.descripcion}}" 
-                        idEncuesta="{{pregunta.idEncuesta}}"
-                        idPregunta="{{pregunta.idPregunta}}"
-                        [preguntasAgrupables]="preguntasAgrupables">  
-                    </grafico-pregunta>
+                <grafico-pregunta class="m-5" *ngFor="let pregunta of preguntasService.preguntas" title="{{pregunta.descripcion}}"
+                    idEncuesta="{{pregunta.idEncuesta}}" idPregunta="{{pregunta.idPregunta}}" [preguntasAgrupables]="preguntasAgrupables">
+                </grafico-pregunta>
             </div>
             <div id="infoEncuesta" class="tab-pane fade">
-                    <div class="card">
-                        <div class="card-header text-left">
-                            <h5 class="title"></h5>
-                        </div>     
-                        <div class="content">
-                                <ul class="list-group">
-                                    <li class="list-group-item capitalizate">Estado: {{estadoEncuestaSeleccionada}}</li>
-                                    <li class="list-group-item">Fecha inicio: {{fechaEncuestaSeleccionada | date : 'dd/MM/yyyy'}} </li>
-                                    <!-- <li class="list-group-item">Última modificación: 02/08/2018 18:09:51</li> -->
-                                    <!-- <li class="list-group-item">Tiempo destinado:    --</li> -->
-                                </ul>
-                        </div>
+                <div class="card">
+                    <div class="card-header text-left">
+                        <h5 class="title"></h5>
                     </div>
+                    <div class="content">
+                        <ul class="list-group">
+                            <li class="list-group-item capitalizate">Estado: {{estadoEncuestaSeleccionada}}</li>
+                            <li class="list-group-item">Fecha inicio: {{fechaEncuestaSeleccionada | date :
+                                'dd/MM/yyyy'}} </li>
+                            <!-- <li class="list-group-item">Última modificación: 02/08/2018 18:09:51</li> -->
+                            <!-- <li class="list-group-item">Tiempo destinado:    --</li> -->
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div id="infoRespuestas" class="tab-pane fade">
-                    <div class="card">
-                        <div class="card-header text-left">
-                            <input #indice 
-                            type="number" name="indice" 
-                            placeholder="Nro de encuestado..." class="form-control">
-                            <button type="button"
-                            class="btn btn-outline-primary"
-                            [disabled]="loading"
-                            (click)="mostrarInfoRta(indice.value)"
-                            ><i [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
+                <div class="card">
+                    <div class="card-header text-left">
+                        <input #indice type="number" name="indice" placeholder="Nro de encuestado..." class="form-control">
+                        <button type="button" class="btn btn-outline-primary" [disabled]="loading" (click)="mostrarInfoRta(indice.value)"><i
+                                [ngClass]="{ 'fa-refresh fa-spin':loading }" class="fa"></i>
                             <span *ngIf="!loading">Buscar</span>
                             <span *ngIf="loading">Cargando...</span>
                         </button>
-                        <span *ngIf="infoVisible"><p>N° {{indice.value}} de {{cantidadRtas}} respuestas totales.</p></span>
-                        </div>
-                        <div *ngIf="infoVisible" class="content">
-                                <ul class="list-group">
-                                    <li class="list-group-item">Pregunta: {{respuesta.descripcionPregunta}}</li>
-                                    <li class="list-group-item">Respuesta: {{respuesta.descripcionRespuesta}}</li>
-                                    <li class="list-group-item">Fecha de Respuesta: {{respuesta.fechaRespuesta | date : 'dd/MM/yyyy'}}</li>
-                                    <li class="list-group-item">Tiempo de Respuesta: {{respuesta.tiempoRespuesta | date : 'dd/MM/yyyy HH:mm:ss'}}</li>
-                                    <li class="list-group-item">Ubicacion: {{respuesta.ubicacion}}</li>
-                                </ul>
-                        </div>
+                        <span *ngIf="infoVisible">
+                            <p>N° {{indice.value}} de {{cantidadRtas}} respuestas totales.</p>
+                        </span>
                     </div>
+                    <div *ngIf="infoVisible" class="content">
+                        <ul class="list-group">
+                            <li class="list-group-item">Pregunta: {{respuesta.descripcionPregunta}}</li>
+                            <li class="list-group-item">Respuesta: {{respuesta.descripcionRespuesta}}</li>
+                            <li class="list-group-item">Fecha de Respuesta: {{respuesta.fechaRespuesta | date :
+                                'dd/MM/yyyy'}}</li>
+                            <li class="list-group-item">Tiempo de Respuesta: {{respuesta.tiempoRespuesta | date :
+                                'dd/MM/yyyy HH:mm:ss'}}</li>
+                            <li class="list-group-item">Ubicacion: {{respuesta.ubicacion}}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            </div>
+        </div>
     </div>
     <div class="row">
-        <span class="span" *ngIf="surveyService.encuestas.length == 0"><h5>No hay encuestas respondidas aún...</h5></span>
+        <span class="span" *ngIf="surveyService.encuestas.length == 0">
+            <h5>No hay encuestas respondidas aún...</h5>
+        </span>
     </div>
 </div>
