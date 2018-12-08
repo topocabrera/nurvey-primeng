@@ -35,3 +35,9 @@ a {
 .content-component {
     min-height: 500px;
 }
+
+@media (min-height: 800px) {
+    .content-component {
+        min-height: 830px;
+    }
+}

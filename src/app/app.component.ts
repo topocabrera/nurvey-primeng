@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
       this.ocultarSideBar();
     }
 
-    if (this.currentUser === null || this.currentUser === undefined) {
+    if ((this.currentUser === null || this.currentUser === undefined) && !this.isMobile) {
       this.loggedIn = false;
       this.ocultarSideBar();
     } else {
