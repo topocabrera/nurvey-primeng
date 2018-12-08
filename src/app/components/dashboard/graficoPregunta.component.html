@@ -18,8 +18,8 @@
                 <div class="content">
                     <div id="chart_{{idEncuesta}}_{{idPregunta}}" class="ct-chart ct-perfect-fourth"></div>
                     <!-- <progress-bar *ngIf="progress!=100" [progress]="progress" [color-degraded]="{'0': '#00cbcb',  '15': '#f9c3d3', '25': '#fd8c8e'}"></progress-bar> -->
-                    <ng-progress></ng-progress>
-                    <div *ngIf="progress===100">
+                    <!-- <ng-progress></ng-progress> -->
+                    <div>
                         <div *ngIf="cantidadTotalRespuestas > 0" style="display: block">
                             <canvas baseChart
                                 [data]="doughnutChartData"

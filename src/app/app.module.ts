@@ -35,7 +35,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NgxEditorModule } from 'ngx-editor';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TagInputModule } from 'ngx-chips';
-import { NgProgressModule } from 'ngx-progressbar';
+// import { NgProgressModule } from 'ngx-progressbar';
 
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -97,7 +97,7 @@ import { RegistroEnvioEmailsComponent } from './components/registro-envio-emails
         NgxEditorModule,
         TooltipModule.forRoot(),
         TagInputModule,
-        NgProgressModule,
+        // NgProgressModule,
         DeviceDetectorModule.forRoot()
     ],
     providers: [SurveyService,
